@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/DTServerSideLibrary" reloadable="true" docBase="D:\Sincronia\Masterizzare\Eclipse Workspace offline\DTServerSideLibrary" workDir="D:\Sincronia\Masterizzare\Eclipse Workspace offline\DTServerSideLibrary\work" >
+	
+	<Resource 
+		auth="Container"
+		name="jdbc/mymsdb"
+		type="javax.sql.DataSource"
+		driverClassName="net.sourceforge.jtds.jdbc.Driver"
+		url="jdbc:jtds:sqlserver://192.168.42.132:1331/test;"
+		username="sa"
+		password="daniele"
+		maxIdle="10"
+		maxActive="200"
+		maxWait="5"
+		removeAbandoned="true"
+		removeAbandonedTimeout="1200"
+		factory="org.apache.tomcat.dbcp.dbcp.BasicDataSourceFactory"
+		/>
+		
+</Context>

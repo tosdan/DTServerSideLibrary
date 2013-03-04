@@ -1,0 +1,76 @@
+package com.github.tosdan.utils.stringhe;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
+
+public class StrUtils
+{
+	
+	/**
+	 * estrae il testo associato ad una particolare sezione in un file di configurazione
+	 * @param source
+	 * @param section
+	 * @return
+	 */
+	public static String findSection(String source, String section)
+	{
+		String result = "";
+		
+		StringReader reader = new StringReader( source );
+		BufferedReader bf = new BufferedReader( reader );
+		
+		String temp = "";
+		try {
+			while( (temp = bf.readLine()) != null) {
+				
+				if ( temp.indexOf("%[") > -1 && temp.equals( "%["+ section +"]%" ) ) {
+					
+					while( (temp = bf.readLine()) != null) {
+						
+						if (temp.indexOf( "%[" ) > -1) {
+							break;
+						} else {
+							
+							if (result.length() > 0)
+								result += "\n";
+							
+							result += temp;
+						}
+					}
+				}
+			}
+		} catch ( IOException e ) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	/* * * * * * * * * * * * * * * * * * * * * TEST * * * * * * * * * * * * * * * * * * * * * * */
+	
+	
+	/**
+	 * 
+	 */
+	public static void testFindSection()
+	{
+		String iniTemplate =
+				"%[sezione1]%\n" +
+				"testo sezione 1\n" +
+				"altro testo sezione 1\n" +
+				"\n" +
+				
+				"%[sezione2]%\n" +
+				"testo sezione 2\n" +
+				"altro testo sezione 2\n"+
+				"\n" +
+				
+				"%[sezione3]%\n" +
+				"testo sezione 3\n" +
+				"altro testo sezione 3\n";
+		String findResult = findSection( iniTemplate, "sezione2" );
+		System.out.println( "**********\n"+findResult+"\n*************" );
+	}
+	
+}

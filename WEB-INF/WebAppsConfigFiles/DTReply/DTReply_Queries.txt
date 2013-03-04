@@ -1,0 +1,2 @@
+%[dtexample]%
+SELECT *, CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
