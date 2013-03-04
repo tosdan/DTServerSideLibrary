@@ -12,13 +12,14 @@
 		
 		<script type="text/javascript" src="./js-3rd-party/jquery-1.9.1.js"></script>
 		<script type="text/javascript" src="./js-3rd-party/jquery.dataTables.js"></script>
+		<script type="text/javascript" src="./js/fnReloadAjax.js"></script>
 		
 		<script type="text/javascript" src="./js/fnJQDisableTextSelect.js"></script>
 		<script type="text/javascript" src="./js/dtCustomFunctionLibrary.js"></script>
 		
 		<script type="text/javascript" src="./js/fnSetActionPulsanteElimina.js"></script>
-		<script type="text/javascript" src="./js/setActionGenericoPulsanteAzione.js"></script> 
-		<script type="text/javascript" src="./js/fnConfiguraCustomToobar_basic.js"></script> <!-- Configura pulsanti e azioni collegate  --> 
+		<script type="text/javascript" src="./js/setActionGenericoPulsanteAzione_dyn.js"></script> 
+		<script type="text/javascript" src="./js/fnConfiguraCustomToobar_dyn.js"></script> <!-- Configura pulsanti e azioni collegate  --> 
 		
 		<script type="text/javascript" src="./js/fnServerParams_basic.js"></script>
 		<script type="text/javascript" src="./js/object_data_dyn.js"></script>
@@ -26,36 +27,38 @@
 		<script type="text/javascript">
 			var aocolumns =
 				[
+				 	<% // TODO l'idea e' passare questi oggetti nella request %>
+				 	
 	     			{ "mData": "engine"
 	   				, "aTargets": [0]
 		      		, "sDefaultContent": "null"
 	   				, "sWidth": "25%"
-	   		 	 	, "bSortable": false 
+// 	   		 	 	, "bSortable": false 
 	   					} ,     					
 	   				{ "mData": "browser"
 	   				, "aTargets": [1]
 	       		    , "sDefaultContent": "null"
 	   				, "sWidth": "15%"
-	   		 		, "bSortable": false 
+// 	   		 		, "bSortable": false 
 	   					} ,     					
 	   				{ "mData": "platform"
 	   				, "aTargets": [2]
 	       		    , "sDefaultContent": "null"
 	   				, "sWidth": "15%"
-	   		 		, "bSortable": false 
+// 	   		 		, "bSortable": false 
 	   					} ,     						
 	   				{ "mData": "version"
 	   				, "aTargets": [3]
 	   	     		, "sDefaultContent": "null"
 	   				, "sWidth": "15%"
-	   		 		, "bSortable": false 
+// 	   		 		, "bSortable": false 
 	   					} ,     				
 	   				{ "mData": "grade"
 	   				, "aTargets": [4]
 	       		    , "sDefaultContent": "null"
 	   				, "sWidth": "5%"
-	   		 	 	, "bSortable": false 
-	   				, "bSearchable": false
+// 	   		 	 	, "bSortable": false 
+// 	   				, "bSearchable": false
 	   					} ,     					
 	   				{ "mData": null
 	   		        , "sDefaultContent": ""
@@ -64,9 +67,9 @@
 	   		        , "aTargets": [ 5,6,7,8,9,10,11 ]
 	   			     	}     				
      			];
+			var sqlName = 'dtexample' <% // TODO parametro sqlName passato nella request %>;
+			var sAjaxSource = "../../dtreply/loadData.do?sqlName="+ sqlName +"&sqlType=query";
 			
-			var query = "dtexample"; 
-			var sAjaxSource = "../../dtreply/loadData.do?sqlName="+ query +"&sqlType=query";
 		</script>
 	</head>
 	

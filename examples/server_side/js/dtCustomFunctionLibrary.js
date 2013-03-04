@@ -534,4 +534,8 @@ dtFn.dynamicTHsTitles = function dynamicTHsTitles(idTable, oSettings, indexToSki
 				$footerTHs[index].innerText = elem.mData;
 		}
 	});
+	
+
+
+	
 }

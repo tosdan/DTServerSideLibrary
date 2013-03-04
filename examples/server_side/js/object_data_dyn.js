@@ -7,7 +7,7 @@ $(document).ready(function() {
 		mantieniSelezione = false , 		// abilita il mantenimento in memoria delle righe selezionate in ogni pagina 
 		arrayTitoliColonne = new Array(); 		// array che conterra' le intestazioni della tabella 
 		
-	
+
 	
 	oTable = $('#'+idTable).dataTable( {
 		"sDom": '<"'+ customToolbarClass +'"><"clear">frt', // Definisce la struttura della DT e viene aggiunto ad essa anche un div con class="custom_toolbar" e uno con class="clear"
