@@ -85,7 +85,6 @@ $(document).ready(function() {
 			, "sWidth": "10%"
 //	 		, "bSortable": false 
 		    , "sDefaultContent": "-"
-//			, "mRender": function ( data, type, full ) { return parseFloat(data) }
 				} ,
 				
 			{ "mData": "grade"
