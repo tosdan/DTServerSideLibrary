@@ -7,6 +7,9 @@
 .metadata
 bin/
 tmp/
+work/
+WEB-INF/DTReplyLog/
+WEB-INF/classes/
 *.tmp
 *.bak
 *.swp
