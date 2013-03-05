@@ -10,7 +10,7 @@ $(document).ready(function() {
 
 	
 	oTable = $('#'+idTable).dataTable( {
-		"sDom": '<"'+ customToolbarClass +'"><"clear">frt', // Definisce la struttura della DT e viene aggiunto ad essa anche un div con class="custom_toolbar" e uno con class="clear"
+		"sDom": '<"'+ customToolbarClass +'"><"clear">rt', // Definisce la struttura della DT e viene aggiunto ad essa anche un div con class="custom_toolbar" e uno con class="clear"
 		
 		"bSort": true, // !! Sempre true se e' attiva la paginazione (e se si sfrutta ROW_NUMBER() ). Agire invece sui vari ["bSortable": false] per ogni colonna.
 		
@@ -36,16 +36,8 @@ $(document).ready(function() {
             if ( mantieniSelezione == true && $.inArray(aData.DT_RowId, aSelected) !== -1 ) {
             	$(nRow).addClass('row_selected');
             }
-            
-            //console.log( 'nRow:['+ nRow+'], iDisplayIndex:['+ iDisplayIndex+'], iDisplayIndexFull:['+iDisplayIndexFull+'], aData:['+aData+']' );
-            if ( aData['version'] == 'null'  || aData['version'] == ''  || aData['version'] == '-' ) {
-            	$('td:eq(3)', nRow).html( 'non pervenuto' );
-        	}
-            
         } ,
 
-		// configurazione colonne 
-        "aoColumnDefs": aocolumns ,
 
         // Traduzione voci 
 		"oLanguage":  { "sUrl": "./js/object_data_localization-it.txt" } ,  // percorso file per localizzazione lingua
@@ -70,8 +62,12 @@ $(document).ready(function() {
         	$('#'+idTable+'_paginate').disableTextSelect(); // Disabilita la selezione per i pulsanti di cambio pagina (per il problema del doppio click che seleziona tutto)
         	dtFn.addClickSelectionEvent( oTable, false, mantieniSelezione, aSelected );
         	oTable.fnAdjustColumnSizing();
-
-//        	dtFn.dynamicTHsTitles(idTable, oSettings);
+        	
+        	var json = oSettings.jqXHR.responseText;
+        	var $json = $.parseJSON(json);
+//        	console.log($json.nomiColonne);
+        	
+        	dtFn.semiDynamicTHsTitles($json.nomiColonne, idTable, oSettings);
         	
 //    		console.log( dtFn.fnGetMDataColumns(oTable) );
         } // -- Chiude fnInitComplete()

@@ -115,7 +115,6 @@ public class DTReplyServlet extends BasicHttpServlet
 		}
 		
 		DTReplyProvider dbc = new DTReplyProvider( parametriDataTable, dtReplySqlProvider );
-		
 		String noMData = parametriDataTable.get("mDataBinded");
 		if ( noMData != null && noMData.equalsIgnoreCase("false") ) 
 			dbc.setIndexedOutout();
@@ -123,7 +122,6 @@ public class DTReplyServlet extends BasicHttpServlet
 		String file_dbConf = this.realPath + this.envConfigParams.get( "file_dbConf" );
 		
 		try {
-			
 			return dbc.buildJsonPerDataTables( this.getConnectionProvider(file_dbConf) );
 		
 		} catch ( DTReplyDAOExcetion e ) {

@@ -21,52 +21,10 @@
 		<script type="text/javascript" src="./js/setActionGenericoPulsanteAzione_dyn.js"></script> 
 		<script type="text/javascript" src="./js/fnConfiguraCustomToobar_dyn.js"></script> <!-- Configura pulsanti e azioni collegate  --> 
 		
-		<script type="text/javascript" src="./js/fnServerParams_basic.js"></script>
+		<script type="text/javascript" src="./js/fnServerParams_dyn.js"></script>
 		<script type="text/javascript" src="./js/object_data_dyn.js"></script>
 
 		<script type="text/javascript">
-			var aocolumns =
-				[
-				 	<% // TODO l'idea e' passare questi oggetti nella request %>
-				 	
-	     			{ "mData": "engine"
-	   				, "aTargets": [0]
-		      		, "sDefaultContent": "null"
-	   				, "sWidth": "25%"
-// 	   		 	 	, "bSortable": false 
-	   					} ,     					
-	   				{ "mData": "browser"
-	   				, "aTargets": [1]
-	       		    , "sDefaultContent": "null"
-	   				, "sWidth": "15%"
-// 	   		 		, "bSortable": false 
-	   					} ,     					
-	   				{ "mData": "platform"
-	   				, "aTargets": [2]
-	       		    , "sDefaultContent": "null"
-	   				, "sWidth": "15%"
-// 	   		 		, "bSortable": false 
-	   					} ,     						
-	   				{ "mData": "version"
-	   				, "aTargets": [3]
-	   	     		, "sDefaultContent": "null"
-	   				, "sWidth": "15%"
-// 	   		 		, "bSortable": false 
-	   					} ,     				
-	   				{ "mData": "grade"
-	   				, "aTargets": [4]
-	       		    , "sDefaultContent": "null"
-	   				, "sWidth": "5%"
-// 	   		 	 	, "bSortable": false 
-// 	   				, "bSearchable": false
-	   					} ,     					
-	   				{ "mData": null
-	   		        , "sDefaultContent": ""
-	       			, "sWidth": "5%"
-	   		        , "sClass": "nascosta" 
-	   		        , "aTargets": [ 5,6,7,8,9,10,11 ]
-	   			     	}     				
-     			];
 			var sqlName = 'dtexample' <% // TODO parametro sqlName passato nella request %>;
 			var sAjaxSource = "../../dtreply/loadData.do?sqlName="+ sqlName +"&sqlType=query";
 			
@@ -87,18 +45,11 @@
 			
 				<thead>
 					<tr>
-						<th width="25%">Rendering engine</th>
-						<th width="20%">Browser</th>
-						<th width="25%">Platform(s)</th>
-						<th width="16%">Engine version</th>
-						<th width="10%">CSS grade</th>
-						<th width="10%"></th>
-						<th width="10%"></th>
-						<th width="10%"></th>
-						<th width="10%"></th>
-						<th width="10%"></th>
-						<th width="10%"></th>
-						<th width="10%"></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
 					</tr>
 				</thead>
 				

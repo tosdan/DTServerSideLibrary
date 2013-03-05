@@ -120,6 +120,12 @@ $(document).ready(function() {
 
 //        	dtFn.dynamicTHsTitles(idTable, oSettings, [0] );
         	
+        	/* Recuperare un campo custom inserito nell'oggetto JSON*
+        	var json = oSettings.jqXHR.responseText;
+        	var $json = $.parseJSON(json);
+        	console.log($json.nomiColonne);
+ 			/* */
+        	
 //    		console.log(oTable.fnSettings() );
         } // -- Chiude fnInitComplete()
 		

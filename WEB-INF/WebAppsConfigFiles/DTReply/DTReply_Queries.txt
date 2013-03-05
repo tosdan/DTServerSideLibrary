@@ -1,2 +1,2 @@
 %[dtexample]%
-SELECT *, CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio

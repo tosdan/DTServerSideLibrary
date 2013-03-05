@@ -1,4 +1,5 @@
 package com.github.tosdan.dataTableServerSide;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -64,7 +65,14 @@ public class DTReplyProvider
 	 * L'associazione quindi sara' dinamica, la prima colonna si prende il valore 0, la seconda il valore 1...
 	 */
 	private boolean indexedOutout = false;
+
+	/**
+	 * Lista ordinata con i nomi delle colonne estratte dalla query
+	 */
+	private ArrayList<String> listaColonne;
+	
 	private DTReplySqlProvider sqlProvider;
+
 	
 	/**
 	 * 
@@ -130,6 +138,7 @@ public class DTReplyProvider
 		jsonOutput.setsEcho( this.parametriRequest.get("sEcho") ); // sembra obbligatorio: conteggia i messaggi scambiati tra client e server
 		jsonOutput.setiTotalRecords( iTotalRecords ); // count di tutti i record esistenti 
 		jsonOutput.setiTotalDisplayRecords( iTotalDisplayRecords ); // count dei filtrati con la ricerca 
+		this.generaListaColonne( records.get(0) );
 		for( Map<String, Object> record : records ) {
 			
 			if (indexedOutout)
@@ -142,11 +151,40 @@ public class DTReplyProvider
 			
 			jsonOutput.addRecord(record);
 		}
-		
+		jsonOutput.addCustomParam( "nomiColonne", this.getNomiColonne() );
 		return jsonOutput.toString();
 	}
 
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+	private void generaListaColonne(Map<String, Object> map)
+	{
+		listaColonne = new ArrayList<String>();
+		if (map == null)
+			return;
+		Set<Entry<String, Object>> mapEntrySet = map.entrySet();
+		for( Entry<String, Object> entry : mapEntrySet ) {
+			if ( !entry.getKey().equalsIgnoreCase( "DT_RowClass" ) )
+				listaColonne.add( entry.getKey() );
+		}
+		
+	}
+	
+	private String getNomiColonne()
+	{
+		String result = "";
+		for ( String s : listaColonne ) {
+			if ( !result.isEmpty() )
+				result += ";";
+			result += s;
+			
+		}
+		return result;
+	}
+	
+	public ArrayList<String> getListaColonne() {
+		return listaColonne;
+	}
 	
 	/**
 	 * Output indicizzato invece che associato ai nomi delle colonne. Serve per datatable senza associazione cablata (quindi senza mData) delle colonne.

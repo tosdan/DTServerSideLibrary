@@ -14,6 +14,7 @@ import org.apache.commons.dbutils.handlers.MapHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 
 import com.github.tosdan.dataTableServerSide.exceptions.DTReplyDAOExcetion;
+import com.github.tosdan.utils.sql.BasicRowProcessorMod;
 import com.github.tosdan.utils.sql.ConnectionProvider;
 import com.github.tosdan.utils.sql.ConnectionProviderException;
 
@@ -148,7 +149,7 @@ public class DTReplyDAO
 	{
 		Connection conn = this.getConnection();
 		QueryRunner run = new QueryRunner();		
-		ResultSetHandler<List<Map<String, Object>>> rshDati = new MapListHandler();
+		ResultSetHandler<List<Map<String, Object>>> rshDati = new MapListHandler( new BasicRowProcessorMod() );
 		ResultSetHandler<Map<String, Object>> rshDatiAggiuntivi = new MapHandler();
 		
 		try {

@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.github.tosdan.dataTableServerSide.exceptions.DTReplySqlProviderException;
+
 public class DTReplySqlProvider
 {
 	private String stringaSQL;
@@ -121,32 +123,53 @@ public class DTReplySqlProvider
 	 */
 	public String getFiltroOrderBy()
 	{
-		String retVal = "";
-		
-		Map<String, String> ordinamentoColonne = this.getOrdinamentoColonne();
-		Set<Entry<String, String>> setColonne = ordinamentoColonne.entrySet();
-		for( Entry<String, String> colonna : setColonne )
-		{
-			if ( ! retVal.equals("") )
-				retVal += " , ";
-
-			String col = colonna.getKey();
-			String verso = colonna.getValue();
-
+		try {
+			String retVal = "";
+			
 			if ( mDataBinded.equalsIgnoreCase("true") )
-				retVal += col + " " + verso;
-			else if (mDataBinded.equalsIgnoreCase("false") )
-				retVal += (1+Integer.valueOf(col)) + " " + verso;
+			{
+				Map<String, String> ordinamentoColonne = this.getOrdinamentoColonneNamed();
+				Set<Entry<String, String>> setColonne = ordinamentoColonne.entrySet();
+				for( Entry<String, String> colonna : setColonne ) {
+					if ( ! retVal.equals("") )
+						retVal += " , ";
+	
+					String nomeCol = colonna.getKey();
+					String verso = colonna.getValue();
+
+					retVal += nomeCol + " " + verso;
+				}
+			} else if (mDataBinded.equalsIgnoreCase("false") ) {
+				Map<Integer, String> ordinamentoColonne = this.getOrdinamentoColonneNum();
+				Set<Entry<Integer, String>> entrySet = ordinamentoColonne.entrySet();
+				for( Entry<Integer, String> entry : entrySet ) {
+					if ( ! retVal.equals("") )
+						retVal += " , ";
+
+					int numColonna = entry.getKey();
+					String verso = entry.getValue();
+					
+					retVal += (1+numColonna) + " " + verso;
+				}
+			}
+			
+			return retVal;
+			
+		} catch ( NumberFormatException e ) {
+			e.printStackTrace();
+			throw new DTReplySqlProviderException( "Errore durante la creazione della clausola ORDER BY:\n\t" +
+					"se l'ordinamento va effettuato sul nome di una colonna allora deve essere presente e\n\t" +
+					"configurato il parametro aoColumnDefs (o l'alternativo aoColumns). Se invece si vuole\n\t" +
+					"l'ordinamento per numero di colonna va tolto aoColumnDefs (aoColumns) e impostato a false\n\t" +
+					"il parametro custom mDataBinded." + "\n"+e.getMessage(), e );
 		}
-		
-		return retVal;
 	}
 	
 	/**
 	 * Recupera il verso d'ordinamento delle colonne della tabella
 	 * @return Mappa con le coppie [ nomeColonna -> versoOrdinamento ]
 	 */
-	public Map<String, String> getOrdinamentoColonne()
+	public Map<String, String> getOrdinamentoColonneNamed()
 	{
 		LinkedHashMap<String, String> result = new LinkedHashMap<String, String>();
 		if ( iSortingCols != null )
@@ -160,6 +183,27 @@ public class DTReplySqlProvider
 				String nomeIEsimaColonnaDaOrdinare 	= nomiColonne.get( indiceIEsimaColonnaDaOrdinare );	//parametriRequest.get("mDataProp_" + indiceIEsimaColonnaDaOrdinare); 
 				
 				result.put( nomeIEsimaColonnaDaOrdinare, versoOrdinamentoIEsima );
+			}
+		}
+		
+		return result;
+	}
+
+	/**
+	 * Recupera il verso d'ordinamento delle colonne della tabella
+	 * @return Mappa con le coppie [ nomeColonna -> versoOrdinamento ]
+	 */
+	public Map<Integer, String> getOrdinamentoColonneNum()
+	{
+		LinkedHashMap<Integer, String> result = new LinkedHashMap<Integer, String>();
+		if ( iSortingCols != null )
+		{
+			for ( int i = 0 ; i < Integer.valueOf( iSortingCols ) ; i++ )
+			{
+				String versoOrdinamentoIEsima 		=	parametriRequest.get("sSortDir_" + i).toUpperCase(); // puo' essere ASC o DESC
+				int indiceIEsimaColonnaDaOrdinare 	=	Integer.parseInt( parametriRequest.get("iSortCol_" + i) );
+				
+				result.put( indiceIEsimaColonnaDaOrdinare, versoOrdinamentoIEsima );
 			}
 		}
 		
