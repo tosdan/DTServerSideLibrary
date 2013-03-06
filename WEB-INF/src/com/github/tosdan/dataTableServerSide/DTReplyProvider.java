@@ -138,7 +138,10 @@ public class DTReplyProvider
 		jsonOutput.setsEcho( this.parametriRequest.get("sEcho") ); // sembra obbligatorio: conteggia i messaggi scambiati tra client e server
 		jsonOutput.setiTotalRecords( iTotalRecords ); // count di tutti i record esistenti 
 		jsonOutput.setiTotalDisplayRecords( iTotalDisplayRecords ); // count dei filtrati con la ricerca 
-		this.generaListaColonne( records.get(0) );
+		
+		if ( !records.isEmpty() )
+			this.generaListaColonne( records.get(0) );
+		
 		for( Map<String, Object> record : records ) {
 			
 			if (indexedOutout)
@@ -151,7 +154,10 @@ public class DTReplyProvider
 			
 			jsonOutput.addRecord(record);
 		}
-		jsonOutput.addCustomParam( "nomiColonne", this.getNomiColonne() );
+		
+		if ( !records.isEmpty() )
+			jsonOutput.addCustomParam( "nomiColonne", this.getNomiColonne() );
+		
 		return jsonOutput.toString();
 	}
 

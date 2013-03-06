@@ -78,10 +78,9 @@ $(document).ready(function() {
 			, "bSearchable": false
 				} ,
 				
-			{ "mData": null
-	        , "sDefaultContent": ""
+			{ "sDefaultContent": ""
 	        , "sClass": "nascosta" 
-	        , "aTargets": [ -1 ]
+	        , "aTargets": [ _all ]
 		     	}
 			
 		] ,

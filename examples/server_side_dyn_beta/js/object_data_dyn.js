@@ -10,14 +10,17 @@ $(document).ready(function() {
 
 	
 	oTable = $('#'+idTable).dataTable( {
-		"sDom": '<"'+ customToolbarClass +'"><"clear">rt', // Definisce la struttura della DT e viene aggiunto ad essa anche un div con class="custom_toolbar" e uno con class="clear"
+		"sDom": '<"'+ customToolbarClass +'"><"clear">frt', // Definisce la struttura della DT e viene aggiunto ad essa anche un div con class="custom_toolbar" e uno con class="clear"
 		
 		"bSort": true, // !! Sempre true se e' attiva la paginazione (e se si sfrutta ROW_NUMBER() ). Agire invece sui vari ["bSortable": false] per ogni colonna.
 		
 		"bProcessing": true ,
 		"bPaginate": false , // cambiare in accordo anche il parametro row_number nella fnServerParams_basic 
-		"sScrollY": "340px" , // manomette l'html della table: sparisce il contenuto dei 'TH'
-//       "bScrollCollapse": true ,
+		"sScrollY": "340" , // manomette l'html della table: sparisce il contenuto dei 'TH'
+        "sScrollX": "100%" ,
+        "bAutoWidth": false,
+        "sScrollXInner": "300%" ,
+//        "bScrollCollapse": true ,
 		"bStateSave": false , // Sfrutta i cookies per mantenere lo stato della pagina (ordinamento scelto, chiave di ricerca inserita... ) 
 //	 	"bLengthChange": true , 
 		
@@ -37,7 +40,13 @@ $(document).ready(function() {
             	$(nRow).addClass('row_selected');
             }
         } ,
-
+        
+        "aoColumnDefs": 
+        	[             				
+     			{ "sDefaultContent": "-"
+     	        , "aTargets": [ "_all" ]
+     		     }
+     		] ,
 
         // Traduzione voci 
 		"oLanguage":  { "sUrl": "./js/object_data_localization-it.txt" } ,  // percorso file per localizzazione lingua
@@ -60,21 +69,35 @@ $(document).ready(function() {
         	configuraCustomToobar('div.'+customToolbarClass, idTable, oTable, arrayTitoliColonne);
         	dtFn.fnDTDisableInstantSearch(oTable, idTable);
         	$('#'+idTable+'_paginate').disableTextSelect(); // Disabilita la selezione per i pulsanti di cambio pagina (per il problema del doppio click che seleziona tutto)
-        	dtFn.addClickSelectionEvent( oTable, false, mantieniSelezione, aSelected );
-        	oTable.fnAdjustColumnSizing();
+        	dtFn.addClickSelectionEvent( oTable, true, mantieniSelezione, aSelected );
+//        	oTable.fnAdjustColumnSizing();
         	
-        	var json = oSettings.jqXHR.responseText;
-        	var $json = $.parseJSON(json);
+        	var json = oSettings.jqXHR.responseText ,
+        		$json = $.parseJSON(json) ,
+        		nomiColonne = $json.nomiColonne,        		
+    			arrayNomiCol = nomiColonne.split(";") ,
+    			nomiColSize = arrayNomiCol.length ,
+        		cols = oSettings.aoColumns;
+        	
 //        	console.log($json.nomiColonne);
         	
-        	dtFn.semiDynamicTHsTitles($json.nomiColonne, idTable, oSettings);
+        	for (var i = 0 ; i < nomiColSize ; i++) {
+        		cols[i].mData = arrayNomiCol[i];
+        	}
+
+        	for (var i = nomiColSize ; i < cols.length ; i++) {
+        		cols[i].mData = '';
+        	}
         	
+//        	dtFn.hideNullColumns(nomiColonne, idTable, oSettings, nomiColSize);
+        	dtFn.semiDynamicTHsTitles(nomiColonne, idTable, oSettings);
+//        	console.log(oSettings.aoColumns);
 //    		console.log( dtFn.fnGetMDataColumns(oTable) );
         } // -- Chiude fnInitComplete()
 		
 		
 	} ); // -- Chiusura datatable() 
-
+	
 	
 } ); // chiusura $(document).ready()  
 

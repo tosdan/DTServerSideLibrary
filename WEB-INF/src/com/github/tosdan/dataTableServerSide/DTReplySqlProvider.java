@@ -1,19 +1,19 @@
 package com.github.tosdan.dataTableServerSide;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-
-import com.github.tosdan.dataTableServerSide.exceptions.DTReplySqlProviderException;
 
 public class DTReplySqlProvider
 {
 	private String stringaSQL;
 	private Map<Integer, String> nomiColonne;
 	private Map<String, String> parametriRequest;
-
+	private List<String> listaDegliMDataProp;
 	/**
 	 * Contiene l'indice del primo elemento mostrato nella tabella.
 	 * La numerazione parte da 0.
@@ -37,25 +37,7 @@ public class DTReplySqlProvider
 	 */
 	private String iColumns;
 	private String row_number;
-	private String mDataBinded;
 	
-	public DTReplySqlProvider( Map<String, String> parametriRequest, Map<Integer, String> nomiColonne, String stringaSQL )
-	{
-		this.iColumns = parametriRequest.get("iColumns");
-		this.sSearch = parametriRequest.get( "sSearch" );
-		this.iSortingCols = parametriRequest.get( "iSortingCols" );
-		this.iDisplayLength = parametriRequest.get( "iDisplayLength" );
-		this.iDisplayStart = parametriRequest.get( "iDisplayStart" );
-		this.row_number = parametriRequest.get( "row_number" );
-		this.mDataBinded = parametriRequest.get("mDataBinded");
-		
-		this.parametriRequest = parametriRequest;
-		this.nomiColonne = nomiColonne;
-		this.stringaSQL = stringaSQL;
-		
-		this.parseParametri();
-	}
-
 	public DTReplySqlProvider( Map<String, String> parametriRequest, String stringaSQL )
 	{
 		this.iColumns = parametriRequest.get("iColumns");
@@ -64,11 +46,11 @@ public class DTReplySqlProvider
 		this.iDisplayLength = parametriRequest.get( "iDisplayLength" );
 		this.iDisplayStart = parametriRequest.get( "iDisplayStart" );
 		this.row_number = parametriRequest.get( "row_number" );
-		this.mDataBinded = parametriRequest.get("mDataBinded");
 		
 		this.parametriRequest = parametriRequest;
 		this.nomiColonne = new HashMap<Integer, String>();
 		this.stringaSQL = stringaSQL;
+		this.listaDegliMDataProp = new ArrayList<String>();
 		
 		this.parseParametri();
 	}
@@ -116,53 +98,44 @@ public class DTReplySqlProvider
 
 		return sql;
 	}
-	
+		
 	/**
 	 * Restituisce una stringa pronta da usare dopo la clausola order by nella query sql  
 	 * @return String nella forma "nomeColonna ASC/DESC , nomeColonna ASC/DESC , ... "
 	 */
 	public String getFiltroOrderBy()
 	{
-		try {
-			String retVal = "";
-			
-			if ( mDataBinded.equalsIgnoreCase("true") )
-			{
-				Map<String, String> ordinamentoColonne = this.getOrdinamentoColonneNamed();
-				Set<Entry<String, String>> setColonne = ordinamentoColonne.entrySet();
-				for( Entry<String, String> colonna : setColonne ) {
-					if ( ! retVal.equals("") )
-						retVal += " , ";
-	
-					String nomeCol = colonna.getKey();
-					String verso = colonna.getValue();
+		String retVal = "";
 
-					retVal += nomeCol + " " + verso;
-				}
-			} else if (mDataBinded.equalsIgnoreCase("false") ) {
-				Map<Integer, String> ordinamentoColonne = this.getOrdinamentoColonneNum();
-				Set<Entry<Integer, String>> entrySet = ordinamentoColonne.entrySet();
-				for( Entry<Integer, String> entry : entrySet ) {
-					if ( ! retVal.equals("") )
-						retVal += " , ";
+		if ( this.listaDegliMDataProp.get(0).matches("(^[a-z\\[A-Z_][a-zA-Z_0-9-\\]]*$)|(^[\\[][a-z A-Z_0-9-]*[\\]]$)") ) // match con un identificativo valido sql
+		{
+			Map<String, String> ordinamentoColonne = this.getOrdinamentoColonneNamed();
+			Set<Entry<String, String>> setColonne = ordinamentoColonne.entrySet();
+			for( Entry<String, String> colonna : setColonne ) {
+				if ( ! retVal.equals("") )
+					retVal += " , ";
 
-					int numColonna = entry.getKey();
-					String verso = entry.getValue();
-					
-					retVal += (1+numColonna) + " " + verso;
-				}
+				String nomeCol = colonna.getKey();
+				if (nomeCol.equals("")) return ""; 
+				String verso = colonna.getValue();
+
+				retVal += nomeCol + " " + verso;
 			}
-			
-			return retVal;
-			
-		} catch ( NumberFormatException e ) {
-			e.printStackTrace();
-			throw new DTReplySqlProviderException( "Errore durante la creazione della clausola ORDER BY:\n\t" +
-					"se l'ordinamento va effettuato sul nome di una colonna allora deve essere presente e\n\t" +
-					"configurato il parametro aoColumnDefs (o l'alternativo aoColumns). Se invece si vuole\n\t" +
-					"l'ordinamento per numero di colonna va tolto aoColumnDefs (aoColumns) e impostato a false\n\t" +
-					"il parametro custom mDataBinded." + "\n"+e.getMessage(), e );
+		} else  {
+			Map<Integer, String> ordinamentoColonne = this.getOrdinamentoColonneNum();
+			Set<Entry<Integer, String>> entrySet = ordinamentoColonne.entrySet();
+			for( Entry<Integer, String> entry : entrySet ) {
+				if ( ! retVal.equals("") )
+					retVal += " , ";
+
+				int numColonna = entry.getKey();
+				String verso = entry.getValue();
+				
+				retVal += (1+numColonna) + " " + verso;
+			}
 		}
+		
+		return retVal;
 	}
 	
 	/**
@@ -222,7 +195,7 @@ public class DTReplySqlProvider
 		{
 			for ( int i = 0; i < Integer.valueOf(iColumns) ; i++ ) 
 			{
-				if ( parametriRequest.get("bSearchable_"+i).equalsIgnoreCase("true") ) // verifica che per tale colonna sia richiesto di attuare il filtro
+				if ( parametriRequest.get("bSearchable_"+i).equalsIgnoreCase("true") && nomiColonne.get(i) != null && !nomiColonne.get(i).equals("")) // verifica che per tale colonna sia richiesto di attuare il filtro
 				{
 					if ( filtro.isEmpty() ) 
 						filtro += " AND ( ";
@@ -272,6 +245,7 @@ public class DTReplySqlProvider
 			String nomeCol = entry.getValue();
 			
 			if (key.indexOf( "mDataProp_" ) > -1) {
+				this.listaDegliMDataProp.add(key);
 				int index = ( "mDataProp_" ).length();
 				int numCol = Integer.valueOf( key.substring(index) );
 				this.nomiColonne.put( numCol, nomeCol );

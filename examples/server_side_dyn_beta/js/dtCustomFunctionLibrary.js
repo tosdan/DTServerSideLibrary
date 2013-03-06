@@ -563,10 +563,75 @@ dtFn.semiDynamicTHsTitles = function semiDynamicTHsTitles(nomiColonne, idTable, 
 		$(aoColumns).each( function (index, elem) {
 				
 			if ($headerTHs.length > 0)
-				$headerTHs[index].innerText = arrayNomiCol[index];
+				$headerTHs[index].innerText = arrayNomiCol[index]  === undefined ? "" : arrayNomiCol[index] ;
 			
 			if ($footerTHs.length > 0)
-				$footerTHs[index].innerText = arrayNomiCol[index];
+				$footerTHs[index].innerText = arrayNomiCol[index]  === undefined ? "" : arrayNomiCol[index];
 			
 		});
 }
+
+
+
+/**
+ * Sperimentale
+ * @param nomiColonne
+ * @param idTable
+ * @param oSettings
+ * @param startIdxNullCols
+ */
+dtFn.hideNullColumns = function hideNullColumns(nomiColonne, idTable, oSettings, startIdxNullCols) {
+	var aoColumns = oSettings.aoColumns ,
+		arrayNomiCol = nomiColonne.split(";") ,
+		scroll = $('.dataTables_scrollHeadInner').length > 0 ,
+		headerScrollClass = ' .dataTables_scrollHeadInner' ,
+		footerScrollClass = ' .dataTables_scrollFootInner' ,
+		bodyScrollClass = ' .dataTables_scrollBody';
+	
+	if (!scroll)
+	{
+		footerScrollClass = '';
+		headerScrollClass = '';
+		bodyScrollClass = '';
+	}
+
+	var header = $('#'+idTable + '_wrapper' + headerScrollClass + ' thead'),
+		footer = $('#'+idTable + '_wrapper' + footerScrollClass + ' tfoot'), 
+		body = $('#'+idTable + '_wrapper' + bodyScrollClass + ' table'),
+		$headerTHs = $('th', header),
+		$footerTHs = $('th', footer),
+		$bodyTRs = $('tr', body);
+	
+	if ($bodyTRs.length > 0) {
+		$($bodyTRs).each( function(index, element) {
+			
+			$('td', element).each(function(idx, elem) {
+				console.log(elem);
+				if (idx >= startIdxNullCols)
+					$(elem).addClass('nascosta');
+			});
+			
+			$('th', element).each(function(idx, elem) {
+				console.log(elem);
+				if (idx >= startIdxNullCols)
+					$(elem).addClass('nascosta');
+			});
+		});				
+	}
+	
+	$(aoColumns).each( function (index, elem) {
+		if (index >= startIdxNullCols) {	
+
+			if ($headerTHs.length > 0)
+				$($headerTHs[index]).addClass('nascosta');
+
+			if ($footerTHs.length > 0)
+				$($footerTHs[index]).addClass('nascosta');
+		}
+		
+	});
+}
+
+
+
+

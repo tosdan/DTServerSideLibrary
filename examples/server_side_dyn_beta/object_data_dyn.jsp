@@ -4,7 +4,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<link rel="shortcut icon" type="image/ico" href="./images/favicon.ico" /> 
 		
-		<title>DataTables basic example</title>
+		<title>Dyn</title>
 		
 		<style type="text/css" title="currentStyle">
 			@import "./css/object_data.css";
@@ -29,12 +29,19 @@
 			var sAjaxSource = "../../dtreply/loadData.do?sqlName="+ sqlName +"&sqlType=query";
 			
 		</script>
+		
+		<style type="text/css">
+		table.dataTable {
+ 			 max-width: none;
+		}
+		</style>
+		
 	</head>
 	
 	<body id="dt_example">
 		<div id="container">
 			<div class="full_width big">
-				DataTables Esempio server-side Basic - sorgente dati JSON
+				DataTables Esempio server-side Dyn - sorgente dati JSON
 			</div>
 			
 			<h1>Esempio Live</h1>
@@ -42,21 +49,36 @@
 			
 <!-- ***			Struttura statica della tabella		**** START -->
 			<table cellpadding="0" width="100%" cellspacing="0" border="0" class="display" id="example">
-			
+			<% int width = 270; %>
 				<thead>
 					<tr>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
+						<th id="th_01" width="<%= width %>px"></th>
+						<th id="th_02" width="<%= width %>px"></th>
+						<th id="th_03" width="<%= width %>px"></th>
+						<th id="th_04" width="<%= width %>px"></th>
+						<th id="th_05" width="<%= width %>px"></th>
+						<th id="th_06" width="<%= width %>px"></th>
+						<th id="th_07" width="<%= width %>px"></th>
+						<th id="th_08" width="<%= width %>px"></th>
+						<th id="th_09" width="<%= width %>px"></th>
+						<th id="th_10" width="<%= width %>px"></th>
+						<th id="th_11" width="<%= width %>px"></th>
+						<th id="th_12" width="<%= width %>px"></th>
+						<th id="th_13" width="<%= width %>px"></th>
+						<th id="th_14" width="<%= width %>px"></th>
+						<th id="th_15" width="<%= width %>px"></th>
+						<th id="th_16" width="<%= width %>px"></th>
+						<th id="th_17" width="<%= width %>px"></th>
+						<th id="th_18" width="<%= width %>px"></th>
+						<th id="th_19" width="<%= width %>px"></th>
+						<th id="th_20" width="<%= width %>px"></th>
 					</tr>
 				</thead>
 				
 				
 				<tbody>
 					<tr>
-						<td colspan="5" class="dataTables_empty">Loading data from server</td>
+						<td colspan="20" class="dataTables_empty">Loading data from server</td>
 					</tr>
 				</tbody>
 				
