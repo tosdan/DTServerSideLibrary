@@ -8,6 +8,6 @@ function fnServerParams( aoData ) {
 //				{ "name": "custom01" , 				"value": "<input type='checkbox' />" } ,
 				{ "name": "echoParams" , 			"value": "DT_RowClass;custom" } , // Specifica (separati dai ; ) quali siano altri suffissi di parametri che devono tornare indietro 
 //				{ "name": "DT_RowClass" ,			"value": "customCssClass" } , // impone la stessa classe custom per tutti i teg "tr"
-				{ "name": "debugRequestParams" ,	"value": "true" } // flag 
+				{ "name": "logDTReplyReqParams" ,	"value": "true" } // flag 
 	);
 }

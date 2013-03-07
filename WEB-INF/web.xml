@@ -13,6 +13,27 @@
 <!--	-->  
 
 	<servlet>
+		<servlet-name>QueryRunnerServlet</servlet-name>
+        <servlet-class>com.github.tosdan.utils.servlets.QueryRunnerServlet</servlet-class>
+        
+        <init-param>
+        	<param-name>file_dbConf</param-name>
+        	<param-value>/WEB-INF/dbconf.properties</param-value>
+       	</init-param>
+       	
+        <init-param>
+	        <param-name>logFileName</param-name>
+	        <param-value>/WEB-INF/WebAppsLogFiles/QueryRunner/logQueryRunner.txt</param-value>
+	    </init-param>
+        
+	</servlet>
+    <servlet-mapping>
+        <servlet-name>QueryRunnerServlet</servlet-name>
+        <url-pattern>/servlet/dtreply/*</url-pattern>
+    </servlet-mapping>
+    
+    
+	<servlet>
         <servlet-name>DTReplyServlet</servlet-name>
         <servlet-class>com.github.tosdan.dataTableServerSide.DTReplyServlet</servlet-class>
         
@@ -23,23 +44,13 @@
        	
         <init-param>
 	        <param-name>logFileName</param-name>
-	        <param-value>/WEB-INF/DTReplyLog/logTestDB.txt</param-value>
-	    </init-param>
-        
-        <init-param>
-	        <param-name>DTReplyConf_File</param-name>
-	        <param-value>/WEB-INF/WebAppsConfigFiles/DTReply/DTReplyConf.properties</param-value>
-	    </init-param>
-        
-        <init-param>
-	        <param-name>DTReplyConf_Path</param-name>
-	        <param-value>/WEB-INF/WebAppsConfigFiles/DTReply</param-value>
+	        <param-value>/WEB-INF/WebAppsLogFiles/DTReplyLog/logDtReplyServlet.txt</param-value>
 	    </init-param>
         
     </servlet>
     <servlet-mapping>
         <servlet-name>DTReplyServlet</servlet-name>
-        <url-pattern>/dtreply/*</url-pattern>
+        <url-pattern>/servlet/dtreply/*</url-pattern>
     </servlet-mapping>
         
         
@@ -48,13 +59,8 @@
         <servlet-class>com.github.tosdan.utils.servlets.SqlManagerServlet</servlet-class>
         
         <init-param>
-        	<param-name>file_dbConf</param-name>
-        	<param-value>/WEB-INF/dbconf.properties</param-value>
-       	</init-param>
-       	
-        <init-param>
 	        <param-name>logFileName</param-name>
-	        <param-value>/WEB-INF/DTReplyLog/logTestDB.txt</param-value>
+	        <param-value>/WEB-INF/WebAppsLogFiles/SqlManger/logSqlMangerServlet.txt</param-value>
 	    </init-param>
         
         <init-param>
@@ -70,7 +76,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>SqlManagerServlet</servlet-name>
-        <url-pattern>/sqlmanager/*</url-pattern>
+        <url-pattern>/servlet/sqlmanager/*</url-pattern>
     </servlet-mapping>
         
         

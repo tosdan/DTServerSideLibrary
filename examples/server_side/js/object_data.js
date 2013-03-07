@@ -27,7 +27,7 @@ $(document).ready(function() {
 		"aLengthMenu": [ [10, 15, 25, -1], [10, 15, 25, "Tutti"] ] ,
 		
 		"bServerSide": true ,
-		"sAjaxSource": "../../sqlmanager/loadData.do?sqlName=dtexample&sqlType=query&sqlAction=SELECT&NextHandlerServlet=dtreply" ,
+		"sAjaxSource": "../../servlet/sqlmanager/loadData.do?sqlName=dtexample&sqlType=query&&NextHandlerServlet=DTReplyServlet" ,
 		"sServerMethod": "POST" ,
 		
 		"aaSorting": [ [1,'asc'] ] , // Ordinamento secondo la colonna "n" verso "asc / desc". Si puo' aggiungere un 

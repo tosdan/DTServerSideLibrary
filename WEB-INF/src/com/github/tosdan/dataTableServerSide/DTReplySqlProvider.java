@@ -287,4 +287,14 @@ public class DTReplySqlProvider
 	}
 	/**/
 	
+	@Override
+	public String toString()
+	{
+		String s = "********************************************";
+		s += "-- SqlDatiQuery:\n" + this.getSqlDatiQuery();
+		s += "\n\n-- SqlDatiAggiuntivi:\n" + this.getSqlDatiAggiuntivi();
+		s += "\n********************************************\n";
+		return s;
+	}
+	
 }

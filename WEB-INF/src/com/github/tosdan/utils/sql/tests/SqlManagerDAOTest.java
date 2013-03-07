@@ -7,21 +7,21 @@ import java.util.Set;
 
 import com.github.tosdan.utils.sql.ConnectionProvider;
 import com.github.tosdan.utils.sql.ConnectionProviderImpl;
-import com.github.tosdan.utils.sql.SqlManagerDAO;
-import com.github.tosdan.utils.sql.SqlManagerDAOException;
+import com.github.tosdan.utils.sql.BasicDAO;
+import com.github.tosdan.utils.sql.BasicDAOException;
 
 public class SqlManagerDAOTest
 {
 
 	/**
 	 * @param args
-	 * @throws SqlManagerDAOException 
+	 * @throws BasicDAOException 
 	 */
-	public static void main( String[] args ) throws SqlManagerDAOException
+	public static void main( String[] args ) throws BasicDAOException
 	{
 		// TODO Auto-generated method stub
 		ConnectionProvider provider = new ConnectionProviderImpl( "net.sourceforge.jtds.jdbc.Driver", "jdbc:jtds:sqlserver://192.168.42.132:1331/test;", "sa", "daniele" );
-		SqlManagerDAO dao = new SqlManagerDAO( provider );
+		BasicDAO dao = new BasicDAO( provider );
 		String sql = "SELECT * FROM foglio";
 
 //		testRunAndGetArray( dao, sql );
@@ -31,7 +31,7 @@ public class SqlManagerDAOTest
 		testRunAndGetKeyedMap( dao, sql );
 	}
 
-	public static void testRunAndGetArray( SqlManagerDAO dao, String sql ) throws SqlManagerDAOException
+	public static void testRunAndGetArray( BasicDAO dao, String sql ) throws BasicDAOException
 	{
 		System.out.println("------------------");
 		Object[] result = dao.runAndGetArray( sql );
@@ -41,7 +41,7 @@ public class SqlManagerDAOTest
 		System.out.println("\n------------------");
 	}
 	
-	public static void testRunAndGetArrayList( SqlManagerDAO dao, String sql ) throws SqlManagerDAOException
+	public static void testRunAndGetArrayList( BasicDAO dao, String sql ) throws BasicDAOException
 	{
 		System.out.println("------------------");
 		List<Object[]> result = dao.runAndGetArrayList( sql );
@@ -54,7 +54,7 @@ public class SqlManagerDAOTest
 		System.out.println("------------------");
 	}
 	
-	public static void testRunAndGetMap( SqlManagerDAO dao, String sql ) throws SqlManagerDAOException
+	public static void testRunAndGetMap( BasicDAO dao, String sql ) throws BasicDAOException
 	{
 		System.out.println("------------------");
 		Map<String, Object> result = dao.runAndGetMap( sql );
@@ -65,7 +65,7 @@ public class SqlManagerDAOTest
 		System.out.println("\n------------------");
 	}
 	
-	public static void testRunAndGetMapList( SqlManagerDAO dao, String sql ) throws SqlManagerDAOException
+	public static void testRunAndGetMapList( BasicDAO dao, String sql ) throws BasicDAOException
 	{
 		System.out.println("------------------");
 		List<Map<String, Object>> result = dao.runAndGetMapList( sql );
@@ -79,7 +79,7 @@ public class SqlManagerDAOTest
 		System.out.println("------------------");
 	}
 	
-	public static void testRunAndGetKeyedMap( SqlManagerDAO dao, String sql ) throws SqlManagerDAOException
+	public static void testRunAndGetKeyedMap( BasicDAO dao, String sql ) throws BasicDAOException
 	{
 		System.out.println("------------------");
 		Map<String, Map<String, Object>> result = dao.runAndGetKeyedMap( sql, "browser" );
