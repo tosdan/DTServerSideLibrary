@@ -13,7 +13,7 @@ public class DTReplySqlProvider
 	private String stringaSQL;
 	private Map<Integer, String> nomiColonne;
 	private Map<String, String> parametriRequest;
-	private List<String> listaDegliMDataProp;
+	private List<String> listaValoriMDataProp;
 	/**
 	 * Contiene l'indice del primo elemento mostrato nella tabella.
 	 * La numerazione parte da 0.
@@ -50,7 +50,7 @@ public class DTReplySqlProvider
 		this.parametriRequest = parametriRequest;
 		this.nomiColonne = new HashMap<Integer, String>();
 		this.stringaSQL = stringaSQL;
-		this.listaDegliMDataProp = new ArrayList<String>();
+		this.listaValoriMDataProp = new ArrayList<String>();
 		
 		this.parseParametri();
 	}
@@ -107,7 +107,7 @@ public class DTReplySqlProvider
 	{
 		String retVal = "";
 
-		if ( this.listaDegliMDataProp.get(0).matches("(^[a-z\\[A-Z_][a-zA-Z_0-9-\\]]*$)|(^[\\[][a-z A-Z_0-9-]*[\\]]$)") ) // match con un identificativo valido sql
+		if ( this.listaValoriMDataProp.get(0).matches("(^[a-z\\[A-Z_][a-zA-Z_0-9-\\]]*$)|(^[\\[][a-z A-Z_0-9-]*[\\]]$)") ) // match con un identificativo valido sql
 		{
 			Map<String, String> ordinamentoColonne = this.getOrdinamentoColonneNamed();
 			Set<Entry<String, String>> setColonne = ordinamentoColonne.entrySet();
@@ -245,11 +245,12 @@ public class DTReplySqlProvider
 			String nomeCol = entry.getValue();
 			
 			if (key.indexOf( "mDataProp_" ) > -1) {
-				this.listaDegliMDataProp.add(key);
 				int index = ( "mDataProp_" ).length();
 				int numCol = Integer.valueOf( key.substring(index) );
 				this.nomiColonne.put( numCol, nomeCol );
 				
+				if ( !nomeCol.isEmpty() )
+					this.listaValoriMDataProp.add(nomeCol);
 			}
 		}
 	}

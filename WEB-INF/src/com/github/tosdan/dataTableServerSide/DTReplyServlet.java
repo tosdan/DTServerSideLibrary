@@ -18,84 +18,129 @@ import com.github.tosdan.utils.sql.ConnectionProvider;
 import com.github.tosdan.utils.sql.ConnectionProviderException;
 import com.github.tosdan.utils.sql.ConnectionProviderImpl;
 import com.github.tosdan.utils.sql.QueriesUtils;
+import com.github.tosdan.utils.stringhe.MapFormatTypeValidator;
 import com.github.tosdan.utils.stringhe.MapFormatTypeValidatorSQL;
 
 @SuppressWarnings( "serial" )
 public class DTReplyServlet extends BasicHttpServlet
 {
-	private String printStackTrace; 
+	private String printStackTrace;
 	
 	@Override 
 	protected void doGet( HttpServletRequest req, HttpServletResponse resp ) throws ServletException, IOException { this.doPost( req, resp ); }
-	
+
 	@Override
 	protected void doPost( HttpServletRequest req, HttpServletResponse resp ) throws ServletException, IOException
 	{
-		ServletOutputStream out = resp.getOutputStream();
-		this.printStackTrace = req.getParameter( "printStackTrace" );
-		String reqLog = this.processRequestForParams( req );
-		
-		String debugReqParams = req.getParameter("debugRequestParams");
-		if (debugReqParams != null && debugReqParams.equalsIgnoreCase( "true" )) {
-			PrintWriter logWriter = new PrintWriter( this.app.getRealPath(this.envConfigParams.get("logFileName")) );
-			logWriter.println(reqLog);
-			logWriter.close(); 
-		}
-		
-		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-		String dtrConfFile = this.envConfigParams.get( "DTReplyConf_File" );
-		String dtrConfPath = this.realPath + this.envConfigParams.get( "DTReplyConf_Path" );
-		Properties dtrSettings = new Properties();
-		try {
-			dtrSettings.load( this.app.getResourceAsStream( dtrConfFile ) );
-		} catch ( IOException e2 ) {
-			if ( printStackTrace != null && printStackTrace.equalsIgnoreCase("true") )
-				e2.printStackTrace();
-			throw new DTReplayServletException( "Errore caricamento file configurazione DTReplyConf.", e2 );
-		}
-
-		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-		String nomeSql = req.getParameter( "sqlName" );
-		String tipoSql = req.getParameter( "sqlType" );
-		if (nomeSql == null || tipoSql == null) 
-			throw new DTReplayServletException( "Errore: parametro/i sqlName e/o sqlSource mancante/i nella request." );
-		
-		Map<String, String> allParams = new HashMap<String, String>();
-		allParams.putAll( this.requestParams );
-		allParams.putAll( this.envConfigParams );
-		
+		// query da eseguire
 		String querySql = "";
-		String queryFile = dtrSettings.getProperty( nomeSql );
-		try {
-			querySql = QueriesUtils.compilaQueryDaFile( (dtrConfPath + queryFile), nomeSql, allParams, (new MapFormatTypeValidatorSQL()) );
-		} catch ( IOException e1 ) {
-			if ( printStackTrace != null && printStackTrace.equalsIgnoreCase("true") )
-				e1.printStackTrace();
-			throw new DTReplayServletException( "Errore caricamente query da file.", e1 );
-		}
+		Object queryRecuperata = req.getAttribute("queryRecuperata");
 		
-		if ( !querySql.isEmpty() ) {
+		if (queryRecuperata == null)
+		{
+			// inizializza la mappa contenente i parametri della request
+			String reqLog = this.processRequestForParams( req );
+			if (req.getParameter("debugRequestParams") != null && req.getParameter("debugRequestParams").equalsIgnoreCase( "true" ) && this.envConfigParams.get("logFileName") != null ) 
+				// crea un file di log con il nome passato come parametro nella sottocartella della webapp
+				this.logOnFile( this.app.getRealPath(this.envConfigParams.get("logFileName")), reqLog );
+			// flag per verbose stacktrace
+			this.printStackTrace = req.getParameter( "printStackTrace" ); 
+			// percorso file settings
+			String queriesRepoFolderFullPath = this.realPath + this.envConfigParams.get( "DTReplyConf_Path" );
+			// nome file settings
+			String dtrPropertiesFile = this.envConfigParams.get( "DTReplyConf_File" );
+			// carica la configurazione dal file properties
+			Properties dtrProperties = this.loadProperties( dtrPropertiesFile );
 			
+			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+	
+			// identificativo query nel file repository delle queries
+			String nomeSQL = req.getParameter( "sqlName" );
+			if (nomeSQL == null) 
+				throw new DTReplayServletException( "Servlet " + this.getServletName() + 
+						": errore, parametro sqlName mancante nella request." );
+			// raccoglie i parametri della request e di initConf della servlet
+			Map<String, String> allParams = new HashMap<String, String>();
+			allParams.putAll( this.requestParams );
+			allParams.putAll( this.envConfigParams );
+			
+			try {
+				// istanza l'oggetto per la validazione dei parametri rispetto ai valori effettivamente passati per evitare problemi sui Tipi
+				MapFormatTypeValidator validator = new MapFormatTypeValidatorSQL();
+				// compila la query parametrica sostituendo ai parametri i valori contenuti nella request e nell'initConf della servlet 
+				querySql = QueriesUtils.compilaQueryDaFile( dtrProperties, queriesRepoFolderFullPath , nomeSQL, allParams, validator );
+			} catch ( IOException e1 ) {
+				if ( printStackTrace != null && printStackTrace.equalsIgnoreCase("true") )
+					e1.printStackTrace();
+				throw new DTReplayServletException( "Servlet " + this.getServletName() 
+						+ ": errore caricamente query da file. Classe: "+this.getClass().getName(), e1 );
+			}
+		} else {
+			querySql = queryRecuperata.toString();
+			this.processRequestForParams( req );
+		}
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+		// identificativo per distinguere una query da una vera e propria tabella
+		String tipoSql = req.getParameter( "sqlType" );
+		if (tipoSql == null) 
+			throw new DTReplayServletException( "Servlet " + this.getServletName() + 
+					": errore, parametro sqlType mancante nella request." );
+		
+		// racchiude la query/tabella da passare come "seme" all' sqlProvider 
+		if ( !querySql.isEmpty() ) {			
 			if ( tipoSql.equalsIgnoreCase("query") ) 
 				querySql = "( "+ querySql +" ) AS tabella";
 			else if ( tipoSql.equalsIgnoreCase("table") ) 
-				querySql = "( SELECT * FROM "+ querySql +" ) AS tabella";
-			
+				querySql = "( SELECT * FROM "+ querySql +" ) AS tabella";	
 		}
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-		resp.setContentType("text/html; charset=ISO-8859-1");
+		// recupera l'oggetto JSON da usare come valore di ritorno
 		String json = this.getDati(this.requestParams, querySql);
+		ServletOutputStream out = resp.getOutputStream();
+		resp.setContentType("text/html; charset=ISO-8859-1");
+		// restituisce il JSON
 		out.print( json );
 		
 		String debugJson = req.getParameter("debugJson");
 		if ( debugJson != null && debugJson.equalsIgnoreCase("true") )
 			System.out.println( json );
-	}
+		
+	} //close doPost
 
+	protected void logOnFile(String fileName, String content) throws IOException
+	{
+		// crea un file di log con il nome passato come parametro nella sottocartella della webapp
+		PrintWriter logWriter = new PrintWriter( fileName );
+		logWriter.println(content);
+		logWriter.close(); 
+	}
+	
+	/**
+	 * Se nullo recupera da file l'oggetto properties con la configurazione
+	 * @param propertiesFile
+	 * @throws DTReplayServletException
+	 */
+	protected Properties loadProperties(String propertiesFile) throws DTReplayServletException
+	{
+		Properties dtrSettings = new Properties();
+		
+		try {
+			// carica, dal file passato, l'oggetto Properties salvandolo in un campo della servlet 
+			dtrSettings.load( this.app.getResourceAsStream( propertiesFile ) );
+			
+		} catch ( IOException e2 ) {
+			if ( printStackTrace != null && printStackTrace.equalsIgnoreCase("true") )
+				e2.printStackTrace();
+			throw new DTReplayServletException( "Servlet " + this.getServletName()
+					+ ": errore caricamento file configurazione. Classe: "+this.getClass().getName(), e2 );
+		}
+		
+		return dtrSettings;
+	}
+	
 	/**
 	 * 
 	 * @param parametriDataTable
@@ -106,15 +151,17 @@ public class DTReplyServlet extends BasicHttpServlet
 	private String getDati(Map<String, String> parametriDataTable, String querySql) 
 			throws DTReplayServletException
 	{
-		DTReplySqlProvider dtReplySqlProvider = new DTReplySqlProvider(parametriDataTable, querySql);
+		DTReplySqlProvider dtrSqlProvider = new DTReplySqlProvider(parametriDataTable, querySql);
 		
 		String stampaQuery = parametriDataTable.get("stampaQuery");
 		if ( stampaQuery != null && stampaQuery.equalsIgnoreCase("true") ) { 		
-			this.addToLog( dtReplySqlProvider.getSqlDatiQuery() );
-			this.addToLog( dtReplySqlProvider.getSqlDatiAggiuntivi() );
+			this.addToLog( dtrSqlProvider.getSqlDatiQuery() );
+			this.addToLog( dtrSqlProvider.getSqlDatiAggiuntivi() );
 		}
 		
-		DTReplyProvider dbc = new DTReplyProvider( parametriDataTable, dtReplySqlProvider );
+		DTReplyProvider dbc = new DTReplyProvider( parametriDataTable, dtrSqlProvider );
+		
+		// specifica se l'output e' legato alla configurazione del javascript (parametri mData) o se indicizzato e quindi (pressapoco) "dinamico"
 		String noMData = parametriDataTable.get("mDataBinded");
 		if ( noMData != null && noMData.equalsIgnoreCase("false") ) 
 			dbc.setIndexedOutout();
@@ -127,12 +174,13 @@ public class DTReplyServlet extends BasicHttpServlet
 		} catch ( DTReplyDAOExcetion e ) {
 			if ( printStackTrace != null && printStackTrace.equalsIgnoreCase("true") )
 				e.printStackTrace();
-			throw new DTReplayServletException( "Errore di connessione al database.", e );
+			throw new DTReplayServletException( "Servlet " + this.getServletName() 
+					+ ": errore di accesso al database. Classe: "+this.getClass().getName(), e );
 		}
 	}
 	
 	/**
-	 * TODO da utilizzare con un qualche oggetto logger 
+	 * TODO da utilizzare con un qualche oggetto logger, nel frattempo stampa a console
 	 * @param s
 	 */
 	private void addToLog(String s) {
@@ -153,7 +201,8 @@ public class DTReplyServlet extends BasicHttpServlet
 		} catch ( ConnectionProviderException e ) {
 			if ( printStackTrace != null && printStackTrace.equalsIgnoreCase("true") )
 				e.printStackTrace();
-			throw new DTReplayServletException( "Errore creazione ConnectionProvider.", e );
+			throw new DTReplayServletException( "Servlet " + this.getServletName()
+					+": errore creazione ConnectionProvider. Classe: "+this.getClass().getName(), e );
 		}
 	}
 	

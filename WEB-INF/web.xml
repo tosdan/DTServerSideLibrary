@@ -45,7 +45,7 @@
         
 	<servlet>
         <servlet-name>SqlManagerServlet</servlet-name>
-        <servlet-class>com.github.tosdan.utils.SqlManagerServlet</servlet-class>
+        <servlet-class>com.github.tosdan.utils.servlets.SqlManagerServlet</servlet-class>
         
         <init-param>
         	<param-name>file_dbConf</param-name>
