@@ -1,8 +1,7 @@
 package com.github.tosdan.dataTableServerSide;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
+import java.sql.Connection;
 import java.util.Map;
 import java.util.Properties;
 
@@ -14,13 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.github.tosdan.dataTableServerSide.exceptions.DTReplayServletException;
 import com.github.tosdan.dataTableServerSide.exceptions.DTReplyDAOExcetion;
 import com.github.tosdan.utils.servlets.BasicHttpServlet;
+import com.github.tosdan.utils.servlets.SqlManagerServletException;
 import com.github.tosdan.utils.sql.ConnectionProvider;
 import com.github.tosdan.utils.sql.ConnectionProviderException;
 import com.github.tosdan.utils.sql.ConnectionProviderImpl;
-import com.github.tosdan.utils.sql.QueriesUtils;
-import com.github.tosdan.utils.stringhe.MapFormatTypeValidator;
-import com.github.tosdan.utils.stringhe.MapFormatTypeValidatorSQL;
 
+/**
+ * 
+ * @author Daniele
+ * @version 0.9
+ */
 @SuppressWarnings( "serial" )
 public class DTReplyServlet extends BasicHttpServlet
 {
@@ -32,53 +34,16 @@ public class DTReplyServlet extends BasicHttpServlet
 	@Override
 	protected void doPost( HttpServletRequest req, HttpServletResponse resp ) throws ServletException, IOException
 	{
-		// query da eseguire
+		// query da eseguire		
 		String querySql = "";
-		Object queryRecuperata = req.getAttribute("queryRecuperata");
-		
-		if (queryRecuperata == null)
-		{
-			// inizializza la mappa contenente i parametri della request
-			String reqLog = this.processRequestForParams( req );
-			if (req.getParameter("debugRequestParams") != null && req.getParameter("debugRequestParams").equalsIgnoreCase( "true" ) && this.envConfigParams.get("logFileName") != null ) 
-				// crea un file di log con il nome passato come parametro nella sottocartella della webapp
-				this.logOnFile( this.app.getRealPath(this.envConfigParams.get("logFileName")), reqLog );
-			// flag per verbose stacktrace
-			this.printStackTrace = req.getParameter( "printStackTrace" ); 
-			// percorso file settings
-			String queriesRepoFolderFullPath = this.realPath + this.envConfigParams.get( "DTReplyConf_Path" );
-			// nome file settings
-			String dtrPropertiesFile = this.envConfigParams.get( "DTReplyConf_File" );
-			// carica la configurazione dal file properties
-			Properties dtrProperties = this.loadProperties( dtrPropertiesFile );
-			
-			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	
-			// identificativo query nel file repository delle queries
-			String nomeSQL = req.getParameter( "sqlName" );
-			if (nomeSQL == null) 
-				throw new DTReplayServletException( "Servlet " + this.getServletName() + 
-						": errore, parametro sqlName mancante nella request." );
-			// raccoglie i parametri della request e di initConf della servlet
-			Map<String, String> allParams = new HashMap<String, String>();
-			allParams.putAll( this.requestParams );
-			allParams.putAll( this.envConfigParams );
-			
-			try {
-				// istanza l'oggetto per la validazione dei parametri rispetto ai valori effettivamente passati per evitare problemi sui Tipi
-				MapFormatTypeValidator validator = new MapFormatTypeValidatorSQL();
-				// compila la query parametrica sostituendo ai parametri i valori contenuti nella request e nell'initConf della servlet 
-				querySql = QueriesUtils.compilaQueryDaFile( dtrProperties, queriesRepoFolderFullPath , nomeSQL, allParams, validator );
-			} catch ( IOException e1 ) {
-				if ( printStackTrace != null && printStackTrace.equalsIgnoreCase("true") )
-					e1.printStackTrace();
-				throw new DTReplayServletException( "Servlet " + this.getServletName() 
-						+ ": errore caricamente query da file. Classe: "+this.getClass().getName(), e1 );
-			}
-		} else {
-			querySql = queryRecuperata.toString();
-			this.processRequestForParams( req );
+		try {
+			querySql = req.getAttribute("queryRecuperata").toString();
+		} catch ( NullPointerException e ) {
+			throw new DTReplayServletException( "Servlet " + this.getServletName() + 
+					": errore, attributo queryRecuperata mancante/nullo nella request." );
 		}
+		this.processRequestForParams( req );
+		
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 		// identificativo per distinguere una query da una vera e propria tabella
@@ -110,42 +75,12 @@ public class DTReplyServlet extends BasicHttpServlet
 		
 	} //close doPost
 
-	protected void logOnFile(String fileName, String content) throws IOException
-	{
-		// crea un file di log con il nome passato come parametro nella sottocartella della webapp
-		PrintWriter logWriter = new PrintWriter( fileName );
-		logWriter.println(content);
-		logWriter.close(); 
-	}
 	
 	/**
-	 * Se nullo recupera da file l'oggetto properties con la configurazione
-	 * @param propertiesFile
-	 * @throws DTReplayServletException
-	 */
-	protected Properties loadProperties(String propertiesFile) throws DTReplayServletException
-	{
-		Properties dtrSettings = new Properties();
-		
-		try {
-			// carica, dal file passato, l'oggetto Properties salvandolo in un campo della servlet 
-			dtrSettings.load( this.app.getResourceAsStream( propertiesFile ) );
-			
-		} catch ( IOException e2 ) {
-			if ( printStackTrace != null && printStackTrace.equalsIgnoreCase("true") )
-				e2.printStackTrace();
-			throw new DTReplayServletException( "Servlet " + this.getServletName()
-					+ ": errore caricamento file configurazione. Classe: "+this.getClass().getName(), e2 );
-		}
-		
-		return dtrSettings;
-	}
-	
-	/**
-	 * 
-	 * @param parametriDataTable
-	 * @param querySql
-	 * @return
+	 * Recupera i dati da inviare in risposta alla <code>DataTable</code>
+	 * @param parametriDataTable i parametri inviati dalla <code>DataTable</code> reperibili dalla request
+	 * @param querySql query opportunamente elaborata in base ai parametri inviati dalla <code>DataTable</code>
+	 * @return un oggetto <code>JSON</code> memorizzato in una stringa
 	 * @throws DTReplayServletException
 	 */
 	private String getDati(Map<String, String> parametriDataTable, String querySql) 
@@ -157,6 +92,7 @@ public class DTReplyServlet extends BasicHttpServlet
 		if ( stampaQuery != null && stampaQuery.equalsIgnoreCase("true") ) { 		
 			this.addToLog( dtrSqlProvider.getSqlDatiQuery() );
 			this.addToLog( dtrSqlProvider.getSqlDatiAggiuntivi() );
+			
 		}
 		
 		DTReplyProvider dbc = new DTReplyProvider( parametriDataTable, dtrSqlProvider );
@@ -180,24 +116,27 @@ public class DTReplyServlet extends BasicHttpServlet
 	}
 	
 	/**
+	 * Stampa semplicemente in console le query eseguite
 	 * TODO da utilizzare con un qualche oggetto logger, nel frattempo stampa a console
 	 * @param s
 	 */
 	private void addToLog(String s) {
 		System.out.println( "-- " + this.getClass().getName() + ": sqlDati\n" + s );
+		
 	}
 	
 	/**
-	 * 
-	 * @param file_dbConf
-	 * @return
-	 * @throws DTReplayServletException
+	 * Configura e restituisce un {@link ConnectionProvider}
+	 * @param file_dbConf file {@link Properties} contenente la confiurazione per l'accesso al database.
+	 * @return un oggetto {@link ConnectionProvider} dal quale poter ottenere, senza ulteriori configurazioni, un oggetto {@link Connection} 
+	 * @throws SqlManagerServletException 
 	 */
 	private ConnectionProvider getConnectionProvider(String file_dbConf)
 			throws DTReplayServletException
 	{
 		try {
 			return new ConnectionProviderImpl( file_dbConf );
+			
 		} catch ( ConnectionProviderException e ) {
 			if ( printStackTrace != null && printStackTrace.equalsIgnoreCase("true") )
 				e.printStackTrace();
