@@ -12,6 +12,21 @@
 -->
 <!--	-->  
 
+	<filter>
+		<filter-name>AuthFilter</filter-name>
+		<filter-class>com.github.tosdan.utils.filters.AuthFilter</filter-class>
+		
+		<init-param>
+			<param-name>userIDIdentifier</param-name>
+			<param-value>sUserID</param-value>
+		</init-param>
+		
+	</filter>
+	<filter-mapping>
+		<filter-name>AuthFilter</filter-name>
+		<url-pattern>/niente/*</url-pattern>
+	</filter-mapping>
+
 	<servlet>
 		<servlet-name>QueryRunnerServlet</servlet-name>
         <servlet-class>com.github.tosdan.utils.servlets.QueryRunnerServlet</servlet-class>

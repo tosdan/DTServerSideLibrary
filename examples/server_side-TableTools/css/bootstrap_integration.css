@@ -1,0 +1,10 @@
+.btn:focus {
+    outline: 0px none;
+}
+
+a.btn {
+	text-decoration: none !important;
+	font: 100%/1.45em "Lucida Grande",Verdana,Arial,Helvetica,sans-serif !important;
+	color: rgb(51, 51, 51) !important;
+	
+}
