@@ -26,7 +26,8 @@
 
 		<script type="text/javascript">
 			var sqlName = 'dtexample' <% // TODO parametro sqlName passato nella request %>;
-			var sAjaxSource = "../../servlet/sqlmanager/loadData.do?sqlName="+ sqlName +"&sqlType=query&NextHandlerServlet=DTReplyServlet";
+			var sAjaxSource = "../../filter/dtreply/loadData.do?sqlName="+ sqlName +"&sqlType=query";
+// 			var sAjaxSource = "../../servlet/sqlmanager/loadData.do?sqlName="+ sqlName +"&sqlType=query&NextHandlerServlet=DTReplyServlet";
 			
 		</script>
 		

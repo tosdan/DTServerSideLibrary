@@ -33,6 +33,7 @@ import com.github.tosdan.utils.sql.ConnectionProviderImpl;
 public class DTReplyServlet extends BasicHttpServlet
 {
 	private boolean printStackTrace;
+	private String queryEseguita;
 	
 	@Override 
 	protected void doGet( HttpServletRequest req, HttpServletResponse resp ) throws ServletException, IOException { this.doPost( req, resp ); }
@@ -80,7 +81,11 @@ public class DTReplyServlet extends BasicHttpServlet
 		resp.setContentType("text/html; charset=ISO-8859-1");
 		// restituisce il JSON
 		out.print( json );
-		req.getSession().setAttribute( "JsonDataTableString", json );
+		this._toSession( "JsonDataTableString", json , req );
+		this._cryptToSession( "DataTableQuery", this.queryEseguita, req ); // TODO criptare
+//		req.getSession().setAttribute( "JsonDataTableString", json );
+//		req.getSession().setAttribute( "DataTableQuery", this.queryEseguita );
+		
 		if ( this._booleanSafeParse( req.getParameter("debugJson") ) )
 			System.out.println( json );
 		
@@ -99,9 +104,9 @@ public class DTReplyServlet extends BasicHttpServlet
 	{
 		// oggetto che rielabora la query in base alle impostazioni passate dalla DataTable
 		DTReplySqlProvider dtrSqlProvider = new DTReplySqlProvider(parametriDataTable, querySql);
-		
+		this.queryEseguita = dtrSqlProvider.toString();
 		if ( this._booleanSafeParse( parametriDataTable.get("stampaQuery") ) ){
-			System.out.println( "-- " + this.getClass().getName() + "\n"+ dtrSqlProvider.toString() );
+			System.out.println( "-- Query per " + this.getClass().getName() + "\n"+ this.queryEseguita );
 		}
 		// oggetto che fornisce la risposta da inoltrare alla DataTable
 		DTReplyProvider dtRProvider = new DTReplyProvider( parametriDataTable, dtrSqlProvider );

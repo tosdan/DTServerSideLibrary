@@ -31,6 +31,31 @@
 		<url-pattern>/niente/*</url-pattern>
 	</filter-mapping>
 
+	<filter>
+		<filter-name>SqlManagerFilter</filter-name>
+		<filter-class>com.github.tosdan.utils.filters.SqlManagerFilter</filter-class>
+        
+        <init-param>
+	        <param-name>logFileName</param-name>
+	        <param-value>/WEB-INF/WebAppsLogFiles/SqlManger/logSqlMangerServlet.txt</param-value>
+	    </init-param>
+        
+        <init-param>
+	        <param-name>SqlManagerServletConf_File</param-name>
+	        <param-value>/WEB-INF/WebAppsConfigFiles/SqlManager/SqlManagerServletConf.properties</param-value>
+	    </init-param>
+        
+        <init-param>
+	        <param-name>SqlManagerServletConf_Path</param-name>
+	        <param-value>/WEB-INF/WebAppsConfigFiles/SqlManager</param-value>
+	    </init-param>
+		
+	</filter>
+	<filter-mapping>
+		<filter-name>SqlManagerFilter</filter-name>
+		<url-pattern>/filter/dtreply/*</url-pattern>
+	</filter-mapping>
+
 	<servlet>
 		<servlet-name>QueryRunnerServlet</servlet-name>
         <servlet-class>com.github.tosdan.utils.servlets.QueryRunnerServlet</servlet-class>
@@ -86,6 +111,10 @@
     <servlet-mapping>
         <servlet-name>DTReplyServlet</servlet-name>
         <url-pattern>/servlet/dtreply/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DTReplyServlet</servlet-name>
+        <url-pattern>/filter/dtreply/*</url-pattern>
     </servlet-mapping>
         
         

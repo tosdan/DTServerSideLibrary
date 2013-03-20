@@ -1,7 +1,8 @@
-package com.github.tosdan.utils.servlets;
+package com.github.tosdan.utils.filters;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -9,19 +10,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletConfig;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * 
- * @author Daniele
- *
- */
-@SuppressWarnings( "serial" )
-public abstract class BasicHttpServlet extends HttpServlet
+public class BasicFilter implements Filter
 {
 	/** 
 	 * ServletContext di questa servlet
@@ -40,36 +38,49 @@ public abstract class BasicHttpServlet extends HttpServlet
 	protected String _appRealPath;
 	
 	/**
-	 * Mappa dei parametri della request: solo quelli a valore singolo
+	 * Mappa dei <code>Parameters</code> della request: solo quelli a valore singolo
 	 */
 	protected Map<String, String> _requestParamsMap;
 	
 	/**
-	 * Mappa dei parametri della request: solo quelli a valore multiplo
+	 * Mappa dei <code>Parameters</code> della request: solo quelli a valore multiplo
 	 */
 	protected Map<String, List<String>> _requestMultipleValuesParamsMap;
 	
+	/**
+	 * Mappa degli <code>Attributes</code> della request
+	 */
+	protected Map<String, Object> _requestAttributes;
+
+	protected FilterConfig _filterConfig;
 	
 	@Override
-	public void init( ServletConfig config ) throws ServletException {
-		super.init( config );
-		this._app = config.getServletContext();
-		
+	public void destroy() {
+		this._filterConfig = null;
+	}
+
+	@Override
+	public void doFilter( ServletRequest request, ServletResponse response, FilterChain chain ) throws IOException, ServletException
+	{ 	}
+
+	@Override
+	public void init( FilterConfig filterConfig ) throws ServletException {
+		this._filterConfig = filterConfig;
+		this._app = filterConfig.getServletContext();
 		this._initConfigParamsMap = new HashMap<String, String>();
 		this._appRealPath = this._app.getRealPath( "/" );
-		this._initConfigParamsMap.put( "realPath", _appRealPath );
+		this._initConfigParamsMap.put( "realPath", this._appRealPath );
 		
 		@SuppressWarnings( "rawtypes" )
-		Enumeration parametriServlet = config.getInitParameterNames();
+		Enumeration parametriServlet = filterConfig.getInitParameterNames();
 		while (parametriServlet.hasMoreElements()) {
 			String nomeParam = ( String ) parametriServlet.nextElement();
-			String valore = config.getInitParameter( nomeParam );
+			String valore = filterConfig.getInitParameter( nomeParam );
 			this._initConfigParamsMap.put( nomeParam, valore );
 			
 //			System.out.println( nomeParam + " - " + valore );
 //			System.out.println( System.getProperty("catalina.base") );
 		}
-		
 	}
 
 	/**
@@ -83,18 +94,19 @@ public abstract class BasicHttpServlet extends HttpServlet
 		String reqLog = "";		
 		this._requestParamsMap = new HashMap<String, String>();
 		this._requestMultipleValuesParamsMap = new HashMap<String, List<String>>();
+		this._requestAttributes = new HashMap<String, Object>();
 		
 		@SuppressWarnings( "unchecked" )
 		Enumeration<String> paramsNames = req.getParameterNames();
 		while ( paramsNames.hasMoreElements() ) {
-			String name = (String) paramsNames.nextElement();
+			String name = paramsNames.nextElement();
 			String[] paramsValues = req.getParameterValues(name);
 			
-			if ( paramsValues != null && paramsValues.length == 1 ) {
+			if ( paramsValues.length == 1 ) {
 				this._requestParamsMap.put(name, paramsValues[0]);
 				reqLog += name+"=>"+paramsValues[0]+"\n";
 				
-			} else if ( paramsValues != null && paramsValues.length > 1 ) {
+			} else if ( paramsValues.length > 1 ) {
 				List<String> values = new ArrayList<String>();
 				for( int i = 0 ; i < paramsValues.length ; i++ ) {
 					values.add( paramsValues[i] );
@@ -102,13 +114,22 @@ public abstract class BasicHttpServlet extends HttpServlet
 				this._requestMultipleValuesParamsMap.put(name, values);
 				reqLog += name+"=>"+values+"\n";
 			}
-			
 		}
+
+		@SuppressWarnings( "unchecked" )
+		Enumeration<String> attributes = req.getAttributeNames();
+		while ( attributes.hasMoreElements() ) {
+			String attribName = (String) attributes.nextElement();
+			Object attriValue = req.getAttribute(attribName);
+			this._requestAttributes.put( attribName, attriValue  );
+			reqLog += attribName+"=>"+attriValue+"\n";
+		}
+
+		
 		reqLog += "---- Fine parametri ----";
 		
 		return reqLog;
 	}
-	
 
 	/**
 	 * Effettua il <code>parse</code> su una stringa per restituire un <code>boolean</code>, in caso di null o o in caso di fallimento del parse restituisce <code>false</code>.
@@ -224,10 +245,9 @@ public abstract class BasicHttpServlet extends HttpServlet
 			// qualsiasi eccezione nella stampa del log non deve essere bloccante
 			String astks = "*************************************";
 			String ecc = astks+"\n* Eccezione catturata, ma non gestita\n"+astks+"\n"; 
-			System.err.println( ecc+ "Servlet " + this.getServletName()+"\nErrore nel tentativo di scrivere il logfile\n"+logFile.getName()+"\nnella cartella\n"+logPath.getAbsolutePath()+"\nClasse: "+this.getClass().getName() +"\n");
+			System.err.println( ecc+ "Servlet " + this._filterConfig.getFilterName()+"\nErrore nel tentativo di scrivere il logfile\n"+logFile.getName()+"\nnella cartella\n"+logPath.getAbsolutePath()+"\nClasse: "+this.getClass().getName() +"\n");
 			e.printStackTrace();
 			System.err.println( "\n"+astks );
 		} 
 	}
-	
 }

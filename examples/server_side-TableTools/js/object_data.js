@@ -37,7 +37,7 @@ $(document).ready(function() {
 		"aLengthMenu": [ [10, 15, 25, -1], [10, 15, 25, "Tutti"] ] ,
 		
 		"bServerSide": true ,
-		"sAjaxSource": "../../servlet/sqlmanager/loadData.do?sqlName=dtexample&sqlType=query&NextHandlerServlet=DTReplyServlet" ,
+		"sAjaxSource": "../../filter/dtreply/loadData.do?sqlName=dtexample2&sqlType=query" ,
 		"sServerMethod": "POST" ,
 		
 		"aaSorting": [ [1,'asc'] ] , // Ordinamento secondo la colonna "n" verso "asc / desc". Si puo' aggiungere un 
@@ -68,7 +68,7 @@ $(document).ready(function() {
 			{ "mData": "custom02"	
 			, "bSortable": false
 			, "bSearchable": false
-//			, "sWidth": "5%"
+//			, "sWidth": "5%" // in pixels
 		    , "sDefaultContent": ""
 			, "sClass": "center expand"
 				} ,

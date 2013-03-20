@@ -1,40 +1,33 @@
-package com.github.tosdan.utils.servlets;
+package com.github.tosdan.utils.filters;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.servlet.RequestDispatcher;
+import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.github.tosdan.utils.sql.QueriesUtils;
+import com.github.tosdan.utils.sql.QueriesUtilsException;
 import com.github.tosdan.utils.stringhe.MapFormatTypeValidator;
 import com.github.tosdan.utils.stringhe.MapFormatTypeValidatorSQL;
 
-/**
- * Carica dinamicamente una query da file ed esegue un update o, se specificato un gestore per le select, trasferisce il controllo ad un'altra servlet che se ne occupi.
- * @param NextHandlerServlet  <code>Request Parameter</code> in cui deve esser specificato il nome della <code>Serlvet</code> (come indicato nel <code>web.xml</code> nel sotto elemento <code>servlet-name</code>) verso la quale verra' re-inoltrata la request per l'esecuzione effettiva della query
- * @param logSqlManager <code>Request Parameter</code> Flag (<code>true</code>/<code>false</code>) per determinare se debbano essere stampati nel log i parametri letti nella request
- * @param printStackTrace <code>Request Parameter</code> Flag (<code>true</code>/<code>false</code>) per determinare se lo <code>stacktrace</code> delle eccezioni catturate debba esser stampato in console (<code>System.err</code>) o meno
- * @param sqlName <code>Request Parameter</code> Nome della query che deve esser caricata da file, il nome deve essere censito nel file di configurazione specificato nel web.xml tra gli init param della servlet stessa
- * @param lasciaQueryParametrica <code>Request Parameter</code> Flag (<code>true</code>/<code>false</code>) per determinare se la query non deve esser compilata in automatico con i parametri passati nella request ( inclusi i parametri init config)
- * @author Daniele
- * @version 0.9
- */
-@SuppressWarnings( "serial" )
-public class SqlManagerServlet extends BasicHttpServlet
+public class SqlManagerFilter extends BasicFilter
 {
+
 	private boolean printStackTrace;
 
 	@Override
-	protected void doGet( HttpServletRequest req, HttpServletResponse resp ) throws ServletException, IOException { this.doPost( req, resp ); }
-	
-	@Override
-	protected void doPost( HttpServletRequest req, HttpServletResponse resp ) throws ServletException, IOException
+	public void doFilter( ServletRequest request, ServletResponse response, FilterChain chain )	throws IOException, ServletException
 	{
+		HttpServletRequest req = ( HttpServletRequest ) request;
+		HttpServletResponse resp = ( HttpServletResponse ) response;
+		 
 		// inizializza la mappa contenente i parametri della request
 		String reqLog = this._processRequestForParams( req );
 		if ( this._booleanSafeParse(req.getParameter("logSqlManager")) && this._initConfigParamsMap.get("logFileName") != null ) 
@@ -57,14 +50,15 @@ public class SqlManagerServlet extends BasicHttpServlet
 		// identificativo query nel file repository delle queries
 		String nomeSQL = req.getParameter( "sqlName" );
 		if (nomeSQL == null) 
-			throw new SqlManagerServletException( "Servlet " + this.getServletName() + 
-					": errore, parametro sqlName mancante nella request." );
+			throw new SqlManagerFilterException( "Filtro " + this._filterConfig.getFilterName()  
+					+ ": errore, parametro sqlName mancante nella request." );
 		
-		// raccoglie i parametri della request e di initConf della servlet
+		// raccoglie i parametri della request, degli initConf della servlet e degli attributes eventualmente aggiunti da servlet o filtri precedenti
 		Map<String, Object> allParams = new HashMap<String, Object>();
 		allParams.putAll( this._requestParamsMap );
 		allParams.putAll( this._requestMultipleValuesParamsMap );
 		allParams.putAll( this._initConfigParamsMap );
+		allParams.putAll( this._requestAttributes );
 
 		if ( !_booleanSafeParse(req.getParameter("lasciaQueryParametrica")) )
 		{
@@ -74,33 +68,28 @@ public class SqlManagerServlet extends BasicHttpServlet
 				// compila la query parametrica sostituendo ai parametri i valori contenuti nella request e nell'initConf della servlet 
 				querySql = QueriesUtils.compilaQueryDaFile( dtrProperties, queriesRepoFolderFullPath , nomeSQL, allParams, validator );
 				
-			} catch ( IOException e1 ) {
-				if ( printStackTrace )
-					e1.printStackTrace();
-				throw new SqlManagerServletException(  "Servlet " + this.getServletName() 
-						+ ": errore caricamente query da file. Classe: "+this.getClass().getName(), e1 );
-				
+			} catch ( QueriesUtilsException e ) {
+				if ( this.printStackTrace )
+					e.printStackTrace();
+				throw new SqlManagerFilterException(  "Filtro " + this._filterConfig.getFilterName()
+						+ ": errore caricamento query da file. Classe: "+this.getClass().getName(), e );
 			}
 		}
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 		
-		String nextHandlerServlet = req.getParameter( "NextHandlerServlet" );
 		req.setAttribute( "queryRecuperata", querySql );
-		
-//		String destinazione = nextHandlerServlet + "/go"; // URL Relativo
-//		RequestDispatcher dispatcher = req.getRequestDispatcher( destinazione );
-		RequestDispatcher dispatcher = _app.getNamedDispatcher( nextHandlerServlet );
-		
-		dispatcher.forward( req, resp );
-
+		chain.doFilter( req, resp );
+		System.out.println( this._filterConfig.getFilterName() +"\n"
+				+ req.getSession().getAttribute( "JsonDataTableString" ) 
+				+ " - " + req.getSession().getAttribute( "DataTableQuery" ));
 	}
-
+	
 	/**
 	 * Carica e restituisce un oggetto {@link Properties}
 	 * @param propertiesFile
 	 * @throws SqlManagerServletException
 	 */
-	protected Properties loadProperties(String propertiesFile) throws SqlManagerServletException
+	protected Properties loadProperties(String propertiesFile) throws SqlManagerFilterException
 	{
 		Properties dtrSettings = new Properties();
 		
@@ -108,11 +97,11 @@ public class SqlManagerServlet extends BasicHttpServlet
 			// carica, dal file passato, l'oggetto Properties salvandolo in un campo della servlet 
 			dtrSettings.load( this._app.getResourceAsStream( propertiesFile ) );
 			
-		} catch ( IOException e2 ) {
+		} catch ( IOException e ) {
 			if ( printStackTrace )
-				e2.printStackTrace();
-			throw new SqlManagerServletException( "Servlet " + this.getServletName()
-					+ ": errore caricamento file configurazione. Classe: "+this.getClass().getName(), e2 );
+				e.printStackTrace();
+			throw new SqlManagerFilterException( "Filtro " + this._filterConfig.getFilterName()
+					+ ": errore caricamento file configurazione. Classe: "+this.getClass().getName(), e );
 		}
 		
 		return dtrSettings;
