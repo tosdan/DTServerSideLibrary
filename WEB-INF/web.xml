@@ -20,6 +20,10 @@
 			<param-name>userIDIdentifier</param-name>
 			<param-value>sUserID</param-value>
 		</init-param>
+		<init-param>
+			<param-name>warnPage</param-name>
+			<param-value>/sessionWarn.jsp</param-value>
+		</init-param>
 		
 	</filter>
 	<filter-mapping>
@@ -47,7 +51,23 @@
         <url-pattern>/servlet/dtreply/*</url-pattern>
     </servlet-mapping>
     
-    
+     
+	<servlet>
+        <servlet-name>ExcelOutServlet</servlet-name>
+        <servlet-class>com.github.tosdan.utils.servlets.ExcelOutServlet</servlet-class>
+        
+        <init-param>
+        	<param-name>dummy</param-name>
+        	<param-value>dummy</param-value>
+       	</init-param>
+       	
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ExcelOutServlet</servlet-name>
+        <url-pattern>/servlet/excelout/*</url-pattern>
+    </servlet-mapping>
+     
+        
 	<servlet>
         <servlet-name>DTReplyServlet</servlet-name>
         <servlet-class>com.github.tosdan.dataTableServerSide.DTReplyServlet</servlet-class>

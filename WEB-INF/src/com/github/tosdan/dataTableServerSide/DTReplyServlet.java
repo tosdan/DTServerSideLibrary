@@ -80,7 +80,7 @@ public class DTReplyServlet extends BasicHttpServlet
 		resp.setContentType("text/html; charset=ISO-8859-1");
 		// restituisce il JSON
 		out.print( json );
-		
+		req.getSession().setAttribute( "JsonDataTableString", json );
 		if ( this._booleanSafeParse( req.getParameter("debugJson") ) )
 			System.out.println( json );
 		

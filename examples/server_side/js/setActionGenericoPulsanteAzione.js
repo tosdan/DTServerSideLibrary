@@ -11,7 +11,7 @@ function setActionPulsanteAzione( oTable, idPulsante, classeDivCustomToolbar, ar
 		if (dati.length > 0) {
 			alert(dati);
 		}
-		 
+		document.location = "/DTServerSideLibrary/servlet/excelout/scarica?titoloXls=Titolo__del__foglio__Excel&nomeFoglioXls=Foglio__titolo";
 //		oTable.fnDraw(); // refresh tabella
 	} );
 //	console.log(oTable.oSettings);
