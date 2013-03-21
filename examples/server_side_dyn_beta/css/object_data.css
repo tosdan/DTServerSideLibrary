@@ -1,8 +1,9 @@
 
 @import "../css-3rd-party/demo_page.css";
-@import "../css-3rd-party/demo_table_mod.css";
+@import "../css-3rd-party/demo_table.css";
 @import "../css-3rd-party/bootstrap.css";
 @import "./bootstrap_integration.css";
+@import "./DT-integrations.css";
 
 .nascosta {
 	display: none;
@@ -13,7 +14,8 @@
 	padding: 3px 10px;
 }
 		
-#example_length select {
+
+.dataTables_length select {
 	width: 70px;
 }
 

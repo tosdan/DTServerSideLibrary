@@ -22,7 +22,7 @@ $(document).ready(function() {
 //	 	"bLengthChange": true , 
 		
 		"bServerSide": true ,
-		"sAjaxSource": "../../filter/dtreply/loadData.do?sqlName=dtexample&sqlType=query" ,
+		"sAjaxSource": "../../filter/sqlmanager/dtreply/loadData.do?sqlName=dtexample&sqlType=query" ,
 //		"sAjaxSource": "../../servlet/sqlmanager/loadData.do?sqlName=dtexample&sqlType=query&NextHandlerServlet=DTReplyServlet" ,
 		"sServerMethod": "POST" ,
 		

@@ -14,133 +14,125 @@
 
 	<filter>
 		<filter-name>AuthFilter</filter-name>
-		<filter-class>com.github.tosdan.utils.filters.AuthFilter</filter-class>
-		
+		<filter-class>com.github.tosdan.utils.filters.AuthFilter</filter-class>		
 		<init-param>
 			<param-name>userIDIdentifier</param-name>
-			<param-value>sUserID</param-value>
+			<param-value>UserID</param-value>
 		</init-param>
+		<init-param>
+			<param-name>UsefullSessionParamsIdentifier</param-name>
+			<param-value>MappaParametriUtili</param-value>
+		</init-param>	
 		<init-param>
 			<param-name>warnPage</param-name>
 			<param-value>/sessionWarn.jsp</param-value>
-		</init-param>
-		
+		</init-param>		
 	</filter>
+	
+	<filter>
+		<filter-name>SqlManagerFilter</filter-name>
+		<filter-class>com.github.tosdan.utils.filters.SqlManagerFilter</filter-class>        
+        <init-param>
+	        <param-name>logFileName</param-name>
+	        <param-value>/WEB-INF/WebAppsLogFiles/SqlManger/logSqlMangerServlet.txt</param-value>
+	    </init-param>        
+        <init-param>
+	        <param-name>SqlManagerServletConf_File</param-name>
+	        <param-value>/WEB-INF/WebAppsConfigFiles/SqlManager/SqlManagerServletConf.properties</param-value>
+	    </init-param>        
+        <init-param>
+	        <param-name>SqlManagerServletConf_Path</param-name>
+	        <param-value>/WEB-INF/WebAppsConfigFiles/SqlManager</param-value>
+	    </init-param>		
+		<init-param>
+			<param-name>UsefullSessionParamsIdentifier</param-name>
+			<param-value>MappaParametriUtili</param-value>
+		</init-param>	
+	</filter>
+	
+	
 	<filter-mapping>
 		<filter-name>AuthFilter</filter-name>
 		<url-pattern>/niente/*</url-pattern>
 	</filter-mapping>
-
-	<filter>
-		<filter-name>SqlManagerFilter</filter-name>
-		<filter-class>com.github.tosdan.utils.filters.SqlManagerFilter</filter-class>
-        
-        <init-param>
-	        <param-name>logFileName</param-name>
-	        <param-value>/WEB-INF/WebAppsLogFiles/SqlManger/logSqlMangerServlet.txt</param-value>
-	    </init-param>
-        
-        <init-param>
-	        <param-name>SqlManagerServletConf_File</param-name>
-	        <param-value>/WEB-INF/WebAppsConfigFiles/SqlManager/SqlManagerServletConf.properties</param-value>
-	    </init-param>
-        
-        <init-param>
-	        <param-name>SqlManagerServletConf_Path</param-name>
-	        <param-value>/WEB-INF/WebAppsConfigFiles/SqlManager</param-value>
-	    </init-param>
-		
-	</filter>
 	<filter-mapping>
 		<filter-name>SqlManagerFilter</filter-name>
-		<url-pattern>/filter/dtreply/*</url-pattern>
+		<url-pattern>/filter/sqlmanager/*</url-pattern>
 	</filter-mapping>
 
+	
 	<servlet>
 		<servlet-name>QueryRunnerServlet</servlet-name>
         <servlet-class>com.github.tosdan.utils.servlets.QueryRunnerServlet</servlet-class>
-        
         <init-param>
         	<param-name>file_dbConf</param-name>
         	<param-value>/WEB-INF/dbconf.properties</param-value>
        	</init-param>
-       	
         <init-param>
 	        <param-name>logFileName</param-name>
 	        <param-value>/WEB-INF/WebAppsLogFiles/QueryRunner/logQueryRunner.txt</param-value>
 	    </init-param>
-        
 	</servlet>
-    <servlet-mapping>
-        <servlet-name>QueryRunnerServlet</servlet-name>
-        <url-pattern>/servlet/dtreply/*</url-pattern>
-    </servlet-mapping>
     
-     
 	<servlet>
         <servlet-name>ExcelOutServlet</servlet-name>
         <servlet-class>com.github.tosdan.utils.servlets.ExcelOutServlet</servlet-class>
-        
         <init-param>
         	<param-name>dummy</param-name>
         	<param-value>dummy</param-value>
        	</init-param>
-       	
     </servlet>
-    <servlet-mapping>
-        <servlet-name>ExcelOutServlet</servlet-name>
-        <url-pattern>/servlet/excelout/*</url-pattern>
-    </servlet-mapping>
-     
         
 	<servlet>
         <servlet-name>DTReplyServlet</servlet-name>
         <servlet-class>com.github.tosdan.dataTableServerSide.DTReplyServlet</servlet-class>
-        
         <init-param>
         	<param-name>file_dbConf</param-name>
         	<param-value>/WEB-INF/dbconf.properties</param-value>
        	</init-param>
-       	
         <init-param>
 	        <param-name>logFileName</param-name>
 	        <param-value>/WEB-INF/WebAppsLogFiles/DTReplyLog/logDtReplyServlet.txt</param-value>
 	    </init-param>
-        
     </servlet>
+        
+	<servlet>
+        <servlet-name>SqlManagerServlet</servlet-name>
+        <servlet-class>com.github.tosdan.utils.servlets.SqlManagerServlet</servlet-class>
+        <init-param>
+	        <param-name>logFileName</param-name>
+	        <param-value>/WEB-INF/WebAppsLogFiles/SqlManger/logSqlMangerServlet.txt</param-value>
+	    </init-param>
+        <init-param>
+	        <param-name>SqlManagerServletConf_File</param-name>
+	        <param-value>/WEB-INF/WebAppsConfigFiles/SqlManager/SqlManagerServletConf.properties</param-value>
+	    </init-param>
+        <init-param>
+	        <param-name>SqlManagerServletConf_Path</param-name>
+	        <param-value>/WEB-INF/WebAppsConfigFiles/SqlManager</param-value>
+	    </init-param>
+    </servlet>
+	
+	
+    <servlet-mapping>
+        <servlet-name>SqlManagerServlet</servlet-name>
+        <url-pattern>/servlet/sqlmanager/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExcelOutServlet</servlet-name>
+        <url-pattern>/servlet/excelout/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DTReplyServlet</servlet-name>
+        <url-pattern>/filter/sqlmanager/dtreply/*</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DTReplyServlet</servlet-name>
         <url-pattern>/servlet/dtreply/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DTReplyServlet</servlet-name>
-        <url-pattern>/filter/dtreply/*</url-pattern>
-    </servlet-mapping>
-        
-        
-	<servlet>
-        <servlet-name>SqlManagerServlet</servlet-name>
-        <servlet-class>com.github.tosdan.utils.servlets.SqlManagerServlet</servlet-class>
-        
-        <init-param>
-	        <param-name>logFileName</param-name>
-	        <param-value>/WEB-INF/WebAppsLogFiles/SqlManger/logSqlMangerServlet.txt</param-value>
-	    </init-param>
-        
-        <init-param>
-	        <param-name>SqlManagerServletConf_File</param-name>
-	        <param-value>/WEB-INF/WebAppsConfigFiles/SqlManager/SqlManagerServletConf.properties</param-value>
-	    </init-param>
-        
-        <init-param>
-	        <param-name>SqlManagerServletConf_Path</param-name>
-	        <param-value>/WEB-INF/WebAppsConfigFiles/SqlManager</param-value>
-	    </init-param>
-        
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>SqlManagerServlet</servlet-name>
-        <url-pattern>/servlet/sqlmanager/*</url-pattern>
+        <servlet-name>QueryRunnerServlet</servlet-name>
+        <url-pattern>/servlet/dtreply/*</url-pattern>
     </servlet-mapping>
         
         

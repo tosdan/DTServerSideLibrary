@@ -64,6 +64,7 @@ public final class object_005fdata_jsp extends org.apache.jasper.runtime.HttpJsp
       out.write("\n");
       out.write("\t\t<script type=\"text/javascript\" src=\"./js-3rd-party/jquery-1.9.1.js\"></script>\n");
       out.write("\t\t<script type=\"text/javascript\" src=\"./js-3rd-party/jquery.dataTables.js\"></script>\n");
+      out.write("\t\t<script type=\"text/javascript\" src=\"./js-3rd-party/dataTables.bootstrap-partial.js\"></script>\n");
       out.write("\t\t\n");
       out.write("\t\t<script type=\"text/javascript\" src=\"./js/fnJQDisableTextSelect.js\"></script>\n");
       out.write("\t\t<script type=\"text/javascript\" src=\"./js/dtCustomFunctionLibrary.js\"></script>\n");

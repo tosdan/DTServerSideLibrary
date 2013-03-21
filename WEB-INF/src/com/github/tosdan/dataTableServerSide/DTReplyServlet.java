@@ -54,7 +54,7 @@ public class DTReplyServlet extends BasicHttpServlet
 		String reqLog = this._processRequestForParams( req );
 		if (this._booleanSafeParse( req.getParameter("logDTReplyReqParams") ) && this._initConfigParamsMap.get("logFileName") != null ) 
 			// crea un file di log con il nome passato come parametro nella sottocartella della webapp
-			this._logOnFile( this._app.getRealPath(this._initConfigParamsMap.get("logFileName")), reqLog );
+			this._logOnFile( this._ctx.getRealPath(this._initConfigParamsMap.get("logFileName")), reqLog );
 		
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -105,7 +105,7 @@ public class DTReplyServlet extends BasicHttpServlet
 		// oggetto che rielabora la query in base alle impostazioni passate dalla DataTable
 		DTReplySqlProvider dtrSqlProvider = new DTReplySqlProvider(parametriDataTable, querySql);
 		this.queryEseguita = dtrSqlProvider.toString();
-		if ( this._booleanSafeParse( parametriDataTable.get("stampaQuery") ) ){
+		if ( this._booleanSafeParse(parametriDataTable.get("stampaQuery")) ) {
 			System.out.println( "-- Query per " + this.getClass().getName() + "\n"+ this.queryEseguita );
 		}
 		// oggetto che fornisce la risposta da inoltrare alla DataTable

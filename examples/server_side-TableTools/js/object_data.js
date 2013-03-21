@@ -12,7 +12,7 @@ $(document).ready(function() {
 
 	oTable = $('#'+idTable).dataTable( {
 //		"sDom": 'T<"'+ customToolbarClass +'"><"clear">p<"spacer">lf<"clear">rtip', // Definisce la struttura della DT e viene aggiunto ad essa anche un div con class="custom_toolbar" e uno con class="clear"
-		"sDom": '<"row-fluid"<"span6 '+ customToolbarClass +'"><"span6"T><"span6 pull-right"p><"spacer">l<"span6 pull-right"f>r>t<"row-fluid"<"span6"i><"span6"p>>' ,
+		"sDom": '<"row-fluid"<"pull-left '+ customToolbarClass +'"><"pull-left"T><"span12 pull-right"p><"spacer">l<"span6 pull-right"f>r>t<"row-fluid"<"span6"i><"span6"p>>' ,
 		"oTableTools": {
             "aButtons": [
                 {
@@ -37,7 +37,7 @@ $(document).ready(function() {
 		"aLengthMenu": [ [10, 15, 25, -1], [10, 15, 25, "Tutti"] ] ,
 		
 		"bServerSide": true ,
-		"sAjaxSource": "../../filter/dtreply/loadData.do?sqlName=dtexample2&sqlType=query" ,
+		"sAjaxSource": "../../filter/sqlmanager/dtreply/loadData.do?sqlName=dtexample2&sqlType=query" ,
 		"sServerMethod": "POST" ,
 		
 		"aaSorting": [ [1,'asc'] ] , // Ordinamento secondo la colonna "n" verso "asc / desc". Si puo' aggiungere un 

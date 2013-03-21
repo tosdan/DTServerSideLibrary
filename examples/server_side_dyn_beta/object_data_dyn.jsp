@@ -13,6 +13,7 @@
 		<script type="text/javascript" src="./js-3rd-party/jquery-1.9.1.js"></script>
 		<script type="text/javascript" src="./js-3rd-party/jquery.dataTables.js"></script>
 		<script type="text/javascript" src="./js/fnReloadAjax.js"></script>
+		<script type="text/javascript" src="./js-3rd-party/dataTables.bootstrap-partial.js"></script>
 		
 		<script type="text/javascript" src="./js/fnJQDisableTextSelect.js"></script>
 		<script type="text/javascript" src="./js/dtCustomFunctionLibrary.js"></script>
@@ -26,9 +27,9 @@
 
 		<script type="text/javascript">
 			var sqlName = 'dtexample' <% // TODO parametro sqlName passato nella request %>;
-			var sAjaxSource = "../../filter/dtreply/loadData.do?sqlName="+ sqlName +"&sqlType=query";
+			var sAjaxSource = "../../filter/sqlmanager/dtreply/loadData.do?sqlName="+ sqlName +"&sqlType=query";
 // 			var sAjaxSource = "../../servlet/sqlmanager/loadData.do?sqlName="+ sqlName +"&sqlType=query&NextHandlerServlet=DTReplyServlet";
-			
+		
 		</script>
 		
 		<style type="text/css">

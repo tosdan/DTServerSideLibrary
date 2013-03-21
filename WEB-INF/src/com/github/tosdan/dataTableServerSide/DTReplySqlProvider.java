@@ -65,19 +65,19 @@ public class DTReplySqlProvider
 		
 		String aliasRowNumber = "DT_RowId"; // DT_RowId stringa riservata in DataTables: il valore ricavato dal DB viene inserito come id del <tr> associato al record
 		
-		if ( sOrderBy.isEmpty() || (row_number != null && row_number.equalsIgnoreCase("false")) )
+		if ( sOrderBy.isEmpty() || (this.row_number != null && this.row_number.equalsIgnoreCase("false")) )
 		{	// Senza alcun ordinamento e' impossibile usare la row_number quindi viene a meno anche la paginazione
 			String orderByClause = sOrderBy.isEmpty() ? "" : " ORDER BY " + sOrderBy;
 			querySql =
 					" SELECT * \n " +
-					" FROM " + stringaSQL + "\n " +
+					" FROM " + this.stringaSQL + "\n " +
 					" WHERE 1=1 " + this.getFiltroRicerca() + "\n " +
 					orderByClause + "\n";
 		} else {
 			querySql = 
 				" SELECT * FROM ( \n"+
 				" 	SELECT ROW_NUMBER() OVER( ORDER BY "+sOrderBy+" ) AS "+aliasRowNumber+ ", * \n" +
-				" 	FROM " + stringaSQL + " \n" +
+				" 	FROM " + this.stringaSQL + " \n" +
 				" WHERE 1=1 " + this.getFiltroRicerca() + "\n" +
 				" ) AS tabella_con_righe \n" + 
 				" WHERE 1=1 " + this.getFiltroPaginazione(aliasRowNumber);
@@ -93,8 +93,8 @@ public class DTReplySqlProvider
 	public String getSqlDatiAggiuntivi()
 	{
 		String sql = 
-			"SELECT ( SELECT COUNT(*) FROM " + stringaSQL +" )  AS iTotalRecords \n " +
-			"		,  ( SELECT COUNT(*) FROM " + stringaSQL + " WHERE 1=1" + this.getFiltroRicerca() +" ) AS iTotalDisplayRecords \n ";
+			"SELECT ( SELECT COUNT(*) FROM " + this.stringaSQL +" )  AS iTotalRecords \n " +
+			"		,  ( SELECT COUNT(*) FROM " + this.stringaSQL + " WHERE 1=1" + this.getFiltroRicerca() +" ) AS iTotalDisplayRecords \n ";
 
 		return sql;
 	}
@@ -145,15 +145,15 @@ public class DTReplySqlProvider
 	public Map<String, String> getOrdinamentoColonneNamed()
 	{
 		LinkedHashMap<String, String> result = new LinkedHashMap<String, String>();
-		if ( iSortingCols != null )
+		if ( this.iSortingCols != null )
 		{
-			for ( int i = 0 ; i < Integer.valueOf( iSortingCols ) ; i++ )
+			for ( int i = 0 ; i < Integer.valueOf( this.iSortingCols ) ; i++ )
 			{
-				String versoOrdinamentoIEsima 		=	parametriRequest.get("sSortDir_" + i).toUpperCase(); // puo' essere ASC o DESC
-				int indiceIEsimaColonnaDaOrdinare 	=	Integer.parseInt( parametriRequest.get("iSortCol_" + i) );
+				String versoOrdinamentoIEsima 		=	this.parametriRequest.get("sSortDir_" + i).toUpperCase(); // puo' essere ASC o DESC
+				int indiceIEsimaColonnaDaOrdinare 	=	Integer.parseInt( this.parametriRequest.get("iSortCol_" + i) );
 				// NB: iSortCol_[0, 1, 2...] => [I, II, III...] numera i criteri di ordinamento: il 1o criterio per cui ordinare e' la colonna I, il 2o e' la colonna II...   
 				// Recupera il nome associato alle colonne attraverso mDataProp_xx piu' l'indice di colonna recuperato da iSortCol 
-				String nomeIEsimaColonnaDaOrdinare 	= nomiColonne.get( indiceIEsimaColonnaDaOrdinare );	//parametriRequest.get("mDataProp_" + indiceIEsimaColonnaDaOrdinare); 
+				String nomeIEsimaColonnaDaOrdinare 	= this.nomiColonne.get( indiceIEsimaColonnaDaOrdinare );	//parametriRequest.get("mDataProp_" + indiceIEsimaColonnaDaOrdinare); 
 				
 				result.put( nomeIEsimaColonnaDaOrdinare, versoOrdinamentoIEsima );
 			}
@@ -169,12 +169,12 @@ public class DTReplySqlProvider
 	public Map<Integer, String> getOrdinamentoColonneNum()
 	{
 		LinkedHashMap<Integer, String> result = new LinkedHashMap<Integer, String>();
-		if ( iSortingCols != null )
+		if ( this.iSortingCols != null )
 		{
-			for ( int i = 0 ; i < Integer.valueOf( iSortingCols ) ; i++ )
+			for ( int i = 0 ; i < Integer.valueOf( this.iSortingCols ) ; i++ )
 			{
-				String versoOrdinamentoIEsima 		=	parametriRequest.get("sSortDir_" + i).toUpperCase(); // puo' essere ASC o DESC
-				int indiceIEsimaColonnaDaOrdinare 	=	Integer.parseInt( parametriRequest.get("iSortCol_" + i) );
+				String versoOrdinamentoIEsima 		=	this.parametriRequest.get("sSortDir_" + i).toUpperCase(); // puo' essere ASC o DESC
+				int indiceIEsimaColonnaDaOrdinare 	=	Integer.parseInt( this.parametriRequest.get("iSortCol_" + i) );
 				
 				result.put( indiceIEsimaColonnaDaOrdinare, versoOrdinamentoIEsima );
 			}
@@ -191,18 +191,20 @@ public class DTReplySqlProvider
 	{
 		String filtro = "";
 		
-		if ( sSearch !=null && !sSearch.equals("") )
+		if ( this.sSearch !=null && !this.sSearch.equals("") )
 		{
-			for ( int i = 0; i < Integer.valueOf(iColumns) ; i++ ) 
+			for ( int i = 0; i < Integer.valueOf(this.iColumns) ; i++ ) 
 			{
-				if ( parametriRequest.get("bSearchable_"+i).equalsIgnoreCase("true") && nomiColonne.get(i) != null && !nomiColonne.get(i).equals("")) // verifica che per tale colonna sia richiesto di attuare il filtro
+				if ( this.parametriRequest.get("bSearchable_"+i).equalsIgnoreCase("true") 
+						&& this.nomiColonne.get(i) != null 
+						&& !this.nomiColonne.get(i).equals("")) // verifica che per tale colonna sia richiesto di attuare il filtro
 				{
 					if ( filtro.isEmpty() ) 
 						filtro += " AND ( ";
 					else 
 						filtro += " OR ";
 					
-					filtro += nomiColonne.get( i ) + " LIKE " + " '%"+ sSearch +"%' " ;
+					filtro += this.nomiColonne.get( i ) + " LIKE " + " '%"+ this.sSearch.replaceAll( "'", "''" ) +"%' " ;
 				}
 			}
 			
@@ -226,8 +228,8 @@ public class DTReplySqlProvider
 		
 		if ( iDisplayStart != null  &&  iDisplayLength != null && ! iDisplayLength.equals( "-1" ))
 		{
-			int iIndicePrimoElem 	=	Integer.valueOf(iDisplayStart);
-			int iDimPagina 			=	Integer.valueOf(iDisplayLength);
+			int iIndicePrimoElem 	=	Integer.valueOf(this.iDisplayStart);
+			int iDimPagina 			=	Integer.valueOf(this.iDisplayLength);
 			
 			retVal = " AND "+alisRowNumber+" BETWEEN "+(iIndicePrimoElem + 1)+" AND "+ (iDimPagina + iIndicePrimoElem);
 		}
@@ -273,12 +275,12 @@ public class DTReplySqlProvider
 	{
 		LinkedHashMap<String, Boolean> result = new LinkedHashMap<String, Boolean>();
 		
-		if ( sSearch !=null && ! sSearch.equals("") )
+		if ( this.sSearch !=null && ! this.sSearch.equals("") )
 		{
-			for (int i = 0; i < Integer.valueOf(iColumns) ; i++) 
+			for (int i = 0; i < Integer.valueOf(this.iColumns) ; i++) 
 			{
-				if ( parametriRequest.get("bSearchable_"+i).equalsIgnoreCase("true") )
-					result.put( nomiColonne.get( i ), Boolean.valueOf(parametriRequest.get("bSearchable_"+i)) );
+				if ( this.parametriRequest.get("bSearchable_"+i).equalsIgnoreCase("true") )
+					result.put( this.nomiColonne.get( i ), Boolean.valueOf(this.parametriRequest.get("bSearchable_"+i)) );
 			}
 		}
 		
@@ -290,9 +292,9 @@ public class DTReplySqlProvider
 	@Override
 	public String toString()
 	{
-		String s = "********************************************";
-		s += "-- SqlDatiQuery:\n" + this.getSqlDatiQuery();
-		s += "\n\n-- SqlDatiAggiuntivi:\n" + this.getSqlDatiAggiuntivi();
+		String s = "--********************************************\n";
+		s += "-- *** SqlDatiQuery:\n" + this.getSqlDatiQuery();
+		s += "\n\n-- *** SqlDatiAggiuntivi:\n" + this.getSqlDatiAggiuntivi();
 		s += "\n********************************************\n";
 		return s;
 	}

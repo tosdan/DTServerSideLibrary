@@ -1,0 +1,73 @@
+.dataTables_length {
+	width: auto;
+}
+
+.dataTables_filter {
+	width: auto;
+}
+
+.dataTables_info {
+	width: auto;
+}
+
+
+/**
+ * Parti copiate da bootstrap per o pulsanti di paginazione della DataTable
+ */
+.paging_full_numbers a.paginate_button, .paging_full_numbers a.paginate_active {
+    -moz-border-top-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+	border-style: solid;
+	border-width: 1px;
+	border-image: none;
+	border-radius: 4px;
+	box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2) inset, 0px 1px 2px rgba(0, 0, 0, 0.05);
+	text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.75);
+    outline: 0px none;
+}
+
+.paging_full_numbers a.paginate_button {
+    background-color: rgb(245, 245, 245);
+	background-image: linear-gradient(to bottom, rgb(255, 255, 255), rgb(230, 230, 230));
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgb(179, 179, 179);
+	background-repeat: repeat-x;
+}
+
+.paging_full_numbers a.paginate_button:hover {
+	background-color: rgb(230, 230, 230);
+	background-position: 0px -15px;
+    outline: 0px none;
+	transition: background-position 0.1s linear 0s;
+	
+}
+
+.paging_full_numbers a.paginate_button:active {
+    background-image: none;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15) inset, 0px 1px 2px rgba(0, 0, 0, 0.05);
+    background-color: rgb(230, 230, 230);
+    outline: 0px none;
+}
+
+.paging_full_numbers a.paginate_button:hover, .paging_full_numbers a.paginate_button:focus {
+    color: rgb(51, 51, 51);
+    text-decoration: none;
+    background-position: 0px -15px;
+    transition: background-position 0.1s linear 0s;
+}
+
+.paging_full_numbers a.paginate_active {
+	border-color: rgba(159, 173, 255, 0.1) rgba(159, 173, 255, 0.1) rgb(139, 159, 200);
+	background-image: linear-gradient(to bottom, #FFFFFF 0%, #99B3FF 100%);
+}
+
+.paging_full_numbers a.paginate_button:focus {
+	text-decoration: none !important;
+	background-color: rgb(230, 230, 230);
+	background-position: 0px -15px;
+    outline: 0px none;
+	transition: background-position 0.1s linear 0s;
+	
+}
+
