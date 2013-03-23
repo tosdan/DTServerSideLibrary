@@ -6,9 +6,8 @@ $(document).ready(function() {
 		aSelected = [] ,					// mantiene in memoria gli id delle righe selezionionate nelle varie pagine 
 		mantieniSelezione = false , 		// abilita il mantenimento in memoria delle righe selezionate in ogni pagina 
 		arrayTitoliColonne = new Array(); 		// array che conterra' le intestazioni della tabella 
-		
-
 	
+	// variabile indispensabile per fare successive operazioni sulla datatable 
 	oTable = $('#'+idTable).dataTable( {
 		"sDom": '<"'+ customToolbarClass +'"><"clear">frt', // Definisce la struttura della DT e viene aggiunto ad essa anche un div con class="custom_toolbar" e uno con class="clear"
 		
@@ -20,12 +19,12 @@ $(document).ready(function() {
         "sScrollX": "100%" ,
         "bAutoWidth": false,
         "sScrollXInner": "300%" ,
-//        "bScrollCollapse": true ,
+//       "bScrollCollapse": true ,
 		"bStateSave": false , // Sfrutta i cookies per mantenere lo stato della pagina (ordinamento scelto, chiave di ricerca inserita... ) 
 //	 	"bLengthChange": true , 
 		
 		"bServerSide": true ,
-		"sAjaxSource": sAjaxSource ,
+		"sAjaxSource": sAjaxSource , // dichiarata nel jsp che contiene la datatable
 		"sServerMethod": "POST" ,
 		
 		"aaSorting": [ [0,'asc'] ] , // Ordinamento secondo la colonna "n" verso "asc / desc". Si puo' aggiungere un 
@@ -63,9 +62,7 @@ $(document).ready(function() {
         	// bug (o funzionalita' che sia): importando la localizzazione da file questa tutte le personalizzazioni
         	// sulla struttura della datatable devono essere eseguite da qui , fuori di qui non ha efficacia
 
-//        	arrayTitoliColonne = populateColumnsTitleArray(oTable);
         	arrayTitoliColonne = dtFn.fnGetMDataColumns(oTable);
-//        	console.log(arrayTitoliColonne);
         	configuraCustomToobar('div.'+customToolbarClass, idTable, oTable, arrayTitoliColonne);
         	dtFn.fnDTDisableInstantSearch(oTable, idTable);
         	$('#'+idTable+'_paginate').disableTextSelect(); // Disabilita la selezione per i pulsanti di cambio pagina (per il problema del doppio click che seleziona tutto)
@@ -79,8 +76,6 @@ $(document).ready(function() {
     			nomiColSize = arrayNomiCol.length ,
         		cols = oSettings.aoColumns;
         	
-//        	console.log($json.nomiColonne);
-        	
         	for (var i = 0 ; i < nomiColSize ; i++) {
         		cols[i].mData = arrayNomiCol[i];
         	}
@@ -89,7 +84,7 @@ $(document).ready(function() {
         		cols[i].mData = '';
         	}
         	
-//        	dtFn.hideNullColumns(nomiColonne, idTable, oSettings, nomiColSize);
+//        	dtFn.hideNullColumns(nomiColonne, idTable, oSettings, nomiColSize); // nasconde le colonne che non hanno intestazione, ma andrebbe richiamato ogni volta che si ridisegna la datatable
         	dtFn.semiDynamicTHsTitles(nomiColonne, idTable, oSettings);
 //        	console.log(oSettings.aoColumns);
 //    		console.log( dtFn.fnGetMDataColumns(oTable) );

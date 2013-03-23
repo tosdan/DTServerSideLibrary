@@ -10,6 +10,15 @@
 	width: auto;
 }
 
+		
+.dataTables_length select {
+	width: 70px;
+}
+
+
+.dataTables_filter input:focus, .dataTables_length select:focus, th:focus {
+    outline: 0px none;
+}
 
 /**
  * Parti copiate da bootstrap per o pulsanti di paginazione della DataTable

@@ -19,6 +19,7 @@
 		<script type="text/javascript" src="./js/dtCustomFunctionLibrary.js"></script>
 		
 		<script type="text/javascript" src="./js/fnSetActionPulsanteElimina.js"></script>
+		<script type="text/javascript" src="./js/setPulsanteReloadAjax_dyn.js"></script> 
 		<script type="text/javascript" src="./js/setActionGenericoPulsanteAzione_dyn.js"></script> 
 		<script type="text/javascript" src="./js/fnConfiguraCustomToobar_dyn.js"></script> <!-- Configura pulsanti e azioni collegate  --> 
 		
@@ -26,7 +27,9 @@
 		<script type="text/javascript" src="./js/object_data_dyn.js"></script>
 
 		<script type="text/javascript">
-			var sqlName = 'dtexample' <% // TODO parametro sqlName passato nella request %>;
+		
+			// nome della query da cercare nel file repository   
+			var sqlName = 'dtexample' <% // TODO parametro sqlName passato nella request %>;			
 			var sAjaxSource = "../../filter/sqlmanager/dtreply/loadData.do?sqlName="+ sqlName +"&sqlType=query";
 // 			var sAjaxSource = "../../servlet/sqlmanager/loadData.do?sqlName="+ sqlName +"&sqlType=query&NextHandlerServlet=DTReplyServlet";
 		

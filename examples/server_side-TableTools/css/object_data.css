@@ -15,12 +15,3 @@
 	text-align: center;
 	padding: 3px 10px;
 }
-		
-.dataTables_length select {
-	width: 70px;
-}
-
-
-.dataTables_filter input:focus, .dataTables_length select:focus, th:focus {
-    outline: 0px none;
-}

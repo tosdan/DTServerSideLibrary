@@ -8,13 +8,12 @@ function configuraCustomToobar(classeDivCustomToolbar, idTable, oTable, arrayTit
 
 		idSelezionaTutto = 'bSeleziona_tutto',
 		bSeleziona_tutto = "<a href='javascript:void(0)' class='"+ classPulsante +"' id='"+ idSelezionaTutto +"' ><i class='icon-asterisk'></i> Seleziona tutto</input>" ,
-		
 		idAnnulla_selezione = 'bAnnulla_selezione',
 		bAnnulla_selezione = "<a href='javascript:void(0)' class='"+ classPulsante +"' id='"+ idAnnulla_selezione +"' ><i class='icon-minus'></i> Annulla selezione</input>" ,
-		
 		idAzione = 'bAzione' ,
-		bAzione = "<a href='javascript:void(0)' class='"+ classPulsante +"' id='"+ idAzione +"' ><i class='icon-repeat'></i> Carica</input>" ,
-		
+		bAzione = "<a href='javascript:void(0)' class='"+ classPulsante +"' id='"+ idAzione +"' ><i class='icon-play'></i> Azione</input>" ,
+		idRicarica = 'bRicarica' ,
+		bRicarica = "<a href='javascript:void(0)' class='"+ classPulsante +"' id='"+ idRicarica +"' ><i class='icon-repeat'></i> Ricarica</input>" ,
 		idElimina = 'bElimina' ,
 		bElimina = "<a href='javascript:void(0)' class='"+ classPulsante +"' id='"+ idElimina +"' ><i class='icon-trash'></i> Elimina</input>";
 	
@@ -22,22 +21,22 @@ function configuraCustomToobar(classeDivCustomToolbar, idTable, oTable, arrayTit
 	$(classeDivCustomToolbar).html(	
 //			bSeleziona_tutto + " " +
 			bAnnulla_selezione + " " +
+			bRicarica + " " +
 			bAzione + " " +
 			bElimina
-			); 
-
+	); 
 	
 	// Configura l'azione per il pulsante Seleziona_tutto 
 	$(classeDivCustomToolbar + " #"+ idSelezionaTutto ).on('click', function (e) {
 		dtFn.fnSetSelection(true, oTable, 'expand' );
 	} );
 	
-	
 	// Configura l'azione per il pulsante Annulla_selezione 
 	$(classeDivCustomToolbar + " #"+ idAnnulla_selezione ).on('click', function (e) {
 		dtFn.fnSetSelection(false, oTable, 'expand');
 	} );
 
+	setPulsanteReloadAjax( oTable, idRicarica, classeDivCustomToolbar );
 	setActionPulsanteAzione(oTable, idAzione, classeDivCustomToolbar, arrayTitoliColonne, 'nascosta');
 	setActionPulsanteElimina(oTable, idElimina, classeDivCustomToolbar, 'nascosta');
 }

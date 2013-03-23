@@ -11,9 +11,6 @@ function setActionPulsanteAzione( oTable, idPulsante, classeDivCustomToolbar, ar
 		if (dati.length > 0) {
 			alert(dati);
 		}
-		oTable.fnReloadAjax('d');
-		
-		oTable.fnDraw(); // refresh tabella
 	} );
 //	console.log(oTable.oSettings);
 //	oTable._fnAjaxParameters(oTable.oSettings);
