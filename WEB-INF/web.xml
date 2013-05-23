@@ -44,10 +44,6 @@
 	        <param-name>SqlManagerServletConf_Path</param-name>
 	        <param-value>/WEB-INF/WebAppsConfigFiles/SqlManager</param-value>
 	    </init-param>		
-		<init-param>
-			<param-name>UsefullSessionParamsIdentifier</param-name>
-			<param-value>MappaParametriUtili</param-value>
-		</init-param>	
 	</filter>
 	
 	
