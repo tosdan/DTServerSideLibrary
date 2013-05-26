@@ -84,12 +84,24 @@ public class SqlManagerFilter extends BasicFilter
 //		System.out.println( this._filterConfig.getFilterName() +"\n" + req.getSession().getAttribute( "JsonDataTableString" ) + " - " + req.getSession().getAttribute( "DataTableQuery" ));
 	}
 	
+	@SuppressWarnings( "unchecked" )
 	protected Map<String, Object> getParametriAggiuntivi(HttpServletRequest req) {
 		String idParametriAggiuntiviDaSessione = req.getParameter( "SqlMngrSessionCustomParamsMap" );
-		@SuppressWarnings( "unchecked" )
-		Map<String, Object> mappaParametriAggiuntivi = (Map<String, Object>) req.getSession().getAttribute(idParametriAggiuntiviDaSessione);
+		String idParametriAggiuntiviOnCallingChain = req.getParameter( "SqlMngrCustomParamsMap" ); // aggiunti da servlet nella catena di chiamate 
+
+		Map<String, Object> mappaParametriAggiuntivi = null;
+		if (idParametriAggiuntiviDaSessione != null )		
+			mappaParametriAggiuntivi = (Map<String, Object>) req.getSession().getAttribute(idParametriAggiuntiviDaSessione);
+
+		Map<String, Object> mappaParametriAggiuntiviOnCallingChain = null;
+		if (idParametriAggiuntiviOnCallingChain != null)
+		mappaParametriAggiuntiviOnCallingChain = (Map<String, Object>) req.getAttribute(idParametriAggiuntiviOnCallingChain);
+
 		if (mappaParametriAggiuntivi == null) 
 			mappaParametriAggiuntivi = new HashMap<String, Object>();
+		if (mappaParametriAggiuntiviOnCallingChain != null)
+			mappaParametriAggiuntivi.putAll( mappaParametriAggiuntiviOnCallingChain );
+		
 		
 		return mappaParametriAggiuntivi;
 	}

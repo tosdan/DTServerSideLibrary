@@ -1,4 +1,4 @@
-.btn:focus {
+.btn:focus, .no-outline:focus {
     outline: 0px none;
 }
 
@@ -7,4 +7,17 @@ a.btn {
 	font: 100%/1.45em "Lucida Grande",Verdana,Arial,Helvetica,sans-serif !important;
 	color: rgb(51, 51, 51) !important;
 	
+}
+
+.cell-text-center {
+	text-align: center !important;
+}
+
+.cell-text-right {
+	text-align: right !important;
+}
+
+
+.table-striped-strong tbody tr:nth-child(odd) td {
+   background-color: #EAEAEA;
 }

@@ -54,6 +54,8 @@
 	<filter-mapping>
 		<filter-name>SqlManagerFilter</filter-name>
 		<url-pattern>/filter/sqlmanager/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>		
 	</filter-mapping>
 
 	
