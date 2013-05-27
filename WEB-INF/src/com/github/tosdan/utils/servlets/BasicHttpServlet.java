@@ -102,6 +102,7 @@ public abstract class BasicHttpServlet extends HttpServlet
 	 * La mappe sono mantenute in un campo della classe (Map&lt;String, String&gt; <code>_requestParams</code> e Map&lt;String, List&lt;String&gt;&gt; <code>_requestMultipleValuesParamsMap</code>).
 	 * @param req oggetto request da processare
 	 * @return Log testuale delle associazioni parametro=>valoreParametro dei parametri estratti
+	 * @deprecated
 	 */
 	protected String _processRequestForParams(HttpServletRequest req)
 	{
@@ -145,6 +146,46 @@ public abstract class BasicHttpServlet extends HttpServlet
 		return reqLog;
 	}
 	
+	
+
+	/**
+	 * 
+	 * @param req
+	 * @return
+	 */
+	protected Map<String, String> get_requestParamsMap(HttpServletRequest req)
+	{
+		if (this._requestParamsMap == null)
+			this._processRequestForParams( req );
+		
+		return this._requestParamsMap;
+	}
+
+	/**
+	 * 
+	 * @param req
+	 * @return
+	 */
+	protected Map<String, List<String>> get_requestMultipleValuesParamsMap(HttpServletRequest req)
+	{
+		if (this._requestMultipleValuesParamsMap == null)
+			this._processRequestForParams( req );
+		
+		return this._requestMultipleValuesParamsMap;
+	}
+
+	/**
+	 * 
+	 * @param req
+	 * @return
+	 */
+	protected Map<String, Object> get_requestAttributes(HttpServletRequest req)
+	{
+		if (this._requestAttributes == null)
+			this._processRequestForParams( req );
+		
+		return this._requestAttributes;
+	}
 
 	/**
 	 * Effettua il <code>parse</code> su una stringa per restituire un <code>boolean</code>, in caso di null o o in caso di fallimento del parse restituisce <code>false</code>.
