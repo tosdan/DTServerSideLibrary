@@ -60,7 +60,7 @@ public class SqlManagerFilter extends BasicFilter
 		// identificativo query nel file repository delle queries
 		String nomeSQL = req.getParameter( "sqlName" );
 		String[] nomiSQL = req.getParameterValues( "sqlName" );
-		if (nomeSQL == null) 
+		if (nomiSQL == null) 
 			throw new SqlManagerFilterException( "Filtro " + this._filterConfig.getFilterName()  
 					+ ": errore, parametro sqlName mancante nella request." );
 		
@@ -100,6 +100,8 @@ public class SqlManagerFilter extends BasicFilter
 				throw new SqlManagerFilterException(  "Filtro " + this._filterConfig.getFilterName()
 						+ ": errore caricamento query da file. Classe: "+this.getClass().getName(), e );
 			}
+		} else {
+			// TODO recupero query senza compilarla
 		}
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 		req.setAttribute( "queryRecuperata", querySql ); // per retro compatibilita'
