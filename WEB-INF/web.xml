@@ -1,5 +1,18 @@
-<web-app>
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
+	id="WebApp_ID" 
+	version="2.5">
 	
+	<display-name>DTServerSideLibrary</display-name>	
+        
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
 <!--  SOLO se si usa il tomcat jdbc connection pool	-->
 <!-- 
 	<resource-ref>
@@ -10,8 +23,13 @@
 		<res-sharing-scope>Shareable</res-sharing-scope>
 	</resource-ref>
 -->
-<!--	-->  
 
+<!--	-->  
+	<filter>
+	    <filter-name>NoCacheFilter</filter-name>
+	    <filter-class>com.github.tosdan.utils.filters.NoCacheFilter</filter-class>
+	</filter>
+	
 	<filter>
 		<filter-name>AuthFilter</filter-name>
 		<filter-class>com.github.tosdan.utils.filters.AuthFilter</filter-class>		
@@ -46,7 +64,11 @@
 	    </init-param>		
 	</filter>
 	
-	
+		
+	<filter-mapping>	
+		<filter-name>NoCacheFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
 	<filter-mapping>
 		<filter-name>AuthFilter</filter-name>
 		<url-pattern>/niente/*</url-pattern>
@@ -59,6 +81,9 @@
 	</filter-mapping>
 
 	
+<!-- ** FINE Filtri Inizio Servlets ** -->
+
+
 	<servlet>
 		<servlet-name>QueryRunnerServlet</servlet-name>
         <servlet-class>com.github.tosdan.utils.servlets.QueryRunnerServlet</servlet-class>
@@ -134,9 +159,6 @@
     </servlet-mapping>
         
         
-        
-    <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
+
     
 </web-app>

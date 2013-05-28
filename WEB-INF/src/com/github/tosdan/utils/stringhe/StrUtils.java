@@ -24,7 +24,7 @@ public class StrUtils
 		try {
 			while( (temp = bf.readLine()) != null) {
 				
-				if ( temp.indexOf("%[") > -1 && temp.equals( "%["+ section +"]%" ) ) {
+				if ( temp.indexOf("%[") > -1 && temp.matches( "(\\s)*%\\[(" + section + ")\\]%(\\s)*" ) ) {
 					
 					while( (temp = bf.readLine()) != null) {
 						

@@ -41,18 +41,23 @@ public abstract class BasicHttpServlet extends HttpServlet
 	
 	/**
 	 * Mappa dei <code>Parameters</code> della request: solo quelli a valore singolo
+	 * @deprecated Usare il metodo get_requestParamsMap()
 	 */
 	protected Map<String, String> _requestParamsMap;
 	
 	/**
 	 * Mappa dei <code>Parameters</code> della request: solo quelli a valore multiplo
+	 * @deprecated Usare il metodo get_requestMultipleValuesParamsMap()
 	 */
 	protected Map<String, List<String>> _requestMultipleValuesParamsMap;
 	
 	/**
 	 * Mappa degli <code>Attributes</code> della request
+	 * @deprecated Usare il metodo get_requestAttributes()
 	 */
 	protected Map<String, Object> _requestAttributes;
+
+	private String reqLog;
 	
 	@Override
 	public void init( ServletConfig config ) throws ServletException {
@@ -102,11 +107,11 @@ public abstract class BasicHttpServlet extends HttpServlet
 	 * La mappe sono mantenute in un campo della classe (Map&lt;String, String&gt; <code>_requestParams</code> e Map&lt;String, List&lt;String&gt;&gt; <code>_requestMultipleValuesParamsMap</code>).
 	 * @param req oggetto request da processare
 	 * @return Log testuale delle associazioni parametro=>valoreParametro dei parametri estratti
-	 * @deprecated
+	 * @deprecated Usare i metodi get_requestParamsMap(), get_requestParamsProcessLog(), get_requestMultipleValuesParamsMap() o get_requestAttributes().
 	 */
 	protected String _processRequestForParams(HttpServletRequest req)
 	{
-		String reqLog = "";		
+		this.reqLog = "";	
 		this._requestParamsMap = new HashMap<String, String>();
 		this._requestMultipleValuesParamsMap = new HashMap<String, List<String>>();
 		this._requestAttributes = new HashMap<String, Object>();
@@ -119,7 +124,7 @@ public abstract class BasicHttpServlet extends HttpServlet
 			
 			if ( paramsValues.length == 1 ) {
 				this._requestParamsMap.put(name, paramsValues[0]);
-				reqLog += name+"=>"+paramsValues[0]+"\n";
+				this.reqLog += name+"=>"+paramsValues[0]+"\n";
 				
 			} else if ( paramsValues.length > 1 ) {
 				List<String> values = new ArrayList<String>();
@@ -127,7 +132,7 @@ public abstract class BasicHttpServlet extends HttpServlet
 					values.add( paramsValues[i] );
 				}
 				this._requestMultipleValuesParamsMap.put(name, values);
-				reqLog += name+"=>"+values+"\n";
+				this.reqLog += name+"=>"+values+"\n";
 			}
 		}
 
@@ -137,13 +142,13 @@ public abstract class BasicHttpServlet extends HttpServlet
 			String attribName = (String) attributes.nextElement();
 			Object attriValue = req.getAttribute(attribName);
 			this._requestAttributes.put( attribName, attriValue  );
-			reqLog += attribName+"=>"+attriValue+"\n";
+			this.reqLog += attribName+"=>"+attriValue+"\n";
 		}
 
 		
-		reqLog += "---- Fine parametri ----";
+		this.reqLog += "---- Fine parametri ----";
 		
-		return reqLog;
+		return this.reqLog;
 	}
 	
 	
@@ -155,8 +160,7 @@ public abstract class BasicHttpServlet extends HttpServlet
 	 */
 	protected Map<String, String> get_requestParamsMap(HttpServletRequest req)
 	{
-		if (this._requestParamsMap == null)
-			this._processRequestForParams( req );
+		this._processRequestForParams( req );
 		
 		return this._requestParamsMap;
 	}
@@ -168,8 +172,7 @@ public abstract class BasicHttpServlet extends HttpServlet
 	 */
 	protected Map<String, List<String>> get_requestMultipleValuesParamsMap(HttpServletRequest req)
 	{
-		if (this._requestMultipleValuesParamsMap == null)
-			this._processRequestForParams( req );
+		this._processRequestForParams( req );
 		
 		return this._requestMultipleValuesParamsMap;
 	}
@@ -181,12 +184,23 @@ public abstract class BasicHttpServlet extends HttpServlet
 	 */
 	protected Map<String, Object> get_requestAttributes(HttpServletRequest req)
 	{
-		if (this._requestAttributes == null)
-			this._processRequestForParams( req );
+		this._processRequestForParams( req );
 		
 		return this._requestAttributes;
 	}
 
+	/**
+	 * 
+	 * @param req
+	 * @return
+	 */
+	protected String get_requestParamsProcessLog(HttpServletRequest req)
+	{
+		this._processRequestForParams( req );
+		
+		return this.reqLog;
+	}
+	
 	/**
 	 * Effettua il <code>parse</code> su una stringa per restituire un <code>boolean</code>, in caso di null o o in caso di fallimento del parse restituisce <code>false</code>.
 	 * @param s stringa da valutare
