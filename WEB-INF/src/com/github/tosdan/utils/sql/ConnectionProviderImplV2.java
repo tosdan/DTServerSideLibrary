@@ -8,8 +8,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-@Deprecated
-public class ConnectionProviderImpl implements ConnectionProvider
+
+public class ConnectionProviderImplV2 implements ConnectionProvider
 {
 	private Connection conn;
 	private String driver;
@@ -17,18 +17,17 @@ public class ConnectionProviderImpl implements ConnectionProvider
 	private String username;
 	private String password;
 //	private String dbType;
+	private String dbConfFile;
 	
-	public ConnectionProviderImpl()
+	public ConnectionProviderImplV2()
 	{
 	}
 	
-	public ConnectionProviderImpl(String dbConfFile) throws ConnectionProviderException
-	{
-		this.caricaDBConf( dbConfFile );
+	public ConnectionProviderImplV2(String dbConfFile) {
+		this.dbConfFile = dbConfFile;
 	}
 	
-	public ConnectionProviderImpl( String driver, String url, String username, String password )
-	{
+	public ConnectionProviderImplV2( String driver, String url, String username, String password ) {
 		this.driver = driver;
 		this.url = url;
 		this.username = username;
@@ -36,20 +35,17 @@ public class ConnectionProviderImpl implements ConnectionProvider
 	}
 
 	@Override
-	public Connection stabilisciConnessione(String dbConfFile) throws ConnectionProviderException
-	{
-		this.caricaDBConf( dbConfFile );
-		return stabilisciConnessione();
+	public Connection stabilisciConnessione() throws ConnectionProviderException {
+		return stabilisciConnessione(this.dbConfFile);
 		
 	}
 	
 	@Override
-	public Connection stabilisciConnessione() throws ConnectionProviderException
-	{
+	public Connection stabilisciConnessione(String dbConfFile) throws ConnectionProviderException {
+		this.caricaDBConf( dbConfFile );
 		try {
 			
-			if ( conn == null || conn.isClosed() )
-			{
+			if ( conn == null || conn.isClosed() ) {
 				this.connect();
 			}
 			
@@ -61,8 +57,7 @@ public class ConnectionProviderImpl implements ConnectionProvider
 		
 	}
 	
-	private void connect() throws ConnectionProviderException
-	{
+	private void connect() throws ConnectionProviderException {
 		try {
 			
 			Class.forName( driver ).newInstance();
@@ -88,6 +83,7 @@ public class ConnectionProviderImpl implements ConnectionProvider
 	@Override
 	public void caricaDBConf( String dbConfFile ) throws ConnectionProviderException
 	{
+		this.dbConfFile = dbConfFile;
 		Properties prop = new Properties();
 		FileInputStream fis = null;
 		
@@ -110,7 +106,7 @@ public class ConnectionProviderImpl implements ConnectionProvider
         }
         
         this.driver = prop.getProperty("driver");
-        this.url = prop.getProperty("url");
+        this.url = (prop.getProperty("url") != null) ? prop.getProperty("url") : prop.getProperty("connection");
         this.username = prop.getProperty("username");
         this.password = prop.getProperty("password");       
 //        this.dbType   = prop.getProperty("dbtype");   

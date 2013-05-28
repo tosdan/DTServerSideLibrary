@@ -57,8 +57,10 @@ public class SqlManagerFilter extends BasicFilter
 		// query da eseguire
 		String querySql = "";
 		Map<String, List<String>> queries = new HashMap<String, List<String>>();
-		// identificativo query nel file repository delle queries
-		String nomeSQL = req.getParameter( "sqlName" );
+		String nomeSqlOverride = this._blankIfNull( req.getAttribute( "nomeSqlOverride" ) );
+		// sqlName e' l'identificativo della query nel file repository delle queries.
+		// nomeSqlOverride puo' arrivare solo da una servlet e ha precedenza su sqlName
+		String nomeSQL = nomeSqlOverride.equals("") ?  req.getParameter("sqlName") : nomeSqlOverride;  
 		String[] nomiSQL = req.getParameterValues( "sqlName" );
 		if (nomiSQL == null) 
 			throw new SqlManagerFilterException( "Filtro " + this._filterConfig.getFilterName()  
