@@ -1,38 +1,44 @@
-iDisplayLength=>-1
+iDisplayLength=>10
 echoParams=>DT_RowClass;custom
 iDisplayStart=>0
 printStackTrace=>false
 stampaQuery=>false
 sColumns=>
-sqlName=>dtexample
-iSortCol_0=>0
+sqlName=>dtexample2
+iSortCol_0=>1
 mDataBinded=>true
 sEcho=>1
-iColumns=>5
+custom02=><img src='../examples_support/details_open.png'>
+iColumns=>6
 bRegex=>false
-row_number=>false
-mDataProp_4=>grade
-mDataProp_3=>version
-mDataProp_2=>platform
-mDataProp_1=>browser
+row_number=>true
+mDataProp_5=>grade
+mDataProp_4=>version
+mDataProp_3=>platform
+mDataProp_2=>browser
 iSortingCols=>1
-bSearchable_4=>false
-mDataProp_0=>engine
+bSearchable_5=>false
+mDataProp_1=>engine
+bSearchable_4=>true
+mDataProp_0=>custom02
 bSearchable_3=>true
 bSearchable_2=>true
 bSearchable_1=>true
-bSearchable_0=>true
+bSearchable_0=>false
 debugJson=>false
+sSearch_5=>
 sSearch_4=>
 sSearch_3=>
 sSearch_2=>
 sSearch_1=>
-sSearch=>
 sSearch_0=>
+sSearch=>
 logDTReplyReqParams=>true
+bRegex_5=>false
 bRegex_4=>false
 bRegex_3=>false
 bRegex_2=>false
+bSortable_5=>true
 bRegex_1=>false
 bSortable_4=>true
 bRegex_0=>false
@@ -40,12 +46,12 @@ bSortable_3=>true
 sSortDir_0=>asc
 bSortable_2=>true
 bSortable_1=>true
-bSortable_0=>true
+bSortable_0=>false
 sqlType=>query
-dtexample=>SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
-
-sqlManagerMappaQueries=>{dtexample=[SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+sqlManagerMappaQueries=>{dtexample2=[SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
 ]}
 queryRecuperata=>SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+
+dtexample2=>SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
 
 ---- Fine parametri ----
