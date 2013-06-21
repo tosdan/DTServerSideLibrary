@@ -28,7 +28,11 @@
 	<filter>
 	    <filter-name>NoCacheFilter</filter-name>
 	    <filter-class>com.github.tosdan.utils.filters.NoCacheFilter</filter-class>
-	</filter>
+	</filter>	
+	<filter-mapping>	
+		<filter-name>NoCacheFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
 	
 	<filter>
 		<filter-name>AuthFilter</filter-name>
@@ -46,6 +50,10 @@
 			<param-value>/sessionWarn.jsp</param-value>
 		</init-param>		
 	</filter>
+	<filter-mapping>
+		<filter-name>AuthFilter</filter-name>
+		<url-pattern>/niente/*</url-pattern>
+	</filter-mapping>
 	
 	<filter>
 		<filter-name>SqlManagerFilter</filter-name>
@@ -63,19 +71,24 @@
 	        <param-value>/WEB-INF/WebAppsConfigFiles/SqlManager</param-value>
 	    </init-param>		
 	</filter>
-	
-		
-	<filter-mapping>	
-		<filter-name>NoCacheFilter</filter-name>
-		<url-pattern>*.jsp</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>AuthFilter</filter-name>
-		<url-pattern>/niente/*</url-pattern>
-	</filter-mapping>
 	<filter-mapping>
 		<filter-name>SqlManagerFilter</filter-name>
 		<url-pattern>/filter/sqlmanager/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>		
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>SqlLoaderFilter</filter-name>
+		<filter-class>com.github.tosdan.utils.filters.sqlLoader.SqlLoaderFilter</filter-class>        
+        <init-param>
+	        <param-name>SqlLoaderConf_File</param-name>
+	        <param-value>/WEB-INF/WebAppsConfigFiles/SqlLoader/SqlLoaderConf.properties</param-value>
+	    </init-param>        
+	</filter>
+	<filter-mapping>
+		<filter-name>SqlLoaderFilter</filter-name>
+		<url-pattern>/filter/sqlloader/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>		
 	</filter-mapping>
@@ -96,6 +109,10 @@
 	        <param-value>/WEB-INF/WebAppsLogFiles/QueryRunner/logQueryRunner.txt</param-value>
 	    </init-param>
 	</servlet>
+    <servlet-mapping>
+        <servlet-name>QueryRunnerServlet</servlet-name>
+        <url-pattern>/servlet/dtreply/*</url-pattern>
+    </servlet-mapping>
     
 	<servlet>
         <servlet-name>ExcelOutServlet</servlet-name>
@@ -105,7 +122,11 @@
         	<param-value>dummy</param-value>
        	</init-param>
     </servlet>
-        
+    <servlet-mapping>
+        <servlet-name>ExcelOutServlet</servlet-name>
+        <url-pattern>/servlet/excelout/*</url-pattern>
+    </servlet-mapping>
+    
 	<servlet>
         <servlet-name>DTReplyServlet</servlet-name>
         <servlet-class>com.github.tosdan.dataTableServerSide.DTReplyServlet</servlet-class>
@@ -118,6 +139,12 @@
 	        <param-value>/WEB-INF/WebAppsLogFiles/DTReplyLog/logDtReplyServlet.txt</param-value>
 	    </init-param>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>DTReplyServlet</servlet-name>
+        <url-pattern>/filter/sqlmanager/dtreply/*</url-pattern>
+        <url-pattern>/filter/sqlloader/dtreply/*</url-pattern>
+        <url-pattern>/servlet/dtreply/*</url-pattern>
+    </servlet-mapping>
         
 	<servlet>
         <servlet-name>SqlManagerServlet</servlet-name>
@@ -135,30 +162,9 @@
 	        <param-value>/WEB-INF/WebAppsConfigFiles/SqlManager</param-value>
 	    </init-param>
     </servlet>
-	
-	
     <servlet-mapping>
         <servlet-name>SqlManagerServlet</servlet-name>
         <url-pattern>/servlet/sqlmanager/*</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ExcelOutServlet</servlet-name>
-        <url-pattern>/servlet/excelout/*</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DTReplyServlet</servlet-name>
-        <url-pattern>/filter/sqlmanager/dtreply/*</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DTReplyServlet</servlet-name>
-        <url-pattern>/servlet/dtreply/*</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>QueryRunnerServlet</servlet-name>
-        <url-pattern>/servlet/dtreply/*</url-pattern>
-    </servlet-mapping>
-        
-        
-
-    
+	
 </web-app>

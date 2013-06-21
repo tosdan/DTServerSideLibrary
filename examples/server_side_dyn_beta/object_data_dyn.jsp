@@ -30,7 +30,7 @@
 		
 			// nome della query da cercare nel file repository   
 			var sqlName = 'dtexample' <% // TODO parametro sqlName passato nella request %>;			
-			var sAjaxSource = "../../filter/sqlmanager/dtreply/loadData.do?sqlName="+ sqlName +"&sqlType=query";
+			var sAjaxSource = "../../filter/sqlloader/dtreply/loadData.do?sqlName="+ sqlName +"&sqlType=query";
 // 			var sAjaxSource = "../../servlet/sqlmanager/loadData.do?sqlName="+ sqlName +"&sqlType=query&NextHandlerServlet=DTReplyServlet";
 		
 		</script>
