@@ -27,7 +27,7 @@ $(document).ready(function() {
 		"aLengthMenu": [ [10, 15, 25, -1], [10, 15, 25, "Tutti"] ] ,
 		
 		"bServerSide": true ,
-		"sAjaxSource": "../../filter/sqlmanager/dtreply/loadData.do?sqlName=dtexample&sqlType=query" ,
+		"sAjaxSource": "../../filter/sqlloader/dtreply/loadData.do?sqlName=dtexample&sqlType=query" ,
 //		"sAjaxSource": "../../servlet/sqlmanager/loadData.do?sqlName=dtexample&sqlType=query&NextHandlerServlet=DTReplyServlet" ,
 		"sServerMethod": "POST" ,
 		

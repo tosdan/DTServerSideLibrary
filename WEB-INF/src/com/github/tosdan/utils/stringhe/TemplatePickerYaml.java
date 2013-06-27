@@ -17,4 +17,16 @@ public class TemplatePickerYaml implements TemplatePicker
 		return map.get( templateName );
 	}
 
+	@Override
+	public String normalize( String source )
+	{
+		// yaml non consente di usare tab per l'indentazione
+		source = source.replaceAll( "\t", String.format("%4s", " ") ); 
+		
+		// EDIT: non sembra esser un problema. Il segno "-" seguito da uno spazio in yaml è un elemento di una lista.
+//		source = source.replaceAll( "--(\\s)*", String.format("%s", "--") ); 
+		
+		return source;
+	}
+
 }

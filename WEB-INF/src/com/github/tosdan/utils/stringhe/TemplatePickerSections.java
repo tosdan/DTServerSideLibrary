@@ -9,4 +9,9 @@ public class TemplatePickerSections implements TemplatePicker
 		return StrUtils.findSection( sourceContent, templateName );
 	}
 
+	@Override
+	public String normalize( String source ) {
+		return source;
+	}
+
 }
