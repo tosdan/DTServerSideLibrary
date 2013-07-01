@@ -1,7 +1,5 @@
 package com.github.tosdan.utils.sql;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +14,7 @@ import com.github.tosdan.utils.stringhe.TemplatePicker;
 /**
  * 
  * @author Daniele
- * @version 0.1.1-b2013-06-28
+ * @version 0.1.0-b2013-06-28
  */
 public class MassiveQueryCompiler
 {
@@ -28,7 +26,7 @@ public class MassiveQueryCompiler
 	private Map<String, String> repositoryIndex;
 	private String queriesRepoFolderPath;
 	private MapFormatTypeValidator validator;
-	private InputStream templateInputStram;
+	private String templateAsString;
 	/**
 	 * Oggetto che sia in grado di interpretare i dati forniti al fine di trovare il template contenutovi.
 	 */
@@ -42,8 +40,8 @@ public class MassiveQueryCompiler
 	 * 
 	 * @param templateInputStram
 	 */
-	public MassiveQueryCompiler( InputStream templateInputStram ) {
-		this( templateInputStram, null );
+	public MassiveQueryCompiler( String templateAsString ) {
+		this( templateAsString, null );
 	}
 	
 	/**
@@ -51,9 +49,9 @@ public class MassiveQueryCompiler
 	 * @param templateInputStram
 	 * @param shiftingParamsMapsList
 	 */
-	public MassiveQueryCompiler( InputStream templateInputStram, List<Map<String, Object>> shiftingParamsMapsList ) {
+	public MassiveQueryCompiler( String templateAsString, List<Map<String, Object>> shiftingParamsMapsList ) {
 		this( null, null, shiftingParamsMapsList );
-		this.templateInputStram = templateInputStram;
+		this.templateAsString = templateAsString;
 	}
 	
 	/**
@@ -112,23 +110,14 @@ public class MassiveQueryCompiler
 			
 			List<String> compiledQueriesList = new ArrayList<String>();
 			if (this.shiftingParamsMapsList != null) {
-				
 				Map<String, Object> tmpSingleShiftAndConstantParamsMap = null;
 				for( Map<String, Object> singleShiftParamsMap : this.shiftingParamsMapsList ) {
-					this.templateInputStram.mark( 0 );
-
+					
 					tmpSingleShiftAndConstantParamsMap = new HashMap<String, Object>();
 					tmpSingleShiftAndConstantParamsMap.putAll( paramsMap );
 					tmpSingleShiftAndConstantParamsMap.putAll( singleShiftParamsMap ); // sovrascrive eventuali parametri con stessa chiave presenti nella mappa dei parametri costanti
 					
-					compiledQueriesList.add( this.getCompiledQuery(nomiQueriesDaCompilare[i], tmpSingleShiftAndConstantParamsMap) );
-					try {
-						this.templateInputStram.reset();
-					} catch ( IOException e ) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
+					compiledQueriesList.add( this.getCompiledQuery(nomiQueriesDaCompilare[i], tmpSingleShiftAndConstantParamsMap) );	
 				}
 				
 			} else {
@@ -155,8 +144,12 @@ public class MassiveQueryCompiler
 		if (this.repositoryIndex != null && this.queriesRepoFolderPath != null)
 			return TemplateCompiler.compile( repositoryIndex, queriesRepoFolderPath, templateName, substitutesValuesMap, picker, validator );
 		
-		else if (this.templateInputStram != null)
-			return TemplateCompiler.compile( templateInputStram, templateName, substitutesValuesMap, picker, validator );
+		else if (this.templateAsString != null) {
+			String s = TemplateCompiler.compile( templateAsString, templateName, substitutesValuesMap, picker, validator );
+//			System.out.println( s );
+			return s;
+		}
+		
 		else 
 			throw new IllegalArgumentException( "Errore " + this.getClass().getName() + ": repositoryIndex + queriesRepoFolderPath nulli o templateInputStram nullo. Deve esser forniuta una sorgente valida per recuperare il template da compilare." );
 	}

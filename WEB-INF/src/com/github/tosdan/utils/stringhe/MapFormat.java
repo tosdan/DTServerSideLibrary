@@ -13,14 +13,6 @@ import java.util.regex.Pattern;
 
 public class MapFormat
 {
-	// TODO metodi per personalizzazione sulla forma del placeholder: parentesi da usare e/o presenza del $ in testa
-	// TODO prendere spunto da qui per una NamedPreparedStatement
-	private Pattern schema;
-	private boolean blanknull = false;
-	private boolean keepUnMatched = false;
-	private Map<String, ? extends Object> parametri;
-	private MapFormatTypeValidator typeValidator;
-
     public static void main( String[] args )
 	{
 		String example = 
@@ -46,7 +38,15 @@ public class MapFormat
 		System.out.println( a + "\n\n\n" + MapFormat.format( example2, mappa ));
 		
 	}
-	
+
+	// TODO metodi per personalizzazione sulla forma del placeholder: parentesi da usare e/o presenza del $ in testa
+	// TODO prendere spunto da qui per una NamedPreparedStatement, ma anche no...
+	private Pattern schema;
+	private boolean blankSeNull = false;
+	private boolean keepUnMatched = false;
+	private Map<String, ? extends Object> parametri;
+	private MapFormatTypeValidator typeValidator;
+
     /**
      * @deprecated
      * 
@@ -97,7 +97,7 @@ public class MapFormat
 		if (typeValidator != null)
 			tipi = typeValidator.getTypes();
 		
-		this.schema = Pattern.compile("\\$\\{([a-zA-Z][a-zA-Z0-9_]*(\\.[a-zA-Z][a-zA-Z0-9_]*)*)(,[ ]?(?i)(" + tipi + "))?\\}");
+		this.schema = Pattern.compile("\\$\\{([a-zA-Z_][a-zA-Z0-9_]*(\\.[a-zA-Z_][a-zA-Z0-9_]*)*)(,[ ]?(?i)(" + tipi + "))?\\}");
 		
 	}
 	
@@ -123,41 +123,62 @@ public class MapFormat
 				matcher.reset(riga);
 				// finche' nella riga trova un match
 		        while ( matcher.find() ) {
-		            String sDaSostituire = matcher.group(); 	// puo' esser 	-> ${stringaDaSostituire} oppure ${stringaDaSostituire, integer}
-		            String chiaveSostituto = matcher.group(1); 	// sempre 		-> "stringaDaSostituire"
-		            String type = matcher.group(4);		 		// se presente	-> "integer"
-		            Object objSostituto = this.parametri.get(chiaveSostituto);//-> Null oppure Integer, Boolean o String
+		            String placeHolderDaRimpiazzare = matcher.group(); 	// puo' esser 	-> ${stringaDaSostituire} oppure ${stringaDaSostituire, integer}
+		            String strDentroAlPlaceHolder = matcher.group(1);	// sempre 		-> "stringaDaSostituire"
+		            String type = matcher.group(4);		 				// se presente	-> "integer"
+		            // La stringa del placeholder viene usata come chiave per trovare il valore sostitutivo nella mappa delle sostituzioni.
+		            Object objSostitutivo = this.parametri.get(strDentroAlPlaceHolder);//-> Null oppure Integer, Boolean o String...
 		            
-		            // se nessuna delle condizioni che seguono viene soddisfatta, non viene nemmeno effettuata
-		            // la sostituzione, perche' la sostituta rimarra' uguale al valore da sostituire
-		            String sSostituta = sDaSostituire;
+		            // Se nessuna delle condizioni che seguono viene soddisfatta, non viene nemmeno effettuata
+		            // la sostituzione, perche' la sostituita rimarra' uguale al valore da sostituire
+		            String strSostituita = placeHolderDaRimpiazzare;
 		            
-		            // se e' una lista, concatena i valori separandoli con la virgola.
-		            if ( objSostituto instanceof List && !((List<Object>) objSostituto).isEmpty() ) {
-		            	sSostituta = "";
-		        		for( Object listElem : (List<Object>) objSostituto ) {
+		            // Se e' una lista: forma una sequenza con i valori sostitutivi separati da virgola.
+		            if ( objSostitutivo instanceof List && !((List<Object>) objSostitutivo).isEmpty() ) {
+		            	strSostituita = "";
+		        		for( Object listElem : (List<Object>) objSostitutivo ) {
+		        			
 		        			if (! this.isTipoAmmesso(listElem) )
 		        				continue;
-		        			if ( !sSostituta.isEmpty() )
-		        				sSostituta += ", ";
 		        			
-		        			if ( this.typeValidator != null )
-		    		           	sSostituta += this.typeValidator.validate( listElem.toString(), type );
-		        			else
-		        				sSostituta += "'"+ listElem + "'"; // e' una precauzione, ma non sarebbe del tutto corretto. E' consigliato aggiugngere sempre il tipo di dato nel parametro da sostituire
+		        			if ( !strSostituita.isEmpty() )
+		        				strSostituita += ", ";
+		        			
+		        			if ( this.typeValidator != null ) {
+		    		           	
+		        				try {
+		    		           		
+									strSostituita += this.typeValidator.validate( listElem.toString(), type );
+									
+								} catch ( MapFormatTypeValidatorException e ) {
+									throw new MapFormatException( "Errore in validazione per '" +listElem.toString() + "'. " + e.getMessage(), e );
+								}
+		    		           	
+		        			} else 
+		        				strSostituita += listElem.toString();
 		        		}
-		        	// se non e' nullo il valore con cui sostituire il parametro 
-		            } else if ( this.isTipoAmmesso(objSostituto) ) {
-			            if ( this.typeValidator != null )
-			            	sSostituta = this.typeValidator.validate( objSostituto.toString(), type );
-			            else
-			            	sSostituta = objSostituto.toString();
-			        // se e' nullo il valore con cui sostituire il parametro ma e' true il flag per usare spazi bianchi al suo posto
-		            } else if ( objSostituto == null && this.blanknull) {
-		            	sSostituta = ""; 
+		        	// se il valore con cui sostituire il parametro non e' nullo (ed e' un oggetto ammesso)
+		            } else if ( this.isTipoAmmesso(objSostitutivo) ) {
+		            	
+			            if ( this.typeValidator != null ) {
+			            	
+			            	try {
+			            		
+								strSostituita = this.typeValidator.validate( objSostitutivo.toString(), type );
+								
+							} catch ( MapFormatTypeValidatorException e ) {
+								throw new MapFormatException( "Errore in validazione per '" +objSostitutivo.toString() + "'. " + e.getMessage(), e );
+							}
+			            	
+			            } else 
+			            	strSostituita = objSostitutivo.toString();
+			            
+			        // se e' nullo il valore con cui sostituire il parametro, ma e' true il flag per usare spazi bianchi al suo posto
+		            } else if ( objSostitutivo == null && this.blankSeNull) {
+		            	strSostituita = ""; 
 		            } 
 		            
-		            matcher.appendReplacement( sb, Matcher.quoteReplacement(sSostituta) );
+		            matcher.appendReplacement( sb, Matcher.quoteReplacement(strSostituita) );
 		        }
 		        matcher.appendTail(sb);
 		        
@@ -170,7 +191,7 @@ public class MapFormat
 		        if ( this.keepUnMatched || ! matcher.find() ) 
 		        	result += riga + "\n";
 			}
-		} catch ( IOException e ) { e.printStackTrace(); } // riguarda il buffered reader ma qui di I/O c'e' ben poco
+		} catch ( IOException e ) { e.printStackTrace(); } // e' obbligatorio intercettarla per via del BufferedReader, ma qui di I/O c'e' ben poco
 		
         return result;
         
@@ -179,33 +200,34 @@ public class MapFormat
 	private boolean isTipoAmmesso(Object o) {
 		return ( o instanceof String || o instanceof Integer || o instanceof Boolean 
 				|| o instanceof Double || o instanceof Float  || o instanceof BigDecimal 
-				|| o instanceof BigInteger );
+				|| o instanceof BigInteger || o instanceof Long || o instanceof Byte
+				|| o instanceof Short || o instanceof Character);
 	}
 	
 	/**
 	 * 
 	 * @return
 	 */
-	public Map<String, ? extends Object> getParametri()
-	{
+	public Map<String, ? extends Object> getParametri() {
 		return parametri;
 	}
 
 	/**
 	 * 
 	 * @param parametri
+	 * @return 
 	 */
-	public void setParametri( Map<String, ? extends Object> parametri )
-	{
+	public MapFormat setParametri( Map<String, ? extends Object> parametri ) {
 		this.parametri = parametri;
+		return this;
 	}
 
 	/**
 	 * 
 	 * @return
 	 */
-    public MapFormat setBlankNull() {
-        this.blanknull = true;
+    public MapFormat setBlankSeNull() {
+        this.blankSeNull = true;
         return this;
         
     }

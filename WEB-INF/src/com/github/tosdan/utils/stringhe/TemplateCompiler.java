@@ -13,7 +13,7 @@ import com.github.tosdan.utils.io.IOfrw;
 /**
  * 
  * @author Daniele
- * @version 1.1.1-b2013-06-28
+ * @version 1.1.0-b2013-06-28
  */
 public class TemplateCompiler
 {
@@ -49,6 +49,7 @@ public class TemplateCompiler
 	 * Oggetto che sia in grado di interpretare i dati forniti al fine di trovare il template contenutovi.
 	 */
 	private TemplatePicker picker;
+	private String templateAsString;
 	
 	/*************************************************************************/
 	/*******************          Costruttori          ***********************/
@@ -62,7 +63,7 @@ public class TemplateCompiler
 	 * @param substitutesValuesMap Mappa contenente i valori sostitutivi con cui rimpiazzare i parametri nel template.
 	 */
 	public TemplateCompiler( Map<String, String> repositoryIndex, String repositoryFolderPath, String templateName, Map<String, Object> substitutesValuesMap ) {
-		this( null, repositoryIndex, repositoryFolderPath, templateName, substitutesValuesMap );
+		this( null, null, repositoryIndex, repositoryFolderPath, templateName, substitutesValuesMap );
 	}
 	
 	/**
@@ -72,23 +73,36 @@ public class TemplateCompiler
 	 * @param substitutesValuesMap Mappa contenente i valori sostitutivi con cui rimpiazzare i parametri nel template.
 	 */
 	public TemplateCompiler( InputStream is, String templateName, Map<String, Object> substitutesValuesMap ) {
-		this( is, null, null, templateName, substitutesValuesMap );
+		this( null, is, null, null, templateName, substitutesValuesMap );
 	}
 	
 	/**
 	 * 
+	 * @param templateAsString Stringa conenente uno o più template/s.
+	 * @param templateName Nome del template da compilare.
+	 * @param substitutesValuesMap Mappa contenente i valori sostitutivi con cui rimpiazzare i parametri nel template.
+	 */
+	public TemplateCompiler( String templateAsString, String templateName, Map<String, Object> substitutesValuesMap ) {
+		this( templateAsString, null, null, null, templateName, substitutesValuesMap );
+	}
+	
+	/**
+	 * 
+	 * @param templateAsString Stringa conenente uno o più template/s.
 	 * @param is InputStream conenente la stringa in cui e'/sono memorizzato/i il/i template/s.
 	 * @param repositoryIndex Mappa con le associazioni tra i nomi dei templates e i relativi file-repository da cui recuperarli effettivamente.
 	 * @param repositoryFolderPath Percorso completo della cartella contenente i/il file repository dei template/s. Indispensabile se si vuole mantenere percorsi relativi nel file indice dei repositories.
 	 * @param templateName Nome del template da compilare.
 	 * @param substitutesValuesMap Mappa contenente i valori sostitutivi con cui rimpiazzare i parametri nel template.
 	 */
-	private TemplateCompiler( InputStream is
+	private TemplateCompiler( String templateAsString
+							, InputStream is
 							, Map<String, String> repositoryIndex
 							, String repositoryFolderPath
 							, String templateName
 							, Map<String, Object> substitutesValuesMap ) 
 	{
+		this.templateAsString = templateAsString;
 		this.is = is;
 		this.repositoryIndex = repositoryIndex;
 		this.repositoryFolderPath = repositoryFolderPath;
@@ -112,7 +126,9 @@ public class TemplateCompiler
 		// Percorso dell'eventuale file che contiene i/il template/s
 		String templatesRepositoryFilename = this.templateFileLookup();
 		// Contenuto del file template
-		String sourceContent = this.readSourceContent(templatesRepositoryFilename);
+		String sourceContent = this.templateAsString == null 
+							? this.readSourceContent(templatesRepositoryFilename)
+							: this.templateAsString;
 		
 		if (sourceContent == null || sourceContent.isEmpty()) {
 			String msg = (this.repositoryIndex == null) // se e' stato passato direttamente un InputStream 'repositoryIndex' e' nullo
@@ -292,6 +308,72 @@ public class TemplateCompiler
 			tc.setPicker( picker );
 
 
+		return tc.compile();
+		
+	}
+	
+
+	/**
+	 * Compila il template associato al templateName fornito. Il template e' cercato nell'InputStream fornito.
+	 * @param templateAsString Stringa contenente uno o più template/s
+	 * @param templateName Nome del template da compilare
+	 * @param substitutesValuesMap Mappa contenente i valori sostitutivi con cui rimpiazzare i parametri nel template
+	 * @return Stringa corrispondente al contenuto del template con parametri rimpiazzati dai valori passati nella mappa con le associazioni parametro->valore
+	 * @throws TemplateCompilerException 
+	 */
+	public static String compile(String templateAsString, String templateName, Map<String, Object> substitutesValuesMap) throws TemplateCompilerException {
+		return compile( templateAsString, templateName, substitutesValuesMap, null, null );
+		
+	}
+	
+	/**
+	 * Compila il template associato al templateName fornito. Il template e' cercato nell'InputStream fornito.
+	 * @param templateAsString Stringa contenente uno o più template/s
+	 * @param templateName Nome del template da compilare
+	 * @param substitutesValuesMap Mappa contenente i valori sostitutivi con cui rimpiazzare i parametri nel template
+	 * @param picker Oggetto che sia in grado di interpretare i dati forniti al fine di trovare il template contenutovi. 
+	 * @return Stringa corrispondente al contenuto del template con parametri rimpiazzati dai valori passati nella mappa con le associazioni parametro->valore
+	 * @throws TemplateCompilerException 
+	 */
+	public static String compile(String templateAsString, String templateName, Map<String, Object> substitutesValuesMap, TemplatePicker picker) throws TemplateCompilerException {
+		return compile( templateAsString, templateName, substitutesValuesMap, picker, null );
+		
+	}
+	
+	/**
+	 * Compila il template associato al templateName fornito. Il template e' cercato nell'InputStream fornito.
+	 * @param templateAsString Stringa contenente uno o più template/s
+	 * @param templateName Nome del template da compilare
+	 * @param substitutesValuesMap Mappa contenente i valori sostitutivi con cui rimpiazzare i parametri nel template
+	 * @param validator Oggetto per effettuare verifica di coerenza dei tipi sui valori che dovranno esser sostituiti ai parametri del template.
+	 * @return Stringa corrispondente al contenuto del template con parametri rimpiazzati dai valori passati nella mappa con le associazioni parametro->valore
+	 * @throws TemplateCompilerException 
+	 */
+	public static String compile(String templateAsString, String templateName, Map<String, Object> substitutesValuesMap, MapFormatTypeValidator validator) throws TemplateCompilerException {
+		return compile( templateAsString, templateName, substitutesValuesMap, null, validator );
+		
+	}
+
+	
+	/**
+	 * Compila il template associato al templateName fornito. Il template e' cercato nell'InputStream fornito.
+	 * @param templateAsString Stringa contenente uno o più template/s
+	 * @param templateName Nome del template da compilare.
+	 * @param substitutesValuesMap Mappa contenente i valori sostitutivi con cui rimpiazzare i parametri nel template.
+	 * @param picker Oggetto che sia in grado di interpretare i dati forniti al fine di trovare il template contenutovi. 
+	 * @param validator Oggetto per effettuare verifica di coerenza dei tipi sui valori che dovranno esser sostituiti ai parametri del template.
+	 * @return Stringa corrispondente al contenuto del template con parametri rimpiazzati dai valori passati nella mappa con le associazioni parametro->valore.
+	 * @throws TemplateCompilerException
+	 */
+	public static String compile(String templateAsString, String templateName, Map<String, Object> substitutesValuesMap, TemplatePicker picker, MapFormatTypeValidator validator) throws TemplateCompilerException {
+		TemplateCompiler tc = new TemplateCompiler( templateAsString, templateName, substitutesValuesMap );
+		
+		if (validator != null)
+			tc.setValidator( validator );
+		if (picker != null)
+			tc.setPicker( picker );
+		
+		
 		return tc.compile();
 		
 	}

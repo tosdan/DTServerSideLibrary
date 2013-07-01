@@ -7,6 +7,18 @@ import java.io.StringReader;
 public class StrUtils
 {
 	
+	public static <T extends Object> String safeToStr(T obj) {
+		return safeToStr( obj, "" );
+	}
+	
+	public static <T extends Object> String safeToStr(T obj, String defaultString) {
+		try {
+			return obj.toString();
+		} catch ( Exception e ) {
+			return defaultString;
+		}
+	}
+	
 	/**
 	 * estrae il testo associato ad una particolare sezione in un file di configurazione
 	 * @param source

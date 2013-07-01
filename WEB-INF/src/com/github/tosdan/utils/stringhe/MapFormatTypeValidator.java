@@ -4,5 +4,5 @@ public interface MapFormatTypeValidator
 {
 	public String getTypes();
 	
-	public String validate(String source, String type);
+	public String validate(String source, String type) throws MapFormatTypeValidatorException;
 }
