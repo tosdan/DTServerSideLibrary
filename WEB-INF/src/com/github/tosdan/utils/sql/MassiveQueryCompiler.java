@@ -105,6 +105,7 @@ public class MassiveQueryCompiler
 	public Map<String, List<String>> getQueriesListMap(String[] nomiQueriesDaCompilare, Map<String, Object> paramsMap) throws TemplateCompilerException {
 
 		Map<String, List<String>> queriesListMappedByName = new HashMap<String, List<String>>();
+		paramsMap = (paramsMap == null) ? (new HashMap<String, Object>()) : paramsMap;
 
 		for( int i = 0 ; i < nomiQueriesDaCompilare.length ; i++ ) {
 			
