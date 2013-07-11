@@ -163,7 +163,8 @@ public class BasicDAO
 		} catch ( SQLException e ) {
 			throw new BasicDAOException( "Errore di accesso al database.", e );
 		} finally {
-			DbUtils.closeQuietly( conn );
+			if (this.closeConn)
+				DbUtils.closeQuietly( conn );
 		}
 	}
 	
