@@ -237,6 +237,21 @@ public class BasicDAO
 	}
 	
 	
+
+	/**
+	 * 
+	 * @param sql
+	 * @param columnToBeKey
+	 * @return
+	 * @throws BasicDAOException
+	 */
+	public Map<String, Map<String, Object>> runAndGetKeyedMapList(String sql, String columnToBeKey) throws BasicDAOException 
+	{
+		ResultSetHandler<Map<String, List<Map<String, Object>>>> rsh = new KeyedMapListHandler<String>( columnToBeKey );
+		return ( Map<String, Map<String, Object>> ) runAndGetSomething( sql, rsh );
+	}
+	
+	
 	/**
 	 * 
 	 * @param sql
