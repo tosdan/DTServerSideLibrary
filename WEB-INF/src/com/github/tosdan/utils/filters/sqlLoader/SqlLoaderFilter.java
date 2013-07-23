@@ -17,16 +17,17 @@ import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.yaml.snakeyaml.Yaml;
 
-import com.github.tosdan.utils.filters.BasicFilter;
+import com.github.tosdan.utils.filters.BasicFilterV2;
+import com.github.tosdan.utils.io.FileUtils;
 import com.github.tosdan.utils.sql.MassiveQueryCompiler;
 import com.github.tosdan.utils.stringhe.TemplateCompilerException;
 import com.github.tosdan.utils.stringhe.TemplatePickerSections;
 /**
  * 
  * @author Daniele
- * @version 0.2.1-b2013.06.28
+ * @version 0.2.2-b2013-07-23
  */
-public class SqlLoaderFilter extends BasicFilter
+public class SqlLoaderFilter extends BasicFilterV2
 {
 	private String[] nomiQueriesDaCompilare;
 	private List<Map<String, Object>> updateParamsMapsList;
@@ -58,17 +59,20 @@ public class SqlLoaderFilter extends BasicFilter
 		this.getSqlLoaderOptions(req);
 		this.loadConfiguration();
 
-		String reqLog = this.get_requestParamsProcessLog( req );
+		String reqLog = this.getRequestParamsProcessLog( req );
 		if ( this.isLogEnabled && this.sqlLoaderSettings.get("logFileName") != null ) 
 			// crea un file di log con il nome passato come parametro nella sottocartella della webapp
-			this._logOnFile( this._appRealPath + sqlLoaderSettings.get("logFileName"), reqLog );
+			FileUtils.toFile( this.realPath + sqlLoaderSettings.get("logFileName"), reqLog );
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
+		boolean retroCompatibilitaTemplate = BooleanUtils.toBoolean(req.getParameter("noYamlPicker"));
+		
 		if ( ! this.lasciaParametrica ) {
 			Map<String, Object> allPossibleParams = this.getAllParamsMap( req );
 			MassiveQueryCompiler mqc = new MassiveQueryCompiler( this.queriesRepositoryIndexMap, this.queriesRepoFolderPath, this.updateParamsMapsList );
-			mqc.setPicker( new TemplatePickerSections() ); // TODO convertire i template delle query a yaml
+			
+			if ( retroCompatibilitaTemplate  )
+				mqc.setPicker( new TemplatePickerSections() ); // TODO convertire i template delle query vecchie in yaml
 
 			try {
 				Map<String, List<String>> queries = mqc.getQueriesListMap( this.nomiQueriesDaCompilare, allPossibleParams );
@@ -87,7 +91,7 @@ public class SqlLoaderFilter extends BasicFilter
 			} catch ( TemplateCompilerException e ) {
 				if ( this.printStackTrace )
 					e.printStackTrace();
-				throw new SqlLoaderFilterException(  "Filtro " + this._filterConfig.getFilterName()
+				throw new SqlLoaderFilterException(  "Filtro " + this.filterConfig.getFilterName()
 						+ ": errore caricamento query da file. Classe: "+this.getClass().getName(), e );
 			}
 			
@@ -119,7 +123,7 @@ public class SqlLoaderFilter extends BasicFilter
 		}		
 		
 		if (nomiQueriesDaCompilare == null)
-			throw new SqlLoaderFilterException( "Filtro " + this._filterConfig.getFilterName() + ": errore, parametro sqlName mancante nella request." );
+			throw new SqlLoaderFilterException( "Filtro " + this.filterConfig.getFilterName() + ": errore, parametro sqlName mancante nella request." );
 		
 		return nomiQueriesDaCompilare;
 
@@ -132,10 +136,10 @@ public class SqlLoaderFilter extends BasicFilter
 	 */
 	private Map<String, Object> getAllParamsMap(HttpServletRequest req) {	
 		Map<String, Object> allParams = new HashMap<String, Object>();
-		allParams.putAll( this.get_requestParamsMap( req ) );
-		allParams.putAll( this.get_requestMultipleValuesParamsMap( req ) );
+		allParams.putAll( this.getRequestParamsMap( req ) );
+		allParams.putAll( this.getRequestMultipleValuesParamsMap( req ) );
 //		allParams.putAll( this._initConfigParamsMap ); // TODO prevedere caricamento parametri costanti da file, magari su base di sqlName
-		allParams.putAll( this.get_requestAttributes( req ) );
+		allParams.putAll( this.getRequestAttributes( req ) );
 		allParams.putAll( this.getParametriAggiuntivi(req) );
 		return allParams;
 	}
@@ -146,7 +150,7 @@ public class SqlLoaderFilter extends BasicFilter
 	 */
 	private void loadConfiguration() throws SqlLoaderFilterException {
 		// Cerca nel web.xml il nome del file contenente la configurazione di questo Filter (completo di percorso relativo) 
-		String sqlLoaderConfigFile = this._initConfigParamsMap.get("SqlLoaderConf_File");
+		String sqlLoaderConfigFile = this.initConfigParamsMap.get("SqlLoaderConf_File");
 		// Carica la configurazione per SqlLoaderFilter da file.
 		this.sqlLoaderSettings = this.loadMapFromConfFile( sqlLoaderConfigFile );
 		
@@ -155,7 +159,7 @@ public class SqlLoaderFilter extends BasicFilter
 		// Crea una mappa con il repository index delle queries
 		this.queriesRepositoryIndexMap = this.loadMapFromConfFile( this.queriesRepositoryIndexFilename );
 		// Percorso assoluto dei file contenenti i templates delle queries
-		this.queriesRepoFolderPath = this._appRealPath + this.sqlLoaderSettings.get("SqlLoaderConf_Path");
+		this.queriesRepoFolderPath = this.realPath + this.sqlLoaderSettings.get("SqlLoaderConf_Path");
 		
 	}
 	
@@ -217,14 +221,14 @@ public class SqlLoaderFilter extends BasicFilter
 		Yaml yaml = new Yaml();
 		
 		try {
-			InputStream is =  this._ctx.getResourceAsStream( configFile );
+			InputStream is =  this.ctx.getResourceAsStream( configFile );
 			contentMap = (Map<String, String>) yaml.load( is );
 			is.close();
 			
 		} catch ( IOException e ) {
 			if ( this.printStackTrace )
 				e.printStackTrace();
-			throw new SqlLoaderFilterException( "Filtro " + this._filterConfig.getFilterName()
+			throw new SqlLoaderFilterException( "Filtro " + this.filterConfig.getFilterName()
 					+ ": errore caricamento file configurazione. Classe: "+this.getClass().getName(), e );
 		}
 		

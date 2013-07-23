@@ -12,7 +12,7 @@ public class FileUtils
 	 * @param fileName nome file con percorso completo
 	 * @param content contenuto da scrivere all'interno del file
 	 */
-	protected void toFile(String fileName, String content) {
+	public static void toFile(String fileName, String content) {
 		toFile( fileName, content, false );
 	}
 	/**
@@ -21,7 +21,7 @@ public class FileUtils
 	 * @param content contenuto da scrivere all'interno del file
 	 * @param appendFlag 
 	 */
-	protected void toFile(String fileName, String content, boolean appendFlag)
+	public static void toFile(String fileName, String content, boolean appendFlag)
 	{
 		// crea un file di log con il nome passato come parametro nella sottocartella della webapp
 			File logFile = new File( fileName );
@@ -39,7 +39,7 @@ public class FileUtils
 			// qualsiasi eccezione nella stampa del log non deve essere bloccante
 			String astks = "*************************************";
 			String ecc = astks+"\n* Eccezione catturata, ma non gestita\n"+astks+"\n"; 
-			System.err.println( ecc+ "Errore nel tentativo di scrivere il logfile\n"+logFile.getName()+"\nnella cartella\n"+logPath.getAbsolutePath()+"\nClasse: "+this.getClass().getName() +"\n");
+			System.err.println( ecc+ "FileUtils.toFile() - Errore nel tentativo di scrivere il logfile\n"+logFile.getName()+"\nnella cartella\n"+logPath.getAbsolutePath() );
 			e.printStackTrace();
 			System.err.println( "\n"+astks );
 		} 
