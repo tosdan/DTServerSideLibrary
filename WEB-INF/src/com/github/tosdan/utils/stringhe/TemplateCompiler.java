@@ -8,12 +8,12 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.github.tosdan.utils.io.IOfrw;
+import org.apache.commons.io.IOUtils;
 
 /**
  * 
  * @author Daniele
- * @version 1.1.0-b2013-06-28
+ * @version 1.1.2-b2013-07-25
  */
 public class TemplateCompiler
 {
@@ -121,7 +121,17 @@ public class TemplateCompiler
 	 * @return Stringa corrispondente al contenuto del template con parametri rimpiazzati dai valori passati nella mappa con le associazioni parametro->valore
 	 * @throws TemplateCompilerException Lanciata qualora il contenuto della sorgente dati/repository-file sia vuoto o qualora in esso non sia presente il template specificato
 	 */
-	public String compile() throws TemplateCompilerException  {
+	public String compile() throws TemplateCompilerException {
+		return compile( new MapFormat( substitutesValuesMap, validator ) );
+	}
+	
+	/**
+	 * Compila il template associato al templateName fornito
+	 * @param mapFormat Oggetto {@link MapFormat} custom. 
+	 * @return Stringa corrispondente al contenuto del template con parametri rimpiazzati dai valori passati nella mappa con le associazioni parametro->valore
+	 * @throws TemplateCompilerException Lanciata qualora il contenuto della sorgente dati/repository-file sia vuoto o qualora in esso non sia presente il template specificato
+	 */
+	public String compile(MapFormat mapFormat) throws TemplateCompilerException  {
 		
 		// Percorso dell'eventuale file che contiene i/il template/s
 		String templatesRepositoryFilename = this.templateFileLookup();
@@ -148,7 +158,7 @@ public class TemplateCompiler
 			
 		}
 		
-		return MapFormat.format( template, this.substitutesValuesMap, this.validator );
+		return mapFormat.format( template );
 	}
 	
 	/**
@@ -199,8 +209,8 @@ public class TemplateCompiler
 			}
 		}
 	
-		try {	
-			sourceContent = IOfrw.leggiInputStream( this.is );
+		try {
+			sourceContent = IOUtils.toString( this.is );
 			
 		} catch ( IOException e ) {
 			String msg = (templatesRepositoryFilename == null) 
