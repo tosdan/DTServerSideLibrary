@@ -13,6 +13,7 @@ import java.io.OutputStream;
  * @author Daniele
  * @version 0.1.0-r13.06.05
  */
+@Deprecated
 public class ReadToOutputStream
 {
 	/**

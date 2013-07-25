@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  */
 @SuppressWarnings( "serial" )
+@Deprecated
 public abstract class BasicHttpServlet extends HttpServlet
 {
 	/** 

@@ -13,6 +13,7 @@ import com.github.tosdan.utils.stringhe.MapFormat;
 import com.github.tosdan.utils.stringhe.MapFormatTypeValidator;
 import com.github.tosdan.utils.stringhe.StrUtils;
 
+@Deprecated
 public class QueriesUtils
 {
 	/**

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+@Deprecated
 public class IOfrw
 {
 
@@ -16,6 +17,7 @@ public class IOfrw
 	 * @return
 	 * @throws IOException
 	 */
+	@Deprecated
 	public static String leggiFile(String nomeFile) throws IOException
 	{
 		File file = new File( nomeFile );
@@ -29,6 +31,7 @@ public class IOfrw
 	 * @return
 	 * @throws IOException
 	 */
+	@Deprecated
 	public static String leggiInputStream(InputStream is) throws IOException
 	{
 		InputStreamReader isr = new InputStreamReader( is, "ISO-8859-1" );
