@@ -1,13 +1,11 @@
 package com.github.tosdan.utils.stringhe;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 /**
  * Validator per T-SQL
  * @author Daniele
- * @version 0.2.0-b2013-07-25
+ * @version 0.2.2-b2013-07-29
  */
 public class MapFormatTypeValidatorSQL extends MapFormatAbstractTypeValidator
 {
@@ -20,16 +18,14 @@ public class MapFormatTypeValidatorSQL extends MapFormatAbstractTypeValidator
 		System.out.println( v.validate( "123", "integer" ) );
 		System.out.println( v.validate( "123.4", "numeric" ) );
 		System.out.println( v.validate( "1234", "numeric" ) );
+		System.out.println( v.validate( "test del 'piffero'", "Stirng" ) );
 	}
 	
-	private DateFormat dateFormat;
-
 	@Override
-	public String[] getSupportedTypes() {
-		return new String [] {"string", "stringa", "integer", "numeric", "boolean", "compactDate", "revCompDate",
-								"itaDate", "revItaDate", "date", "reverseDate", "table", "tablePart", "free"};
+	public String getValidatorRegExPart() {
+		return "[\\p{Punct}\\p{Alnum}]*";
 	}
-
+	
 	/**
 	 * Effettua un opportuno controllo sul valore passato in base al tipo di dato e restituisce il valore tale com'era oppure opportunamente formattato 
 	 * @param source sorgente da validare
@@ -71,27 +67,27 @@ public class MapFormatTypeValidatorSQL extends MapFormatAbstractTypeValidator
         		result = this.checkMatching( "([0-9])+(.([0-9])+)?", source, type );
         	}
         	else if ( type.equalsIgnoreCase("compactDate") ) {
-        		this.dateFormat = new SimpleDateFormat( "ddMMyyyy" );        	
+        		setDateFormat( new SimpleDateFormat("ddMMyyyy") );
         		result = parseDate(source);
         	}
         	else if ( type.equalsIgnoreCase("revCompDate") ) {
-        		this.dateFormat = new SimpleDateFormat( "yyyyMMdd" );        	
+        		setDateFormat( new SimpleDateFormat( "yyyyMMdd") );
         		result = parseDate(source);
         	}
         	else if ( type.equalsIgnoreCase("itaDate") ) {
-        		this.dateFormat = new SimpleDateFormat( "dd/MM/yyyy" );        	
+        		setDateFormat( new SimpleDateFormat( "dd/MM/yyyy") );
         		result = parseDate(source);        		
         	}
         	else if ( type.equalsIgnoreCase("revItaDate") ) {
-        		this.dateFormat = new SimpleDateFormat( "yyyy/MM/dd" );        	
+        		setDateFormat( new SimpleDateFormat( "yyyy/MM/dd") );
         		result = parseDate(source);        		
         	}
         	else if ( type.equalsIgnoreCase("date") ) {
-        		this.dateFormat = new SimpleDateFormat( "dd-MM-yyyy" );        	
+        		setDateFormat( new SimpleDateFormat( "dd-MM-yyyy") );
         		result = parseDate(source);        		
         	}
         	else if ( type.equalsIgnoreCase("reverseDate") ) {
-        		this.dateFormat = new SimpleDateFormat( "yyyy-MM-dd" );        	
+        		setDateFormat( new SimpleDateFormat( "yyyy-MM-dd") );
         		result = parseDate(source);        		
         	}
         	else if ( type.equalsIgnoreCase("table") ) {
@@ -112,32 +108,8 @@ public class MapFormatTypeValidatorSQL extends MapFormatAbstractTypeValidator
 		return result;
 	}
 	
-	private String parseDate(String source) throws MapFormatTypeValidatorException {
-		String result = "";
-		try {
-			
-			dateFormat.setLenient( false ); // -> con false equivale a Strict Mode
-			dateFormat.parse( source );
-			
-		} catch ( ParseException e ) {
-			throw new MapFormatTypeValidatorException("Errore validazine data: " + source, e);
-		}
-		result = quote(source);
-		
-		return result;
-	}
-	
-	private String checkMatching( String regex, String source, String type ) throws MapFormatTypeValidatorException {
-		if (source.matches(regex) ) {
-			
-			return source;
-			
-		} else {
-			throw new MapFormatTypeValidatorException("Errore di validazione per il tipo '" + type +"' sul valore: " + source);
-		}
-	}
-	
-	public static String quote(String input) {
+	@Override
+	protected String quote(String input) {
 		return "'" + input.replaceAll( "'", "''" ) + "'";
 	}
 

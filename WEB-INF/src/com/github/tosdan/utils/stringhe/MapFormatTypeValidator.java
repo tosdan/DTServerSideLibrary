@@ -1,12 +1,14 @@
 package com.github.tosdan.utils.stringhe;
 
 import java.util.Map;
-
+/**
+ * 
+ * @author Daniele
+ * @version 0.2.0-b2013-07-29
+ */
 public interface MapFormatTypeValidator
 {
-	String[] getSupportedTypes();
-	
-	String getTypes();
+	String getValidatorRegExPart();
 	
 	String validate(String source, String type) throws MapFormatTypeValidatorException;
 	

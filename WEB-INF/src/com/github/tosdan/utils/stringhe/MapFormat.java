@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * 
  * @author Daniele
- * @version 0.4.0-b2013-07-25
+ * @version 0.4.1-b2013-07-29
  */
 public class MapFormat
 {
@@ -48,7 +48,7 @@ public class MapFormat
 	private boolean keepUnMatched = false;
 	private Map<String, ? extends Object> parametri;
 	private MapFormatTypeValidator typeValidator;
-	private String tipi;
+	private String validatorRegExPart;
 	private MapFormatMatcher matcher;
 
     /**
@@ -107,7 +107,7 @@ public class MapFormat
 		this.typeValidator = typeValidator;
 		
 		if (typeValidator != null)
-			this.tipi = typeValidator.getTypes();
+			this.validatorRegExPart = typeValidator.getValidatorRegExPart();
 		
 		if (matcher == null) 
 			setMatcher( new MapFormatMatcherImpl("") );
@@ -118,7 +118,7 @@ public class MapFormat
 	
 	public MapFormat setMatcher(MapFormatMatcher matcher) {
 		this.matcher = matcher;
-		this.matcher.setTipi(this.tipi);
+		this.matcher.setValidatorRegExPart(this.validatorRegExPart);
 		return this;
 	}
 	

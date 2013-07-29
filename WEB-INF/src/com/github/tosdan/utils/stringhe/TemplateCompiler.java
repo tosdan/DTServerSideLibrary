@@ -13,7 +13,7 @@ import org.apache.commons.io.IOUtils;
 /**
  * 
  * @author Daniele
- * @version 1.1.2-b2013-07-25
+ * @version 1.1.4-b2013-07-29
  */
 public class TemplateCompiler
 {
@@ -34,22 +34,25 @@ public class TemplateCompiler
 	 */
 	private String templateName;
 	/**
-	 * Percorso completo della cartella contenente il/i file repository dei template/s. Indispensabile se si vuole mantenere percorsi relativi nel file indice dei repositories
+	 * Percorso completo della cartella (radice) contenente il/i template/s. Indispensabile per mantenere percorsi relativi nel file indice dei templates.
 	 */
 	private String repositoryFolderPath;
 	/**
-	 * Mappa con le associazioni tra i nomi dei templates e i relativi file-repository da cui recuperarli effettivamente
+	 * Mappa con le associazioni tra i nomi dei templates e i relativi file da cui recuperarli effettivamente. E' a tutti gli effetti un indice delle query disponibili.
 	 */
-	private Map<String, String> repositoryIndex;
+	private Map<String, String> repositoryIndexMap;
 	/**
 	 * InputStream conenente la stringa in cui e'/sono memorizzato/i il/i template/s
 	 */
 	private InputStream is;
 	/**
-	 * Oggetto che sia in grado di interpretare i dati forniti al fine di trovare il template contenutovi.
+	 * Oggetto che sia in grado di interpretare i dati forniti e quindi poter trovare il template scelto
 	 */
 	private TemplatePicker picker;
-	private String templateAsString;
+	/**
+	 * Stringa contenente uno o piu' templates.
+	 */
+	private String templateContainerAsString;
 	
 	/*************************************************************************/
 	/*******************          Costruttori          ***********************/
@@ -57,13 +60,13 @@ public class TemplateCompiler
 	
 	/**
 	 * 
-	 * @param repositoryIndex Mappa con le associazioni tra i nomi dei templates e i relativi file-repository da cui recuperarli effettivamente.
-	 * @param repositoryFolderPath Percorso completo della cartella contenente il/i file repository dei template/s. Indispensabile se si vuole mantenere percorsi relativi nel file indice dei repositories.
+	 * @param repositoryIndexMap Mappa con le associazioni tra i nomi dei templates e i relativi file da cui recuperarli effettivamente. E' a tutti gli effetti un indice delle query disponibili.
+	 * @param repositoryFolderPath Percorso completo della cartella (radice) contenente i files dei templates. Indispensabile per mantenere percorsi relativi nel file indice dei templates.
 	 * @param templateName Nome del template da compilare.
 	 * @param substitutesValuesMap Mappa contenente i valori sostitutivi con cui rimpiazzare i parametri nel template.
 	 */
-	public TemplateCompiler( Map<String, String> repositoryIndex, String repositoryFolderPath, String templateName, Map<String, Object> substitutesValuesMap ) {
-		this( null, null, repositoryIndex, repositoryFolderPath, templateName, substitutesValuesMap );
+	public TemplateCompiler( Map<String, String> repositoryIndexMap, String repositoryFolderPath, String templateName, Map<String, Object> substitutesValuesMap ) {
+		this( null, null, repositoryIndexMap, repositoryFolderPath, templateName, substitutesValuesMap );
 	}
 	
 	/**
@@ -78,33 +81,33 @@ public class TemplateCompiler
 	
 	/**
 	 * 
-	 * @param templateAsString Stringa conenente uno o più template/s.
+	 * @param templateContainerAsString Stringa conenente uno o più templates.
 	 * @param templateName Nome del template da compilare.
 	 * @param substitutesValuesMap Mappa contenente i valori sostitutivi con cui rimpiazzare i parametri nel template.
 	 */
-	public TemplateCompiler( String templateAsString, String templateName, Map<String, Object> substitutesValuesMap ) {
-		this( templateAsString, null, null, null, templateName, substitutesValuesMap );
+	public TemplateCompiler( String templateContainerAsString, String templateName, Map<String, Object> substitutesValuesMap ) {
+		this( templateContainerAsString, null, null, null, templateName, substitutesValuesMap );
 	}
 	
 	/**
 	 * 
-	 * @param templateAsString Stringa conenente uno o più template/s.
+	 * @param templateContainerAsString Stringa conenente uno o più templates.
 	 * @param is InputStream conenente la stringa in cui e'/sono memorizzato/i il/i template/s.
-	 * @param repositoryIndex Mappa con le associazioni tra i nomi dei templates e i relativi file-repository da cui recuperarli effettivamente.
-	 * @param repositoryFolderPath Percorso completo della cartella contenente i/il file repository dei template/s. Indispensabile se si vuole mantenere percorsi relativi nel file indice dei repositories.
+	 * @param repositoryIndexMap Mappa con le associazioni tra i nomi dei templates e i relativi file da cui recuperarli effettivamente. E' a tutti gli effetti un indice delle query disponibili.
+	 * @param repositoryFolderPath Percorso completo della cartella (radice) contenente i files dei templates. Indispensabile per mantenere percorsi relativi nel file indice dei templates.
 	 * @param templateName Nome del template da compilare.
 	 * @param substitutesValuesMap Mappa contenente i valori sostitutivi con cui rimpiazzare i parametri nel template.
 	 */
-	private TemplateCompiler( String templateAsString
+	private TemplateCompiler( String templateContainerAsString
 							, InputStream is
-							, Map<String, String> repositoryIndex
+							, Map<String, String> repositoryIndexMap
 							, String repositoryFolderPath
 							, String templateName
 							, Map<String, Object> substitutesValuesMap ) 
 	{
-		this.templateAsString = templateAsString;
+		this.templateContainerAsString = templateContainerAsString;
 		this.is = is;
-		this.repositoryIndex = repositoryIndex;
+		this.repositoryIndexMap = repositoryIndexMap;
 		this.repositoryFolderPath = repositoryFolderPath;
 		this.templateName = templateName;
 		this.substitutesValuesMap = substitutesValuesMap;
@@ -118,8 +121,8 @@ public class TemplateCompiler
 	
 	/**
 	 * Compila il template associato al templateName fornito
-	 * @return Stringa corrispondente al contenuto del template con parametri rimpiazzati dai valori passati nella mappa con le associazioni parametro->valore
-	 * @throws TemplateCompilerException Lanciata qualora il contenuto della sorgente dati/repository-file sia vuoto o qualora in esso non sia presente il template specificato
+	 * @return Stringa corrispondente al contenuto del template i cui parametri sono stati rimpiazzati con valori passati nella mappa con le associazioni parametro->sostituto
+	 * @throws TemplateCompilerException Lanciata qualora il contenuto del template sia vuoto o qualora in esso non sia presente un template associato al nome specificato
 	 */
 	public String compile() throws TemplateCompilerException {
 		return compile( new MapFormat( substitutesValuesMap, validator ) );
@@ -128,22 +131,22 @@ public class TemplateCompiler
 	/**
 	 * Compila il template associato al templateName fornito
 	 * @param mapFormat Oggetto {@link MapFormat} custom. 
-	 * @return Stringa corrispondente al contenuto del template con parametri rimpiazzati dai valori passati nella mappa con le associazioni parametro->valore
-	 * @throws TemplateCompilerException Lanciata qualora il contenuto della sorgente dati/repository-file sia vuoto o qualora in esso non sia presente il template specificato
+	 * @return Stringa corrispondente al contenuto del template i cui parametri sono stati rimpiazzati con valori passati nella mappa con le associazioni parametro->sostituto
+	 * @throws TemplateCompilerException Lanciata qualora il contenuto del template sia vuoto o qualora in esso non sia presente un template associato al nome specificato
 	 */
 	public String compile(MapFormat mapFormat) throws TemplateCompilerException  {
 		
-		// Percorso dell'eventuale file che contiene i/il template/s
+		// Percorso del(l'eventuale) file contenente i/il template/s
 		String templatesRepositoryFilename = this.templateFileLookup();
-		// Contenuto del file template
-		String sourceContent = this.templateAsString == null 
+		// Contenuto del file dei templates
+		String sourceContent = this.templateContainerAsString == null 
 							? this.readSourceContent(templatesRepositoryFilename)
-							: this.templateAsString;
+							: this.templateContainerAsString;
 		
 		if (sourceContent == null || sourceContent.isEmpty()) {
-			String msg = (this.repositoryIndex == null) // se e' stato passato direttamente un InputStream 'repositoryIndex' e' nullo
+			String msg = (this.repositoryIndexMap == null) // se e' stato passato direttamente un InputStream 'repositoryIndexMap' e' nullo
 					? "Nessun contenuto valido per il template '" + this.templateName + "' nella sorgente passata passata." 
-					: "Nessun contenuto valido per il template '" + this.templateName + "' nel file repository dei templates: '" + templatesRepositoryFilename + "'.";			
+					: "Nessun contenuto valido per il template '" + this.templateName + "' nel file dei templates: '" + templatesRepositoryFilename + "'.";			
 			throw new TemplateCompilerException( msg );
 			
 		}
@@ -151,9 +154,9 @@ public class TemplateCompiler
 		String template = this.templateLookupByName( sourceContent );
 		
 		if ( template == null || template.equals("") ) {
-			String msg = (this.repositoryIndex == null)  // se e' stato passato direttamente un InputStream 'repositoryIndex' e' nullo
+			String msg = (this.repositoryIndexMap == null)  // se e' stato passato direttamente un InputStream 'repositoryIndexMap' e' nullo
 					? "Associazione vuota o mancante per il template '" + this.templateName + "' nella sorgente passata."
-					: "Associazione vuota o mancante per il template '" + this.templateName + "' nel file repository dei templates: '" + templatesRepositoryFilename + "'.";
+					: "Associazione vuota o mancante per il template '" + this.templateName + "' nel file dei templates: '" + templatesRepositoryFilename + "'.";
 			throw new TemplateCompilerException( msg );
 			
 		}
@@ -171,7 +174,7 @@ public class TemplateCompiler
 
 	/**
 	 * 
-	 * @param picker Oggetto che sia in grado di interpretare i dati forniti al fine di trovare il template contenutovi.
+	 * @param picker Oggetto che sia in grado di interpretare i dati forniti e quindi poter trovare il template scelto
 	 */
 	public void setPicker( TemplatePicker picker ) {
 		this.picker = picker;
@@ -179,32 +182,33 @@ public class TemplateCompiler
 
 	/**
 	 * Recupera il contenuto associato al nome di template fornito.
-	 * @param sourceContent Dati contenuti nel file templates-repository
+	 * @param sourceContent Dati contenuti nel file dei templates.
 	 * @return Stringa rappresentante il template
 	 */
 	private String templateLookupByName (String sourceContent) {
 		return this.picker.pick( this.picker.normalize(sourceContent), this.templateName );
+		// TODO idea
 		// String templateType = "yaml.Template";
 		// TemplatePicker tp = TemplatePickerFactory(templateType).NewInstance(); 
 		// return otf.pick(sourceContent, this.templateName);
 	}
 	
 	/**
-	 * Recupera il contenuto del file repository.
-	 * @param templatesRepositoryFilename Percorso assoluto del file repository contenente il template. Null se viene passato un InputStream invece di un file indice dei repositories. 
+	 * Recupera il contenuto del file dei templates.
+	 * @param templatesFile Percorso assoluto del file dei templates. Null se viene passato un InputStream invece di un indice dei templates. 
 	 * @return Una stringa contenente uno o piu' templates.
-	 * @throws TemplateCompilerException Lanciata qualora il file-repository non esista o qualora leggere la sorgente dati/file-repository
+	 * @throws TemplateCompilerException Lanciata qualora il file non esista o qualora sia impossibile leggere la sorgente dati/file.
 	 */
-	private String readSourceContent(String templatesRepositoryFilename) throws TemplateCompilerException {
+	private String readSourceContent(String templatesFile) throws TemplateCompilerException {
 		
 		String sourceContent = null;
 		
-		if (templatesRepositoryFilename != null) {
+		if (templatesFile != null) {
 			try {
-				this.is = new FileInputStream( templatesRepositoryFilename );
+				this.is = new FileInputStream( templatesFile );
 				
 			} catch ( FileNotFoundException e1 ) {				
-				throw new TemplateCompilerException( "Errore I/O: file '"+ templatesRepositoryFilename+"',  non trovato.", e1 );
+				throw new TemplateCompilerException( "Errore I/O: file '"+ templatesFile+"',  non trovato.", e1 );
 				
 			}
 		}
@@ -213,11 +217,13 @@ public class TemplateCompiler
 			sourceContent = IOUtils.toString( this.is );
 			
 		} catch ( IOException e ) {
-			String msg = (templatesRepositoryFilename == null) 
+			String msg = (templatesFile == null) 
 					? "Impossibile leggere la sorgente dati." 
-					: "Errore nel tentativo di lettura del file '"+ templatesRepositoryFilename+"'";
+					: "Errore nel tentativo di lettura del file '"+ templatesFile+"'";
 			throw new TemplateCompilerException( msg, e );
 			
+		} finally {
+			IOUtils.closeQuietly( this.is );
 		}
 		
 		return sourceContent;
@@ -225,29 +231,29 @@ public class TemplateCompiler
 	}
 	
 	/**
-	 * Se presente un indice dei file template-repository tenta il recupero dall'indice del nome del file contenente i/il template/s.
+	 * Cerca nell'indice il file (percorso relativo) contenente il template richiesto.
 	 * @return Percorso assoluto del file repository contenente i/il template/s
-	 * @throws TemplateCompilerException Lanciata qualora l'indice dei repository non contenga un'associazione valida per il nome del template passato.
+	 * @throws TemplateCompilerException Lanciata qualora l'indice dei templates non contenga un'associazione valida per il nome del template passato.
 	 */
 	private String templateFileLookup()  throws TemplateCompilerException {
 		
-		String filenameAbsolutePath = null;
+		String fileAbsolutePath = null;
 		
-		if (this.repositoryIndex != null) {
-			filenameAbsolutePath = this.repositoryIndex.get( this.templateName ); 
+		if (this.repositoryIndexMap != null) {
+			fileAbsolutePath = this.repositoryIndexMap.get( this.templateName ); 
 		
 			// Se e' stato passato un file indice, deve esistere l'associazione per il file del templateName passato
-			if (filenameAbsolutePath == null || filenameAbsolutePath.equals("") ) {
-				throw new TemplateCompilerException( "Nessun file repository associato al template '" + this.templateName + "' nell'indice repository passato.");
+			if (fileAbsolutePath == null || fileAbsolutePath.equals("") ) {
+				throw new TemplateCompilerException( "Nessun file associato al template '" + this.templateName + "' nell'indice passato.");
 			}
 		}
 		
-		// Se l'indice contiene i percorsi relativi dei file template e' necessario aggiungere anche il percorso completo alla cartella che li contiene.
+		// L'indice dovrebbe contenere i percorsi relativi dei file template quindi e' necessario aggiungere anche il percorso completo della cartella che li contiene.
 		// Se non viene passato il percorso completo a tale cartella si assume che nell'indice ci siano percorsi assoluti.
 		if (this.repositoryFolderPath != null)
-			filenameAbsolutePath = this.repositoryFolderPath + filenameAbsolutePath;
+			fileAbsolutePath = this.repositoryFolderPath + fileAbsolutePath;
 		
-		return filenameAbsolutePath;
+		return fileAbsolutePath;
 		
 	}
 	
@@ -258,11 +264,11 @@ public class TemplateCompiler
 	/*************************************************************************/
 	
 	/**
-	 * Compila il template associato al templateName fornito. Il template e' cercato nell'InputStream fornito.
+	 * Compila il template associato al templateName fornito. Il template e' cercato neidati recuperati dall'InputStream fornito.
 	 * @param is InputStream conenente la stringa in cui e'/sono memorizzato/i i/il template/s
 	 * @param templateName Nome del template da compilare
 	 * @param substitutesValuesMap Mappa contenente i valori sostitutivi con cui rimpiazzare i parametri nel template
-	 * @return Stringa corrispondente al contenuto del template con parametri rimpiazzati dai valori passati nella mappa con le associazioni parametro->valore
+	 * @return Stringa corrispondente al contenuto del template i cui parametri sono stati rimpiazzati con valori passati nella mappa con le associazioni parametro->sostituto
 	 * @throws TemplateCompilerException 
 	 */
 	public static String compile(InputStream is, String templateName, Map<String, Object> substitutesValuesMap) throws TemplateCompilerException {
@@ -271,12 +277,12 @@ public class TemplateCompiler
 	}
 	
 	/**
-	 * Compila il template associato al templateName fornito. Il template e' cercato nell'InputStream fornito.
+	 * Compila il template associato al templateName fornito. Il template e' cercato neidati recuperati dall'InputStream fornito.
 	 * @param is InputStream conenente la stringa in cui e'/sono memorizzato/i i/il template/s
 	 * @param templateName Nome del template da compilare
 	 * @param substitutesValuesMap Mappa contenente i valori sostitutivi con cui rimpiazzare i parametri nel template
-	 * @param picker Oggetto che sia in grado di interpretare i dati forniti al fine di trovare il template contenutovi. 
-	 * @return Stringa corrispondente al contenuto del template con parametri rimpiazzati dai valori passati nella mappa con le associazioni parametro->valore
+	 * @param picker Oggetto che sia in grado di interpretare il formato della stringa dei templates
+	 * @return Stringa corrispondente al contenuto del template i cui parametri sono stati rimpiazzati con valori passati nella mappa con le associazioni parametro->sostituto
 	 * @throws TemplateCompilerException 
 	 */
 	public static String compile(InputStream is, String templateName, Map<String, Object> substitutesValuesMap, TemplatePicker picker) throws TemplateCompilerException {
@@ -285,12 +291,12 @@ public class TemplateCompiler
 	}
 	
 	/**
-	 * Compila il template associato al templateName fornito. Il template e' cercato nell'InputStream fornito.
+	 * Compila il template associato al templateName fornito. Il template e' cercato neidati recuperati dall'InputStream fornito.
 	 * @param is InputStream conenente la stringa in cui e'/sono memorizzato/i i/il template/s
 	 * @param templateName Nome del template da compilare
 	 * @param substitutesValuesMap Mappa contenente i valori sostitutivi con cui rimpiazzare i parametri nel template
 	 * @param validator Oggetto per effettuare verifica di coerenza dei tipi sui valori che dovranno esser sostituiti ai parametri del template.
-	 * @return Stringa corrispondente al contenuto del template con parametri rimpiazzati dai valori passati nella mappa con le associazioni parametro->valore
+	 * @return Stringa corrispondente al contenuto del template i cui parametri sono stati rimpiazzati con valori passati nella mappa con le associazioni parametro->sostituto
 	 * @throws TemplateCompilerException 
 	 */
 	public static String compile(InputStream is, String templateName, Map<String, Object> substitutesValuesMap, MapFormatTypeValidator validator) throws TemplateCompilerException {
@@ -300,13 +306,13 @@ public class TemplateCompiler
 
 	
 	/**
-	 * Compila il template associato al templateName fornito. Il template e' cercato nell'InputStream fornito.
+	 * Compila il template associato al templateName fornito. Il template e' cercato neidati recuperati dall'InputStream fornito.
 	 * @param is InputStream conenente la stringa in cui e'/sono memorizzato/i i/il template/s.
 	 * @param templateName Nome del template da compilare.
 	 * @param substitutesValuesMap Mappa contenente i valori sostitutivi con cui rimpiazzare i parametri nel template.
-	 * @param picker Oggetto che sia in grado di interpretare i dati forniti al fine di trovare il template contenutovi. 
+	 * @param picker Oggetto che sia in grado di interpretare il formato della stringa dei templates
 	 * @param validator Oggetto per effettuare verifica di coerenza dei tipi sui valori che dovranno esser sostituiti ai parametri del template.
-	 * @return Stringa corrispondente al contenuto del template con parametri rimpiazzati dai valori passati nella mappa con le associazioni parametro->valore.
+	 * @return Stringa corrispondente al contenuto del template i cui parametri sono stati rimpiazzati con valori passati nella mappa con le associazioni parametro->sostituto.
 	 * @throws TemplateCompilerException
 	 */
 	public static String compile(InputStream is, String templateName, Map<String, Object> substitutesValuesMap, TemplatePicker picker, MapFormatTypeValidator validator) throws TemplateCompilerException {
@@ -324,11 +330,11 @@ public class TemplateCompiler
 	
 
 	/**
-	 * Compila il template associato al templateName fornito. Il template e' cercato nell'InputStream fornito.
+	 * Compila il template associato al templateName fornito. Il template e' cercato nei dati recuperati dall'InputStream fornito.
 	 * @param templateAsString Stringa contenente uno o più template/s
 	 * @param templateName Nome del template da compilare
 	 * @param substitutesValuesMap Mappa contenente i valori sostitutivi con cui rimpiazzare i parametri nel template
-	 * @return Stringa corrispondente al contenuto del template con parametri rimpiazzati dai valori passati nella mappa con le associazioni parametro->valore
+	 * @return Stringa corrispondente al contenuto del template i cui parametri sono stati rimpiazzati con valori passati nella mappa con le associazioni parametro->sostituto
 	 * @throws TemplateCompilerException 
 	 */
 	public static String compile(String templateAsString, String templateName, Map<String, Object> substitutesValuesMap) throws TemplateCompilerException {
@@ -337,12 +343,12 @@ public class TemplateCompiler
 	}
 	
 	/**
-	 * Compila il template associato al templateName fornito. Il template e' cercato nell'InputStream fornito.
+	 * Compila il template associato al templateName fornito. Il template e' cercato nei dati recuperati dall'InputStream fornito.
 	 * @param templateAsString Stringa contenente uno o più template/s
 	 * @param templateName Nome del template da compilare
 	 * @param substitutesValuesMap Mappa contenente i valori sostitutivi con cui rimpiazzare i parametri nel template
-	 * @param picker Oggetto che sia in grado di interpretare i dati forniti al fine di trovare il template contenutovi. 
-	 * @return Stringa corrispondente al contenuto del template con parametri rimpiazzati dai valori passati nella mappa con le associazioni parametro->valore
+	 * @param picker Oggetto che sia in grado di interpretare il formato della stringa dei templates
+	 * @return Stringa corrispondente al contenuto del template i cui parametri sono stati rimpiazzati con valori passati nella mappa con le associazioni parametro->sostituto
 	 * @throws TemplateCompilerException 
 	 */
 	public static String compile(String templateAsString, String templateName, Map<String, Object> substitutesValuesMap, TemplatePicker picker) throws TemplateCompilerException {
@@ -351,12 +357,12 @@ public class TemplateCompiler
 	}
 	
 	/**
-	 * Compila il template associato al templateName fornito. Il template e' cercato nell'InputStream fornito.
+	 * Compila il template associato al templateName fornito. Il template e' cercato nei dati recuperati dall'InputStream fornito.
 	 * @param templateAsString Stringa contenente uno o più template/s
 	 * @param templateName Nome del template da compilare
 	 * @param substitutesValuesMap Mappa contenente i valori sostitutivi con cui rimpiazzare i parametri nel template
 	 * @param validator Oggetto per effettuare verifica di coerenza dei tipi sui valori che dovranno esser sostituiti ai parametri del template.
-	 * @return Stringa corrispondente al contenuto del template con parametri rimpiazzati dai valori passati nella mappa con le associazioni parametro->valore
+	 * @return Stringa corrispondente al contenuto del template i cui parametri sono stati rimpiazzati con valori passati nella mappa con le associazioni parametro->sostituto
 	 * @throws TemplateCompilerException 
 	 */
 	public static String compile(String templateAsString, String templateName, Map<String, Object> substitutesValuesMap, MapFormatTypeValidator validator) throws TemplateCompilerException {
@@ -366,13 +372,13 @@ public class TemplateCompiler
 
 	
 	/**
-	 * Compila il template associato al templateName fornito. Il template e' cercato nell'InputStream fornito.
+	 * Compila il template associato al templateName fornito. Il template e' cercato nei dati recuperati dall'InputStream fornito.
 	 * @param templateAsString Stringa contenente uno o più template/s
 	 * @param templateName Nome del template da compilare.
 	 * @param substitutesValuesMap Mappa contenente i valori sostitutivi con cui rimpiazzare i parametri nel template.
-	 * @param picker Oggetto che sia in grado di interpretare i dati forniti al fine di trovare il template contenutovi. 
+	 * @param picker Oggetto che sia in grado di interpretare il formato della stringa dei templates
 	 * @param validator Oggetto per effettuare verifica di coerenza dei tipi sui valori che dovranno esser sostituiti ai parametri del template.
-	 * @return Stringa corrispondente al contenuto del template con parametri rimpiazzati dai valori passati nella mappa con le associazioni parametro->valore.
+	 * @return Stringa corrispondente al contenuto del template i cui parametri sono stati rimpiazzati con valori passati nella mappa con le associazioni parametro->sostituto.
 	 * @throws TemplateCompilerException
 	 */
 	public static String compile(String templateAsString, String templateName, Map<String, Object> substitutesValuesMap, TemplatePicker picker, MapFormatTypeValidator validator) throws TemplateCompilerException {
@@ -391,61 +397,61 @@ public class TemplateCompiler
 	
 	/**
 	 * Compila il template associato al templateName fornito. Il template e' cercato attraverso un indice dei file template-repository.
-	 * @param repositoryIndex Mappa con le associazioni tra i nomi dei templates e i relativi file-repository da cui recuperarli effettivamente.
-	 * @param repositoryFolderPath Percorso completo della cartella contenente i/il file repository dei template/s. Indispensabile se si vuole mantenere percorsi relativi nel file indice dei repositories.
+	 * @param repositoryIndexMap Mappa con le associazioni tra i nomi dei templates e i relativi file da cui recuperarli effettivamente. E' a tutti gli effetti un indice delle query disponibili.
+	 * @param repositoryFolderPath Percorso completo della cartella (radice) contenente i files dei templates. Indispensabile per mantenere percorsi relativi nel file indice dei templates.
 	 * @param templateName Nome del template da compilare.
 	 * @param substitutesValuesMap Mappa contenente i valori sostitutivi con cui rimpiazzare i parametri nel template.
-	 * @return Stringa corrispondente al contenuto del template con parametri rimpiazzati dai valori passati nella mappa con le associazioni parametro->valore.
+	 * @return Stringa corrispondente al contenuto del template i cui parametri sono stati rimpiazzati con valori passati nella mappa con le associazioni parametro->sostituto.
 	 * @throws TemplateCompilerException
 	 */
-	public static String compile(Map<String, String> repositoryIndex, String repositoryFolderPath, String templateName, Map<String, Object> substitutesValuesMap) throws TemplateCompilerException {
-		return compile( repositoryIndex, repositoryFolderPath, templateName, substitutesValuesMap, null, null );
+	public static String compile(Map<String, String> repositoryIndexMap, String repositoryFolderPath, String templateName, Map<String, Object> substitutesValuesMap) throws TemplateCompilerException {
+		return compile( repositoryIndexMap, repositoryFolderPath, templateName, substitutesValuesMap, null, null );
 		
 	}
 	
 	/**
 	 * Compila il template associato al templateName fornito. Il template e' cercato attraverso un indice dei file template-repository.
-	 * @param repositoryIndex Mappa con le associazioni tra i nomi dei templates e i relativi file-repository da cui recuperarli effettivamente.
-	 * @param repositoryFolderPath Percorso completo della cartella contenente i/il file repository dei template/s. Indispensabile se si vuole mantenere percorsi relativi nel file indice dei repositories.
+	 * @param repositoryIndexMap Mappa con le associazioni tra i nomi dei templates e i relativi file da cui recuperarli effettivamente. E' a tutti gli effetti un indice delle query disponibili.
+	 * @param repositoryFolderPath Percorso completo della cartella (radice) contenente i files dei templates. Indispensabile per mantenere percorsi relativi nel file indice dei templates.
 	 * @param templateName Nome del template da compilare.
 	 * @param substitutesValuesMap Mappa contenente i valori sostitutivi con cui rimpiazzare i parametri nel template.
-	 * @param validator Oggetto che sia in grado di interpretare i dati forniti al fine di trovare il template contenutovi.
-	 * @return Stringa corrispondente al contenuto del template con parametri rimpiazzati dai valori passati nella mappa con le associazioni parametro->valore.
+	 * @param validator Oggetto che sia in grado di interpretare i dati forniti e quindi poter trovare il template scelto
+	 * @return Stringa corrispondente al contenuto del template i cui parametri sono stati rimpiazzati con valori passati nella mappa con le associazioni parametro->sostituto.
 	 * @throws TemplateCompilerException
 	 */
-	public static String compile(Map<String, String> repositoryIndex, String repositoryFolderPath, String templateName, Map<String, Object> substitutesValuesMap, MapFormatTypeValidator validator) throws TemplateCompilerException {
-		return compile( repositoryIndex, repositoryFolderPath, templateName, substitutesValuesMap, null, validator );
+	public static String compile(Map<String, String> repositoryIndexMap, String repositoryFolderPath, String templateName, Map<String, Object> substitutesValuesMap, MapFormatTypeValidator validator) throws TemplateCompilerException {
+		return compile( repositoryIndexMap, repositoryFolderPath, templateName, substitutesValuesMap, null, validator );
 		
 	}
 	
 	/**
 	 * Compila il template associato al templateName fornito. Il template e' cercato attraverso un indice dei file template-repository.
-	 * @param repositoryIndex Mappa con le associazioni tra i nomi dei templates e i relativi file-repository da cui recuperarli effettivamente.
-	 * @param repositoryFolderPath Percorso completo della cartella contenente i/il file repository dei template/s. Indispensabile se si vuole mantenere percorsi relativi nel file indice dei repositories.
+	 * @param repositoryIndexMap Mappa con le associazioni tra i nomi dei templates e i relativi file da cui recuperarli effettivamente. E' a tutti gli effetti un indice delle query disponibili.
+	 * @param repositoryFolderPath Percorso completo della cartella (radice) contenente i files dei templates. Indispensabile per mantenere percorsi relativi nel file indice dei templates.
 	 * @param templateName Nome del template da compilare.
 	 * @param substitutesValuesMap Mappa contenente i valori sostitutivi con cui rimpiazzare i parametri nel template.
-	 * @param picker Oggetto che sia in grado di interpretare i dati forniti al fine di trovare il template contenutovi. 
-	 * @return Stringa corrispondente al contenuto del template con parametri rimpiazzati dai valori passati nella mappa con le associazioni parametro->valore.
+	 * @param picker Oggetto che sia in grado di interpretare il formato della stringa dei templates
+	 * @return Stringa corrispondente al contenuto del template i cui parametri sono stati rimpiazzati con valori passati nella mappa con le associazioni parametro->sostituto.
 	 * @throws TemplateCompilerException
 	 */
-	public static String compile(Map<String, String> repositoryIndex, String repositoryFolderPath, String templateName, Map<String, Object> substitutesValuesMap, TemplatePicker picker) throws TemplateCompilerException {
-		return compile( repositoryIndex, repositoryFolderPath, templateName, substitutesValuesMap, picker, null );
+	public static String compile(Map<String, String> repositoryIndexMap, String repositoryFolderPath, String templateName, Map<String, Object> substitutesValuesMap, TemplatePicker picker) throws TemplateCompilerException {
+		return compile( repositoryIndexMap, repositoryFolderPath, templateName, substitutesValuesMap, picker, null );
 		
 	}
 
 	/**
 	 * Compila il template associato al templateName fornito. Il template e' cercato attraverso un indice dei file template-repository.
-	 * @param repositoryIndex Mappa con le associazioni tra i nomi dei templates e i relativi file-repository da cui recuperarli effettivamente.
-	 * @param repositoryFolderPath Percorso completo della cartella contenente i/il file repository dei template/s. Indispensabile se si vuole mantenere percorsi relativi nel file indice dei repositories.
+	 * @param repositoryIndexMap Mappa con le associazioni tra i nomi dei templates e i relativi file da cui recuperarli effettivamente. E' a tutti gli effetti un indice delle query disponibili.
+	 * @param repositoryFolderPath Percorso completo della cartella (radice) contenente i files dei templates. Indispensabile per mantenere percorsi relativi nel file indice dei templates.
 	 * @param templateName Nome del template da compilare.
 	 * @param substitutesValuesMap Mappa contenente i valori sostitutivi con cui rimpiazzare i parametri nel template.
-	 * @param picker Oggetto che sia in grado di interpretare i dati forniti al fine di trovare il template contenutovi. 
+	 * @param picker Oggetto che sia in grado di interpretare il formato della stringa dei templates
 	 * @param validator Oggetto per effettuare verifica di coerenza dei tipi sui valori che dovranno esser sostituiti ai parametri del template.
-	 * @return Stringa corrispondente al contenuto del template con parametri rimpiazzati dai valori passati nella mappa con le associazioni parametro->valore.
+	 * @return Stringa corrispondente al contenuto del template i cui parametri sono stati rimpiazzati con valori passati nella mappa con le associazioni parametro->sostituto.
 	 * @throws TemplateCompilerException
 	 */
-	public static String compile(Map<String, String> repositoryIndex, String repositoryFolderPath, String templateName, Map<String, Object> substitutesValuesMap, TemplatePicker picker, MapFormatTypeValidator validator) throws TemplateCompilerException {
-		TemplateCompiler tc = new TemplateCompiler( repositoryIndex, repositoryFolderPath, templateName, substitutesValuesMap );
+	public static String compile(Map<String, String> repositoryIndexMap, String repositoryFolderPath, String templateName, Map<String, Object> substitutesValuesMap, TemplatePicker picker, MapFormatTypeValidator validator) throws TemplateCompilerException {
+		TemplateCompiler tc = new TemplateCompiler( repositoryIndexMap, repositoryFolderPath, templateName, substitutesValuesMap );
 		
 		if (validator != null)
 			tc.setValidator( validator );

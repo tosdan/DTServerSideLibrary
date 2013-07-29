@@ -4,7 +4,7 @@ import java.util.Map;
 /**
  * 
  * @author Daniele
- * @version 0.1.0-b2013-07-25
+ * @version 0.1.1-b2013-07-29
  */
 public interface MapFormatMatcher
 {
@@ -13,8 +13,8 @@ public interface MapFormatMatcher
 	String getType();
 	Map<String, Object> getCustomAttributes();
 	
-	String getTipi();
-	MapFormatMatcher setTipi( String tipi );
+	String getValidatorRegExPart();
+	MapFormatMatcher setValidatorRegExPart( String tipi );
 	
 	MapFormatMatcher reset(String sequenza);
 	boolean find();

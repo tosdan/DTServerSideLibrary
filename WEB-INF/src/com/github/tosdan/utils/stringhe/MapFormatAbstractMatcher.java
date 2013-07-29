@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 /**
  * 
  * @author Daniele
- * @version 0.1.0-b2013-07-25
+ * @version 0.1.1-b2013-07-29
  */
 public abstract class MapFormatAbstractMatcher implements MapFormatMatcher
 {
@@ -14,7 +14,7 @@ public abstract class MapFormatAbstractMatcher implements MapFormatMatcher
 	private String placeHolderHead;
 	private String placeHolderTail;
 	
-	private String tipi;
+	private String validatorRegExPart;
 	
 	private String placeHolderDaRimpiazzare;
 	private String strDentroAlPlaceHolder;
@@ -74,16 +74,16 @@ public abstract class MapFormatAbstractMatcher implements MapFormatMatcher
 	}
 
 	@Override
-	public String getTipi() {
-		if (tipi == null)
+	public String getValidatorRegExPart() {
+		if (validatorRegExPart == null)
 			return "";
 		else 
-			return tipi;
+			return validatorRegExPart;
 	}
 
 	@Override
-	public MapFormatMatcher setTipi( String tipi ) {
-		this.tipi = tipi;
+	public MapFormatMatcher setValidatorRegExPart( String validatorRegExPart ) {
+		this.validatorRegExPart = validatorRegExPart;
 		return this;
 	}
 	

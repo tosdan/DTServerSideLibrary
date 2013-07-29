@@ -33,7 +33,6 @@ public class BasicDAO
 	 * 
 	 * @param dataSource
 	 */
-	@Deprecated
 	public BasicDAO( DataSource dataSource ) {
 		this.dataSource = dataSource;
 		this.setCloseConn( true );

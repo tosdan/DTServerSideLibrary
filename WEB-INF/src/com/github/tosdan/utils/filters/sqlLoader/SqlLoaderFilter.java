@@ -154,9 +154,9 @@ public class SqlLoaderFilter extends BasicFilterV2
 		// Carica la configurazione per SqlLoaderFilter da file.
 		this.sqlLoaderSettings = this.loadMapFromConfFile( sqlLoaderConfigFile );
 		
-		// Percorso completo del file contenente il repository index delle queries
+		// Percorso completo del file contenente l'index delle queries
 		this.queriesRepositoryIndexFilename = this.sqlLoaderSettings.get("SqlLoaderQueriesReposIndex_File").toString(); //TODO sotto try/catch
-		// Crea una mappa con il repository index delle queries
+		// Crea una mappa con l'index delle queries
 		this.queriesRepositoryIndexMap = this.loadMapFromConfFile( this.queriesRepositoryIndexFilename );
 		// Percorso assoluto dei file contenenti i templates delle queries
 		this.queriesRepoFolderPath = this.realPath + this.sqlLoaderSettings.get("SqlLoaderConf_Path");

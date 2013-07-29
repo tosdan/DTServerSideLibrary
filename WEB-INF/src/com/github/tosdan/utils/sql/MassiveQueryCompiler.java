@@ -14,7 +14,7 @@ import com.github.tosdan.utils.stringhe.TemplatePicker;
 /**
  * 
  * @author Daniele
- * @version 0.1.0-b2013-06-28
+ * @version 0.1.1-b2013-07-29
  */
 public class MassiveQueryCompiler
 {
@@ -23,12 +23,12 @@ public class MassiveQueryCompiler
 	/*************************************************************************/
 	
 	private List<Map<String, Object>> shiftingParamsMapsList;
-	private Map<String, String> repositoryIndex;
+	private Map<String, String> repositoryIndexMap;
 	private String queriesRepoFolderPath;
 	private MapFormatTypeValidator validator;
-	private String templateAsString;
+	private String templateContainerAsString;
 	/**
-	 * Oggetto che sia in grado di interpretare i dati forniti al fine di trovare il template contenutovi.
+	 * Oggetto che sappia interpretare il template al fine di trovare la query scelta.
 	 */
 	private TemplatePicker picker;
 	
@@ -38,25 +38,26 @@ public class MassiveQueryCompiler
 	
 	/**
 	 * 
-	 * @param templateInputStram
+	 * @param templateContainerAsString
 	 */
-	public MassiveQueryCompiler( String templateAsString ) {
-		this( templateAsString, null );
+	public MassiveQueryCompiler( String templateContainerAsString ) {
+		this( templateContainerAsString, null );
 	}
 	
+
 	/**
 	 * 
-	 * @param templateInputStram
+	 * @param templateContainerAsString
 	 * @param shiftingParamsMapsList
 	 */
-	public MassiveQueryCompiler( String templateAsString, List<Map<String, Object>> shiftingParamsMapsList ) {
+	public MassiveQueryCompiler( String templateContainerAsString, List<Map<String, Object>> shiftingParamsMapsList ) {
 		this( null, null, shiftingParamsMapsList );
-		this.templateAsString = templateAsString;
+		this.templateContainerAsString = templateContainerAsString;
 	}
 	
+
 	/**
 	 * 
-	 * @param nomiQueriesDaCompilare
 	 * @param repositoryFilesIndex
 	 * @param queriesRepoFolderFullPath
 	 */
@@ -66,14 +67,13 @@ public class MassiveQueryCompiler
 	
 	/**
 	 * 
-	 * @param nomiQueriesDaCompilare Array di nomi/id delle queries da compilare.
-	 * @param repositoryIndex Contiene le associazioni nome-query -> file-query-template. L'associazione da un id/nome di una query al file contenente il modello/template della query associata. 
+	 * @param repositoryIndexMap Contiene le associazioni nome-query -> file-query-template. L'associazione da un id/nome di una query al file contenente il modello/template della query associata. 
 	 * @param queriesRepoFolderPath Percorso assoluto completo della cartella (radice) contenente i template delle queries da compilare
-	 * @param shiftingParamsMapsList
+	 * @param shiftingParamsMapsList Lista con con parametri per compilazione di piu' query dallo stesso template.
 	 */
-	public MassiveQueryCompiler(Map<String, String> repositoryIndex, String queriesRepoFolderPath, List<Map<String, Object>> shiftingParamsMapsList) {
+	public MassiveQueryCompiler(Map<String, String> repositoryIndexMap, String queriesRepoFolderPath, List<Map<String, Object>> shiftingParamsMapsList) {
 		this.shiftingParamsMapsList = shiftingParamsMapsList;
-		this.repositoryIndex = repositoryIndex;
+		this.repositoryIndexMap = repositoryIndexMap;
 		this.queriesRepoFolderPath = queriesRepoFolderPath;
 		// Istanzia l'oggetto di default per la validazione dei parametri rispetto ai valori effettivamente passati per evitare problemi sui Tipi
 		this.validator = new MapFormatTypeValidatorSQL();
@@ -142,17 +142,17 @@ public class MassiveQueryCompiler
 	private String getCompiledQuery( String templateName, Map<String, Object> substitutesValuesMap) 
 			throws TemplateCompilerException {
 		
-		if (this.repositoryIndex != null && this.queriesRepoFolderPath != null)
-			return TemplateCompiler.compile( repositoryIndex, queriesRepoFolderPath, templateName, substitutesValuesMap, picker, validator );
+		if (this.repositoryIndexMap != null && this.queriesRepoFolderPath != null)
+			return TemplateCompiler.compile( repositoryIndexMap, queriesRepoFolderPath, templateName, substitutesValuesMap, picker, validator );
 		
-		else if (this.templateAsString != null) {
-			String s = TemplateCompiler.compile( templateAsString, templateName, substitutesValuesMap, picker, validator );
+		else if (this.templateContainerAsString != null) {
+			String s = TemplateCompiler.compile( templateContainerAsString, templateName, substitutesValuesMap, picker, validator );
 //			System.out.println( s );
 			return s;
 		}
 		
 		else 
-			throw new IllegalArgumentException( "Errore " + this.getClass().getName() + ": repositoryIndex + queriesRepoFolderPath nulli o templateInputStram nullo. Deve esser forniuta una sorgente valida per recuperare il template da compilare." );
+			throw new IllegalArgumentException( "Errore " + this.getClass().getName() + ": repositoryIndexMap + queriesRepoFolderPath nulli o templateContainerAsString nullo. Deve esser fornita una sorgente valida per recuperare il template da compilare." );
 	}
 
 	/**
@@ -165,7 +165,7 @@ public class MassiveQueryCompiler
 
 	/**
 	 * 
-	 * @param picker Oggetto che sappia interpretare il template al fine di trovare la query sceltas.
+	 * @param picker Oggetto che sappia interpretare il template al fine di trovare la query scelta.
 	 */
 	public void setPicker( TemplatePicker picker ) {
 		this.picker = picker;
