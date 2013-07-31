@@ -23,7 +23,7 @@ public class ConnectionProviderImplV2 implements ConnectionProvider
 //	private String dbType;
 	private String dbConfFile;
 	private boolean isDBConfLoaded;
-	
+	// TODO campo per indicare se la connsessione deve esser chiusa dal chiamato o se lasciata aperta perche' e' il chiamante che si impegnera' a chiuderla
 	@Deprecated
 	public ConnectionProviderImplV2()
 	{

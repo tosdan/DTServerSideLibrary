@@ -3,7 +3,7 @@ package com.github.tosdan.utils.sql;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -62,7 +62,7 @@ public abstract class AbstractKeyedListHandler<K, V> implements ResultSetHandler
      * @return Map to store records in
      */
     protected Map<K, List<V>> createMap() {
-        return new HashMap<K, List<V>>();
+        return new LinkedHashMap<K, List<V>>();
     }
 
     /**
