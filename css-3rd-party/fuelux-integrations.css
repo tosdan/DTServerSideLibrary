@@ -1,0 +1,26 @@
+.fuelux .tree .tree-item .tree-dot {
+	position: absolute;
+	top: 1px;
+	left: 5px;
+	float: left;
+	display: inline-block;
+	height: 14px;
+    width: 16px;
+	margin-top: 1px;
+	line-height: 14px;
+	vertical-align: text-top;
+	background-image: url("../img/glyphicons-halflings.png");
+	background-repeat: no-repeat;
+    background-position: -384px -120px;
+    background-color: transparent;
+    border-radius: 0px;
+}
+
+.fuelux .icon-ok {
+    width: 16px;
+    background-position: -408px -120px;
+}
+.fuelux .icon-folder-close {
+    width: 16px;
+    background-position: -384px -120px;
+}

@@ -1,15 +1,47 @@
+/* Elimina il contorno tratteggiato degli oggetti cliccati */
 .btn:focus, .no-outline, .no-outline:active, .no-outline:focus {
     outline: 0px none !important;
 }
 
+/* Allineamento centrato per le celle delle table */
 .cell-text-center {
 	text-align: center !important;
 }
-
+/* Allineamento a destra per le celle delle table */
 .cell-text-right {
 	text-align: right !important;
 }
 
+/* Colore di alternanza per le table striped (zebrate) */
 .table-striped-strong tbody tr:nth-child(odd) td {
-   background-color: #EAEAEA !important;
+   background-color: #EAEAEA !important; /* grigio un poco piu' scuro */
+}
+
+/*  Input piu' sottili */
+input[type="text"].input-slim , select.slim  {
+   height: 25px !important;
+   padding-top: 1px !important;
+   padding-bottom: 0 !important;
+   line-height: 12px !important;
+}
+
+input[type="text"].input-micro {
+	width: 28px;	
+}
+
+/*  Pensato per mettere in evidenza porzioni di testo con un colore diverso 
+	rispetto a come Bootstrap colora il tag <code> */
+span.hhcode1 {
+  border: 1px solid #e1e1e8;
+  padding: 2px 4px;
+  color: #0088CC;
+  white-space: nowrap;
+  background-color: #f7f7f9;
+  border-radius: 3px;
+  font-size: 12px;
+  font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
+}
+
+span.barrato {
+	text-decoration: line-through;
 }

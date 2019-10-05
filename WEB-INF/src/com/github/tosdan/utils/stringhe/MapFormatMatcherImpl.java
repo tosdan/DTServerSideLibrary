@@ -3,7 +3,7 @@ package com.github.tosdan.utils.stringhe;
 /**
  * 
  * @author Daniele
- * @version 0.1.3-b2013-07-29
+ * @version 0.1.4-b2013-09-01
  */
 public class MapFormatMatcherImpl extends MapFormatAbstractMatcher
 {
@@ -12,7 +12,7 @@ public class MapFormatMatcherImpl extends MapFormatAbstractMatcher
 	}
 	
 	public String getRegExSchema() {
-		return "([a-zA-Z_][a-zA-Z0-9_]*(\\.[a-zA-Z_][a-zA-Z0-9_]*)*)(,[ ]*(?i)("+ getValidatorRegExPart()+"))?";
+		return "([a-zA-Z_][a-zA-Z0-9_-]*(\\.[a-zA-Z_][a-zA-Z0-9_-]*)*)(,[ ]*(?i)("+ getValidatorRegExPart() +"))?";
 	}
 	
 	public MapFormatAbstractMatcher resetPlaceHolder() {

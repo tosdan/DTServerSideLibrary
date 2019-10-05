@@ -6,7 +6,7 @@ import java.text.DateFormat;
 /**
  * 
  * @author Daniele
- * @version 0.2.0-b2013-07-29
+ * @version 0.2.1-b2013-08-02
  */
 public abstract class MapFormatAbstractTypeValidator implements MapFormatTypeValidator
 {
@@ -19,7 +19,7 @@ public abstract class MapFormatAbstractTypeValidator implements MapFormatTypeVal
 			return source;
 			
 		} else {
-			throw new MapFormatTypeValidatorException("Errore di validazione per il tipo '" + type +"' sul valore: " + source);
+			throw new MapFormatTypeValidatorException("Errore di validazione per il tipo '" + type +"' sul valore: '" + source +"'");
 		}
 	}
 	
@@ -32,7 +32,7 @@ public abstract class MapFormatAbstractTypeValidator implements MapFormatTypeVal
 			dateFormat.parse( source );
 			
 		} catch ( ParseException e ) {
-			throw new MapFormatTypeValidatorException("Errore validazine data: " + source, e);
+			throw new MapFormatTypeValidatorException("Errore validazine data: '" + source +"'", e);
 		}
 		result = quote(source);
 		

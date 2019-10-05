@@ -155,8 +155,8 @@ public class TemplateCompiler
 		
 		if ( template == null || template.equals("") ) {
 			String msg = (this.repositoryIndexMap == null)  // se e' stato passato direttamente un InputStream 'repositoryIndexMap' e' nullo
-					? "Associazione vuota o mancante per il template '" + this.templateName + "' nella sorgente passata."
-					: "Associazione vuota o mancante per il template '" + this.templateName + "' nel file dei templates: '" + templatesRepositoryFilename + "'.";
+					? "Associazione vuota o mancante per il template '" + this.templateName + "' nella sorgente passata. TemplatePicker usato: "+ picker.getClass().getName()
+					: "Associazione vuota o mancante per il template '" + this.templateName + "' nel file dei templates: '" + templatesRepositoryFilename + "'. TemplatePicker usato: "+ picker.getClass().getName();
 			throw new TemplateCompilerException( msg );
 			
 		}

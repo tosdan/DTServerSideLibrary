@@ -1,59 +1,2371 @@
-debugJson=>false
-iSortCol_0=>1
-iColumns=>6
-bRegex=>false
-bSearchable_5=>false
-bSearchable_4=>true
-bSearchable_3=>true
-bSearchable_2=>true
-iSortingCols=>1
-bSearchable_1=>true
-bSearchable_0=>false
-sqlType=>query
-echoParams=>DT_RowClass;custom
-sqlName=>dtexample
-logDTReplyReqParams=>true
-sEcho=>3
-mDataBinded=>true
-iDisplayStart=>0
-printStackTrace=>false
-bRegex_5=>false
-bRegex_4=>false
-bRegex_3=>false
-bRegex_2=>false
-bRegex_1=>false
-bRegex_0=>false
-iDisplayLength=>10
-stampaQuery=>false
-sSearch=>
-bSortable_5=>true
-bSortable_4=>true
-bSortable_3=>true
-bSortable_2=>true
-row_number=>true
-bSortable_1=>true
-bSortable_0=>false
-custom02=><img src='../examples_support/details_open.png'>
-sColumns=>
-sSearch_5=>
-sSearch_4=>
-sSearch_3=>
-sSearch_2=>
-sSearch_1=>
-sSearch_0=>
-sSortDir_0=>asc
-mDataProp_5=>grade
-mDataProp_4=>version
-mDataProp_3=>platform
-mDataProp_2=>browser
-mDataProp_1=>engine
-mDataProp_0=>custom02
-sqlLoaderMappaQueries=>{dtexample=[SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
-]}
-dtexample=>SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+Sat Sep 28 23:38:23 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+echoParams: DT_RowClass;custom02
+iColumns: '20'
+mDataProp_14: '14'
+mDataProp_15: '15'
+mDataProp_16: '16'
+mDataProp_17: '17'
+mDataProp_18: '18'
+mDataProp_19: '19'
+mDataProp_10: '10'
+mDataProp_11: '11'
+mDataProp_12: '12'
+mDataProp_13: '13'
+sSortDir_0: asc
+bSearchable_19: 'true'
+bSearchable_18: 'true'
+iDisplayStart: '0'
+bSearchable_17: 'true'
+bSearchable_16: 'true'
+sSearch_2: ''
+sSearch_3: ''
+bRegex: 'false'
+sSearch_0: ''
+sSearch_1: ''
+indexed: 'true'
+sSearch: ''
+bSortable_9: 'true'
+bSearchable_10: 'true'
+bSearchable_11: 'true'
+bSearchable_12: 'true'
+bSortable_5: 'true'
+bSearchable_13: 'true'
+bSortable_6: 'true'
+bSearchable_14: 'true'
+bSortable_7: 'true'
+bSearchable_15: 'true'
+bSortable_8: 'true'
+bSortable_2: 'true'
+bSortable_1: 'true'
+mDataBinded: 'false'
+bSortable_4: 'true'
+serverSideProcessing: 'true'
+bSortable_3: 'true'
+sqlName: dtexample
+bSortable_0: 'true'
+sSearch_9: ''
+sSearch_8: ''
+sSearch_7: ''
+sSearch_6: ''
+sSearch_5: ''
+sSearch_4: ''
+iSortCol_0: '0'
+bRegex_19: 'false'
+bRegex_18: 'false'
+bRegex_17: 'false'
+DebugDTReply: 'true'
+bRegex_13: 'false'
+bRegex_14: 'false'
+bRegex_15: 'false'
+rowNumber: 'false'
+bRegex_16: 'false'
+bRegex_10: 'false'
+bRegex_11: 'false'
+bRegex_12: 'false'
+sEcho: '1'
+printStackTrace: 'false'
+iSortingCols: '1'
+mDataProp_0: '0'
+mDataProp_1: '1'
+mDataProp_2: '2'
+mDataProp_3: '3'
+mDataProp_4: '4'
+mDataProp_6: '6'
+mDataProp_5: '5'
+mDataProp_8: '8'
+bSortable_19: 'true'
+mDataProp_7: '7'
+sSearch_19: ''
+bSortable_18: 'true'
+sSearch_18: ''
+bSortable_17: 'true'
+mDataProp_9: '9'
+sSearch_17: ''
+bSortable_16: 'true'
+sSearch_16: ''
+bSortable_15: 'true'
+sSearch_15: ''
+bSortable_14: 'true'
+sSearch_14: ''
+bSortable_13: 'true'
+sColumns: ''
+sSearch_13: ''
+bSortable_12: 'true'
+sSearch_12: ''
+bSortable_11: 'true'
+sSearch_11: ''
+bSortable_10: 'true'
+sSearch_10: ''
+bSearchable_2: 'true'
+bRegex_2: 'false'
+bSearchable_1: 'true'
+bRegex_3: 'false'
+bSearchable_0: 'true'
+bRegex_4: 'false'
+bRegex_5: 'false'
+bRegex_6: 'false'
+bRegex_7: 'false'
+bRegex_8: 'false'
+bRegex_9: 'false'
+bSearchable_9: 'true'
+bSearchable_8: 'true'
+bSearchable_7: 'true'
+bSearchable_6: 'true'
+iDisplayLength: '-1'
+bSearchable_5: 'true'
+bSearchable_4: 'true'
+bRegex_0: 'false'
+bSearchable_3: 'true'
+bRegex_1: 'false'
 
-sqlManagerMappaQueries=>{dtexample=[SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
-]}
-queryRecuperata=>SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+Sat Sep 28 23:38:23 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Query ****
+SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
 
----- Fine parametri ----
+Sat Sep 28 23:38:23 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+iSortCol_0: '1'
+custom02: <img src='../examples_support/details_open.png'>
+echoParams: DT_RowClass;custom02
+iColumns: '6'
+DebugDTReply: 'true'
+rowNumber: 'true'
+sSortDir_0: asc
+iDisplayStart: '0'
+sEcho: '1'
+printStackTrace: 'false'
+sSearch_2: ''
+bRegex: 'false'
+sSearch_3: ''
+sSearch_0: ''
+sSearch_1: ''
+indexed: 'false'
+sSearch: ''
+iSortingCols: '1'
+mDataProp_0: custom02
+mDataProp_1: engine
+bSortable_5: 'true'
+mDataProp_2: browser
+mDataProp_3: platform
+mDataProp_4: version
+bSortable_2: 'true'
+mDataProp_5: grade
+bSortable_1: 'true'
+mDataBinded: 'true'
+bSortable_4: 'true'
+serverSideProcessing: 'true'
+bSortable_3: 'true'
+bSortable_0: 'false'
+sqlName: dtexample
+sColumns: ''
+sSearch_5: ''
+sSearch_4: ''
+bSearchable_2: 'true'
+bRegex_2: 'false'
+bSearchable_1: 'true'
+bRegex_3: 'false'
+bSearchable_0: 'false'
+bRegex_4: 'false'
+bRegex_5: 'false'
+iDisplayLength: '10'
+bSearchable_5: 'false'
+bSearchable_4: 'true'
+bRegex_0: 'false'
+bSearchable_3: 'true'
+bRegex_1: 'false'
+
+Sat Sep 28 23:38:23 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Query ****
+SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+
+Sat Sep 28 23:38:23 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Queries Eseguite **** 
+--sqlDati:
+ SELECT * 
+  FROM (SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+) as tabella 
+  WHERE 1=1 
+
+  ORDER BY 1 ASC
+
+
+--sqlDatiExtra:
+SELECT 
+  (SELECT COUNT(*) FROM ( SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+ ) as tabella ) AS iTotalRecords 
+, (SELECT COUNT(*) FROM ( SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+ ) as tabella WHERE 1=1  ) AS iTotalDisplayRecords 
+ 
+Sat Sep 28 23:38:23 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Queries Eseguite **** 
+--sqlDati:
+ SELECT * FROM ( 
+ 	SELECT ROW_NUMBER() OVER( ORDER BY engine ASC ) AS DT_RowId, * 
+ 	FROM (SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+) as tabella 
+ WHERE 1=1 
+ ) AS tabella_con_righe 
+ WHERE 1=1 
+ AND DT_RowId BETWEEN 1 AND 10
+
+--sqlDatiExtra:
+SELECT 
+  (SELECT COUNT(*) FROM ( SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+ ) as tabella ) AS iTotalRecords 
+, (SELECT COUNT(*) FROM ( SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+ ) as tabella WHERE 1=1  ) AS iTotalDisplayRecords 
+ 
+Sat Sep 28 23:38:24 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** JSON ****
+{
+  "aaData": [
+    {
+      "0": "Gecko",
+      "1": "Firefox 1.0",
+      "2": "1.7",
+      "3": "Win 98+ / OSX.2+",
+      "4": "A"
+    },
+    {
+      "0": "Gecko",
+      "1": "Firefox 1.5",
+      "2": "1.8",
+      "3": "Win 98+ / OSX.2+",
+      "4": "A"
+    },
+    {
+      "0": "Gecko",
+      "1": "Firefox 2.0",
+      "2": "1.8",
+      "3": "Win 98+ / OSX.2+",
+      "4": "A"
+    },
+    {
+      "0": "Gecko",
+      "1": "Firefox 3.0",
+      "2": "1.9",
+      "3": "Win 2k+ / OSX.3+",
+      "4": "A"
+    },
+    {
+      "0": "Gecko",
+      "1": "Camino 1.0",
+      "2": "1.8",
+      "3": "OSX.2+",
+      "4": "A"
+    },
+    {
+      "0": "Gecko",
+      "1": "Camino 1.5",
+      "2": "1.8",
+      "3": "OSX.3+",
+      "4": "A"
+    },
+    {
+      "0": "Gecko",
+      "1": "Netscape 7.2",
+      "2": "1.7",
+      "3": "Win 95+ / Mac OS 8.6-9.2",
+      "4": "A"
+    },
+    {
+      "0": "Gecko",
+      "1": "Netscape Browser 8",
+      "2": "1.7",
+      "3": "Win 98SE+",
+      "4": "A"
+    },
+    {
+      "0": "Gecko",
+      "1": "Netscape Navigator 9",
+      "2": "1.8",
+      "3": "Win 98+ / OSX.2+",
+      "4": "A"
+    },
+    {
+      "0": "Gecko",
+      "1": "Mozilla 1.0",
+      "3": "Win 95+ / OSX.1+",
+      "4": "A"
+    },
+    {
+      "0": "Gecko",
+      "1": "Mozilla 1.1",
+      "2": "1.1",
+      "3": "Win 95+ / OSX.1+",
+      "4": "A"
+    },
+    {
+      "0": "Gecko",
+      "1": "Mozilla 1.2",
+      "2": "1.2",
+      "3": "Win 95+ / OSX.1+",
+      "4": "A"
+    },
+    {
+      "0": "Gecko",
+      "1": "Mozilla 1.3",
+      "2": "1.3",
+      "3": "Win 95+ / OSX.1+",
+      "4": "A"
+    },
+    {
+      "0": "Gecko",
+      "1": "Mozilla 1.4",
+      "2": "1.4",
+      "3": "Win 95+ / OSX.1+",
+      "4": "A"
+    },
+    {
+      "0": "Gecko",
+      "1": "Mozilla 1.5",
+      "2": "1.5",
+      "3": "Win 95+ / OSX.1+",
+      "4": "A"
+    },
+    {
+      "0": "Gecko",
+      "1": "Mozilla 1.6",
+      "2": "1.6",
+      "3": "Win 95+ / OSX.1+",
+      "4": "A"
+    },
+    {
+      "0": "Gecko",
+      "1": "Mozilla 1.7",
+      "2": "1.7",
+      "3": "Win 98+ / OSX.1+",
+      "4": "A"
+    },
+    {
+      "0": "Gecko",
+      "1": "Mozilla 1.8",
+      "2": "1.8",
+      "3": "Win 98+ / OSX.1+",
+      "4": "A"
+    },
+    {
+      "0": "Gecko",
+      "1": "Seamonkey 1.1",
+      "2": "1.8",
+      "3": "Win 98+ / OSX.2+",
+      "4": "A"
+    },
+    {
+      "0": "Gecko",
+      "1": "Epiphany 2.20",
+      "2": "1.8",
+      "3": "Gnome",
+      "4": "A"
+    },
+    {
+      "0": "KHTML",
+      "1": "Konqureror 3.1",
+      "2": "3.1",
+      "3": "KDE 3.1",
+      "4": "C"
+    },
+    {
+      "0": "KHTML",
+      "1": "Konqureror 3.3",
+      "2": "3.3",
+      "3": "KDE 3.3",
+      "4": "A"
+    },
+    {
+      "0": "KHTML",
+      "1": "Konqureror 3.5",
+      "2": "3.5",
+      "3": "KDE 3.5",
+      "4": "A"
+    },
+    {
+      "0": "Misc",
+      "1": "NetFront 3.1",
+      "2": "-",
+      "3": "Embedded devices",
+      "4": "C"
+    },
+    {
+      "0": "Misc",
+      "1": "NetFront 3.4",
+      "2": "-",
+      "3": "Embedded devices",
+      "4": "A"
+    },
+    {
+      "0": "Misc",
+      "1": "Dillo 0.8",
+      "2": "-",
+      "3": "Embedded devices",
+      "4": "X"
+    },
+    {
+      "0": "Misc",
+      "1": "Links",
+      "2": "-",
+      "3": "Text only",
+      "4": "X"
+    },
+    {
+      "0": "Misc",
+      "1": "Lynx",
+      "2": "-",
+      "3": "Text only",
+      "4": "X"
+    },
+    {
+      "0": "Misc",
+      "1": "IE Mobile",
+      "2": "-",
+      "3": "Windows Mobile 6",
+      "4": "C"
+    },
+    {
+      "0": "Misc",
+      "1": "PSP browser",
+      "2": "-",
+      "3": "PSP",
+      "4": "C"
+    },
+    {
+      "0": "Other browsers",
+      "1": "All others",
+      "2": "-",
+      "3": "-",
+      "4": "U"
+    },
+    {
+      "0": "Presto",
+      "1": "Opera 7.0",
+      "2": "-",
+      "3": "Win 95+ / OSX.1+",
+      "4": "A"
+    },
+    {
+      "0": "Presto",
+      "1": "Opera 7.5",
+      "2": "-",
+      "3": "Win 95+ / OSX.2+",
+      "4": "A"
+    },
+    {
+      "0": "Presto",
+      "1": "Opera 8.0",
+      "2": "-",
+      "3": "Win 95+ / OSX.2+",
+      "4": "A"
+    },
+    {
+      "0": "Presto",
+      "1": "Opera 8.5",
+      "2": "-",
+      "3": "Win 95+ / OSX.2+",
+      "4": "A"
+    },
+    {
+      "0": "Presto",
+      "1": "Opera 9.0",
+      "2": "-",
+      "3": "Win 95+ / OSX.3+",
+      "4": "A"
+    },
+    {
+      "0": "Presto",
+      "1": "Opera 9.2",
+      "2": "-",
+      "3": "Win 88+ / OSX.3+",
+      "4": "A"
+    },
+    {
+      "0": "Presto",
+      "1": "Opera 9.5",
+      "2": "-",
+      "3": "Win 88+ / OSX.3+",
+      "4": "A"
+    },
+    {
+      "0": "Presto",
+      "1": "Opera for Wii",
+      "2": "-",
+      "3": "Wii",
+      "4": "A"
+    },
+    {
+      "0": "Presto",
+      "1": "Nokia N800",
+      "2": "-",
+      "3": "N800",
+      "4": "A"
+    },
+    {
+      "0": "Presto",
+      "1": "Nintendo DS browser",
+      "2": "8.5",
+      "3": "Nintendo DS",
+      "4": "C/A1"
+    },
+    {
+      "0": "Tasman",
+      "1": "Internet Explorer 4.5",
+      "2": "-",
+      "3": "Mac OS 8-9",
+      "4": "X"
+    },
+    {
+      "0": "Tasman",
+      "1": "Internet Explorer 5.1",
+      "3": "Mac OS 7.6-9",
+      "4": "C"
+    },
+    {
+      "0": "Tasman",
+      "1": "Internet Explorer 5.2",
+      "3": "Mac OS 8-X",
+      "4": "C"
+    },
+    {
+      "0": "Trident",
+      "1": "Internet Explorer 4.0",
+      "3": "Win 95+",
+      "4": "X"
+    },
+    {
+      "0": "Trident",
+      "1": "Internet Explorer 5.0",
+      "3": "Win 95+",
+      "4": "C"
+    },
+    {
+      "0": "Trident",
+      "1": "Internet Explorer 5.5",
+      "2": "5.5",
+      "3": "Win 95+",
+      "4": "A"
+    },
+    {
+      "0": "Trident",
+      "1": "Internet Explorer 6",
+      "3": "Win 98+",
+      "4": "A"
+    },
+    {
+      "0": "Trident",
+      "1": "Internet Explorer 7",
+      "3": "Win XP SP2+",
+      "4": "A"
+    },
+    {
+      "0": "Trident",
+      "1": "AOL browser (AOL desktop)",
+      "3": "Win XP",
+      "4": "A"
+    },
+    {
+      "0": "Webkit",
+      "1": "Safari 1.2",
+      "2": "125.5",
+      "3": "OSX.3",
+      "4": "A"
+    },
+    {
+      "0": "Webkit",
+      "1": "Safari 1.3",
+      "2": "312.8",
+      "3": "OSX.3",
+      "4": "A"
+    },
+    {
+      "0": "Webkit",
+      "1": "Safari 2.0",
+      "2": "419.3",
+      "3": "OSX.4+",
+      "4": "A"
+    },
+    {
+      "0": "Webkit",
+      "1": "Safari 3.0",
+      "2": "522.1",
+      "3": "OSX.4+",
+      "4": "A"
+    },
+    {
+      "0": "Webkit",
+      "1": "OmniWeb 5.5",
+      "3": "OSX.4+",
+      "4": "A"
+    },
+    {
+      "0": "Webkit",
+      "1": "iPod Touch / iPhone",
+      "2": "420.1",
+      "3": "iPod",
+      "4": "A"
+    },
+    {
+      "0": "Webkit",
+      "1": "S60",
+      "3": "S60",
+      "4": "A"
+    }
+  ],
+  "iTotalRecords": 57,
+  "iTotalDisplayRecords": 57,
+  "sEcho": 1,
+  "nomiColonne": "engine;browser;version;platform;grade"
+}
+Sat Sep 28 23:38:24 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** JSON ****
+{
+  "aaData": [
+    {
+      "DT_RowId": 1,
+      "engine": "Gecko",
+      "browser": "Firefox 1.0",
+      "version": "1.7",
+      "platform": "Win 98+ / OSX.2+",
+      "grade": "A",
+      "DT_RowClass": "",
+      "custom02": "\u003cimg src\u003d\u0027../examples_support/details_open.png\u0027\u003e"
+    },
+    {
+      "DT_RowId": 2,
+      "engine": "Gecko",
+      "browser": "Firefox 1.5",
+      "version": "1.8",
+      "platform": "Win 98+ / OSX.2+",
+      "grade": "A",
+      "DT_RowClass": "",
+      "custom02": "\u003cimg src\u003d\u0027../examples_support/details_open.png\u0027\u003e"
+    },
+    {
+      "DT_RowId": 3,
+      "engine": "Gecko",
+      "browser": "Firefox 2.0",
+      "version": "1.8",
+      "platform": "Win 98+ / OSX.2+",
+      "grade": "A",
+      "DT_RowClass": "",
+      "custom02": "\u003cimg src\u003d\u0027../examples_support/details_open.png\u0027\u003e"
+    },
+    {
+      "DT_RowId": 4,
+      "engine": "Gecko",
+      "browser": "Firefox 3.0",
+      "version": "1.9",
+      "platform": "Win 2k+ / OSX.3+",
+      "grade": "A",
+      "DT_RowClass": "",
+      "custom02": "\u003cimg src\u003d\u0027../examples_support/details_open.png\u0027\u003e"
+    },
+    {
+      "DT_RowId": 5,
+      "engine": "Gecko",
+      "browser": "Camino 1.0",
+      "version": "1.8",
+      "platform": "OSX.2+",
+      "grade": "A",
+      "DT_RowClass": "",
+      "custom02": "\u003cimg src\u003d\u0027../examples_support/details_open.png\u0027\u003e"
+    },
+    {
+      "DT_RowId": 6,
+      "engine": "Gecko",
+      "browser": "Camino 1.5",
+      "version": "1.8",
+      "platform": "OSX.3+",
+      "grade": "A",
+      "DT_RowClass": "",
+      "custom02": "\u003cimg src\u003d\u0027../examples_support/details_open.png\u0027\u003e"
+    },
+    {
+      "DT_RowId": 7,
+      "engine": "Gecko",
+      "browser": "Netscape 7.2",
+      "version": "1.7",
+      "platform": "Win 95+ / Mac OS 8.6-9.2",
+      "grade": "A",
+      "DT_RowClass": "",
+      "custom02": "\u003cimg src\u003d\u0027../examples_support/details_open.png\u0027\u003e"
+    },
+    {
+      "DT_RowId": 8,
+      "engine": "Gecko",
+      "browser": "Netscape Browser 8",
+      "version": "1.7",
+      "platform": "Win 98SE+",
+      "grade": "A",
+      "DT_RowClass": "",
+      "custom02": "\u003cimg src\u003d\u0027../examples_support/details_open.png\u0027\u003e"
+    },
+    {
+      "DT_RowId": 9,
+      "engine": "Gecko",
+      "browser": "Netscape Navigator 9",
+      "version": "1.8",
+      "platform": "Win 98+ / OSX.2+",
+      "grade": "A",
+      "DT_RowClass": "",
+      "custom02": "\u003cimg src\u003d\u0027../examples_support/details_open.png\u0027\u003e"
+    },
+    {
+      "DT_RowId": 10,
+      "engine": "Gecko",
+      "browser": "Mozilla 1.0",
+      "platform": "Win 95+ / OSX.1+",
+      "grade": "A",
+      "DT_RowClass": "",
+      "custom02": "\u003cimg src\u003d\u0027../examples_support/details_open.png\u0027\u003e"
+    }
+  ],
+  "iTotalRecords": 57,
+  "iTotalDisplayRecords": 57,
+  "sEcho": 1,
+  "nomiColonne": "DT_RowId;engine;browser;version;platform;grade"
+}
+Sun Sep 29 15:21:07 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+iSortCol_0: '1'
+custom02: <img src='../examples_support/details_open.png'>
+echoParams: DT_RowClass;custom02
+iColumns: '6'
+DebugDTReply: 'true'
+rowNumber: 'true'
+sSortDir_0: asc
+iDisplayStart: '0'
+sEcho: '1'
+printStackTrace: 'false'
+sSearch_2: ''
+bRegex: 'false'
+sSearch_3: ''
+sSearch_0: ''
+sSearch_1: ''
+indexed: 'false'
+sSearch: ''
+iSortingCols: '1'
+mDataProp_0: custom02
+mDataProp_1: engine
+bSortable_5: 'true'
+mDataProp_2: browser
+mDataProp_3: platform
+mDataProp_4: version
+bSortable_2: 'true'
+mDataProp_5: grade
+bSortable_1: 'true'
+mDataBinded: 'true'
+bSortable_4: 'true'
+serverSideProcessing: 'true'
+bSortable_3: 'true'
+bSortable_0: 'false'
+sqlName: dtexample
+sColumns: ''
+sSearch_5: ''
+sSearch_4: ''
+bSearchable_2: 'true'
+bRegex_2: 'false'
+bSearchable_1: 'true'
+bRegex_3: 'false'
+bSearchable_0: 'false'
+bRegex_4: 'false'
+bRegex_5: 'false'
+iDisplayLength: '10'
+bSearchable_5: 'false'
+bSearchable_4: 'true'
+bRegex_0: 'false'
+bSearchable_3: 'true'
+bRegex_1: 'false'
+
+Sun Sep 29 15:21:07 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+echoParams: DT_RowClass;custom02
+iColumns: '20'
+mDataProp_14: '14'
+mDataProp_15: '15'
+mDataProp_16: '16'
+mDataProp_17: '17'
+mDataProp_18: '18'
+mDataProp_19: '19'
+mDataProp_10: '10'
+mDataProp_11: '11'
+mDataProp_12: '12'
+mDataProp_13: '13'
+sSortDir_0: asc
+bSearchable_19: 'true'
+bSearchable_18: 'true'
+iDisplayStart: '0'
+bSearchable_17: 'true'
+bSearchable_16: 'true'
+sSearch_2: ''
+sSearch_3: ''
+bRegex: 'false'
+sSearch_0: ''
+sSearch_1: ''
+indexed: 'true'
+sSearch: ''
+bSortable_9: 'true'
+bSearchable_10: 'true'
+bSearchable_11: 'true'
+bSearchable_12: 'true'
+bSortable_5: 'true'
+bSearchable_13: 'true'
+bSortable_6: 'true'
+bSearchable_14: 'true'
+bSortable_7: 'true'
+bSearchable_15: 'true'
+bSortable_8: 'true'
+bSortable_2: 'true'
+bSortable_1: 'true'
+mDataBinded: 'false'
+bSortable_4: 'true'
+serverSideProcessing: 'true'
+bSortable_3: 'true'
+sqlName: dtexample
+bSortable_0: 'true'
+sSearch_9: ''
+sSearch_8: ''
+sSearch_7: ''
+sSearch_6: ''
+sSearch_5: ''
+sSearch_4: ''
+iSortCol_0: '0'
+bRegex_19: 'false'
+bRegex_18: 'false'
+bRegex_17: 'false'
+DebugDTReply: 'true'
+bRegex_13: 'false'
+bRegex_14: 'false'
+bRegex_15: 'false'
+rowNumber: 'false'
+bRegex_16: 'false'
+bRegex_10: 'false'
+bRegex_11: 'false'
+bRegex_12: 'false'
+sEcho: '1'
+printStackTrace: 'false'
+iSortingCols: '1'
+mDataProp_0: '0'
+mDataProp_1: '1'
+mDataProp_2: '2'
+mDataProp_3: '3'
+mDataProp_4: '4'
+mDataProp_6: '6'
+mDataProp_5: '5'
+mDataProp_8: '8'
+bSortable_19: 'true'
+mDataProp_7: '7'
+sSearch_19: ''
+bSortable_18: 'true'
+sSearch_18: ''
+bSortable_17: 'true'
+mDataProp_9: '9'
+sSearch_17: ''
+bSortable_16: 'true'
+sSearch_16: ''
+bSortable_15: 'true'
+sSearch_15: ''
+bSortable_14: 'true'
+sSearch_14: ''
+bSortable_13: 'true'
+sColumns: ''
+sSearch_13: ''
+bSortable_12: 'true'
+sSearch_12: ''
+bSortable_11: 'true'
+sSearch_11: ''
+bSortable_10: 'true'
+sSearch_10: ''
+bSearchable_2: 'true'
+bRegex_2: 'false'
+bSearchable_1: 'true'
+bRegex_3: 'false'
+bSearchable_0: 'true'
+bRegex_4: 'false'
+bRegex_5: 'false'
+bRegex_6: 'false'
+bRegex_7: 'false'
+bRegex_8: 'false'
+bRegex_9: 'false'
+bSearchable_9: 'true'
+bSearchable_8: 'true'
+bSearchable_7: 'true'
+bSearchable_6: 'true'
+iDisplayLength: '-1'
+bSearchable_5: 'true'
+bSearchable_4: 'true'
+bRegex_0: 'false'
+bSearchable_3: 'true'
+bRegex_1: 'false'
+
+Sun Sep 29 15:21:07 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Query ****
+SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+
+Sun Sep 29 15:21:07 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Query ****
+SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+
+Sun Sep 29 15:21:07 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Queries Eseguite **** 
+--sqlDati:
+ SELECT * FROM ( 
+ 	SELECT ROW_NUMBER() OVER( ORDER BY engine ASC ) AS DT_RowId, * 
+ 	FROM (SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+) as tabella 
+ WHERE 1=1 
+ ) AS tabella_con_righe 
+ WHERE 1=1 
+ AND DT_RowId BETWEEN 1 AND 10
+
+--sqlDatiExtra:
+SELECT 
+  (SELECT COUNT(*) FROM ( SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+ ) as tabella ) AS iTotalRecords 
+, (SELECT COUNT(*) FROM ( SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+ ) as tabella WHERE 1=1  ) AS iTotalDisplayRecords 
+ 
+Sun Sep 29 15:21:07 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Queries Eseguite **** 
+--sqlDati:
+ SELECT * 
+  FROM (SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+) as tabella 
+  WHERE 1=1 
+
+  ORDER BY 1 ASC
+
+
+--sqlDatiExtra:
+SELECT 
+  (SELECT COUNT(*) FROM ( SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+ ) as tabella ) AS iTotalRecords 
+, (SELECT COUNT(*) FROM ( SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+ ) as tabella WHERE 1=1  ) AS iTotalDisplayRecords 
+ 
+Sun Sep 29 15:21:28 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Errore ottenimento connessione ****
+
+Sun Sep 29 15:21:28 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Errore ottenimento connessione ****
+
+***** Eccezione ******
+***** Eccezione ******
+Errore in fase di connessione.
+Errore in fase di connessione.
+com.github.tosdan.utils.sql.ConnectionProviderException: Errore in fase di connessione.
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.connect(ConnectionProviderImplV2.java:130)
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.stabilisciConnessione(ConnectionProviderImplV2.java:75)
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.getConnection(ConnectionProviderImplV2.java:62)
+	at com.github.tosdan.dTReply.DTReplyServlet.getConnection(DTReplyServlet.java:219)
+	at com.github.tosdan.dTReply.DTReplyServlet.getReply(DTReplyServlet.java:205)
+	at com.github.tosdan.dTReply.DTReplyServlet.doService(DTReplyServlet.java:68)
+	at com.github.tosdan.utils.servlets.HttpReallyBasicServlet.doPost(HttpReallyBasicServlet.java:16)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:637)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at com.github.tosdan.utils.filters.NoCacheFilter.doFilter(NoCacheFilter.java:22)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:298)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:588)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.sql.SQLException: Network error IOException: Connection timed out: connect
+	at net.sourceforge.jtds.jdbc.ConnectionJDBC2.<init>(ConnectionJDBC2.java:421)
+	at net.sourceforge.jtds.jdbc.ConnectionJDBC3.<init>(ConnectionJDBC3.java:50)
+	at net.sourceforge.jtds.jdbc.Driver.connect(Driver.java:185)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.connect(ConnectionProviderImplV2.java:125)
+	... 23 more
+Caused by: java.net.ConnectException: Connection timed out: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source)
+	at java.net.PlainSocketImpl.connect(Unknown Source)
+	at java.net.SocksSocketImpl.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at net.sourceforge.jtds.jdbc.SharedSocket.createSocketForJDBC3(SharedSocket.java:297)
+	at net.sourceforge.jtds.jdbc.SharedSocket.<init>(SharedSocket.java:247)
+	at net.sourceforge.jtds.jdbc.ConnectionJDBC2.<init>(ConnectionJDBC2.java:322)
+	... 28 more
+com.github.tosdan.utils.sql.ConnectionProviderException: Errore in fase di connessione.
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.connect(ConnectionProviderImplV2.java:130)
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.stabilisciConnessione(ConnectionProviderImplV2.java:75)
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.getConnection(ConnectionProviderImplV2.java:62)
+	at com.github.tosdan.dTReply.DTReplyServlet.getConnection(DTReplyServlet.java:219)
+	at com.github.tosdan.dTReply.DTReplyServlet.getReply(DTReplyServlet.java:205)
+	at com.github.tosdan.dTReply.DTReplyServlet.doService(DTReplyServlet.java:68)
+	at com.github.tosdan.utils.servlets.HttpReallyBasicServlet.doPost(HttpReallyBasicServlet.java:16)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:637)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at com.github.tosdan.utils.filters.NoCacheFilter.doFilter(NoCacheFilter.java:22)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:298)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:588)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.sql.SQLException: Network error IOException: Connection timed out: connect
+	at net.sourceforge.jtds.jdbc.ConnectionJDBC2.<init>(ConnectionJDBC2.java:421)
+	at net.sourceforge.jtds.jdbc.ConnectionJDBC3.<init>(ConnectionJDBC3.java:50)
+	at net.sourceforge.jtds.jdbc.Driver.connect(Driver.java:185)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.connect(ConnectionProviderImplV2.java:125)
+	... 23 more
+Caused by: java.net.ConnectException: Connection timed out: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source)
+	at java.net.PlainSocketImpl.connect(Unknown Source)
+	at java.net.SocksSocketImpl.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at net.sourceforge.jtds.jdbc.SharedSocket.createSocketForJDBC3(SharedSocket.java:297)
+	at net.sourceforge.jtds.jdbc.SharedSocket.<init>(SharedSocket.java:247)
+	at net.sourceforge.jtds.jdbc.ConnectionJDBC2.<init>(ConnectionJDBC2.java:322)
+	... 28 more
+Sun Sep 29 15:21:28 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+*** Eerrore di accesso al database *** 
+
+Sun Sep 29 15:21:28 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+*** Eerrore di accesso al database *** 
+
+***** Eccezione ******
+***** Eccezione ******
+Null connection
+java.sql.SQLException: Null connection
+	at com.github.tosdan.utils.sql.MyQueryRunner.query(MyQueryRunner.java:326)
+	at com.github.tosdan.utils.sql.MyQueryRunner.query(MyQueryRunner.java:229)
+	at com.github.tosdan.utils.sql.DAOGenericoAbstract.query(DAOGenericoAbstract.java:68)
+	at com.github.tosdan.utils.sql.DAOGenericoImpl.getMapList(DAOGenericoImpl.java:67)
+	at com.github.tosdan.dTReply.DTReplyDAO.getDTReply(DTReplyDAO.java:85)
+	at com.github.tosdan.dTReply.DTReplyHelperImpl.getReplyMap(DTReplyHelperImpl.java:94)
+	at com.github.tosdan.dTReply.DTReplyServlet.getReply(DTReplyServlet.java:205)
+	at com.github.tosdan.dTReply.DTReplyServlet.doService(DTReplyServlet.java:68)
+	at com.github.tosdan.utils.servlets.HttpReallyBasicServlet.doPost(HttpReallyBasicServlet.java:16)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:637)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at com.github.tosdan.utils.filters.NoCacheFilter.doFilter(NoCacheFilter.java:22)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:298)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:588)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Unknown Source)
+Null connection
+java.sql.SQLException: Null connection
+	at com.github.tosdan.utils.sql.MyQueryRunner.query(MyQueryRunner.java:326)
+	at com.github.tosdan.utils.sql.MyQueryRunner.query(MyQueryRunner.java:229)
+	at com.github.tosdan.utils.sql.DAOGenericoAbstract.query(DAOGenericoAbstract.java:68)
+	at com.github.tosdan.utils.sql.DAOGenericoImpl.getMapList(DAOGenericoImpl.java:67)
+	at com.github.tosdan.dTReply.DTReplyDAO.getDTReply(DTReplyDAO.java:85)
+	at com.github.tosdan.dTReply.DTReplyHelperImpl.getReplyMap(DTReplyHelperImpl.java:94)
+	at com.github.tosdan.dTReply.DTReplyServlet.getReply(DTReplyServlet.java:205)
+	at com.github.tosdan.dTReply.DTReplyServlet.doService(DTReplyServlet.java:68)
+	at com.github.tosdan.utils.servlets.HttpReallyBasicServlet.doPost(HttpReallyBasicServlet.java:16)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:637)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at com.github.tosdan.utils.filters.NoCacheFilter.doFilter(NoCacheFilter.java:22)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:298)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:588)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Unknown Source)
+Sun Sep 29 15:21:29 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** JSON ****
+{
+  "error": "Errore recupero dati."
+}
+Sun Sep 29 15:21:29 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** JSON ****
+{
+  "error": "Errore recupero dati."
+}
+Sun Sep 29 21:05:36 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+iSortCol_0: '1'
+custom02: <img src='../examples_support/details_open.png'>
+echoParams: DT_RowClass;custom02
+iColumns: '6'
+DebugDTReply: 'true'
+rowNumber: 'true'
+sSortDir_0: asc
+iDisplayStart: '0'
+sEcho: '1'
+printStackTrace: 'false'
+sSearch_2: ''
+bRegex: 'false'
+sSearch_3: ''
+sSearch_0: ''
+sSearch_1: ''
+indexed: 'false'
+sSearch: ''
+iSortingCols: '1'
+mDataProp_0: custom02
+mDataProp_1: engine
+bSortable_5: 'true'
+mDataProp_2: browser
+mDataProp_3: platform
+mDataProp_4: version
+bSortable_2: 'true'
+mDataProp_5: grade
+bSortable_1: 'true'
+mDataBinded: 'true'
+bSortable_4: 'true'
+serverSideProcessing: 'true'
+bSortable_3: 'true'
+bSortable_0: 'false'
+sqlName: dtexample
+sColumns: ''
+sSearch_5: ''
+sSearch_4: ''
+bSearchable_2: 'true'
+bRegex_2: 'false'
+bSearchable_1: 'true'
+bRegex_3: 'false'
+bSearchable_0: 'false'
+bRegex_4: 'false'
+bRegex_5: 'false'
+iDisplayLength: '10'
+bSearchable_5: 'false'
+bSearchable_4: 'true'
+bRegex_0: 'false'
+bSearchable_3: 'true'
+bRegex_1: 'false'
+
+Sun Sep 29 21:05:36 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Query ****
+SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+
+Sun Sep 29 21:05:36 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Queries Eseguite **** 
+--sqlDati:
+ SELECT * FROM ( 
+ 	SELECT ROW_NUMBER() OVER( ORDER BY engine ASC ) AS DT_RowId, * 
+ 	FROM (SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+) as tabella 
+ WHERE 1=1 
+ ) AS tabella_con_righe 
+ WHERE 1=1 
+ AND DT_RowId BETWEEN 1 AND 10
+
+--sqlDatiExtra:
+SELECT 
+  (SELECT COUNT(*) FROM ( SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+ ) as tabella ) AS iTotalRecords 
+, (SELECT COUNT(*) FROM ( SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+ ) as tabella WHERE 1=1  ) AS iTotalDisplayRecords 
+ 
+Sun Sep 29 21:05:39 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+echoParams: DT_RowClass;custom02
+iColumns: '20'
+mDataProp_14: '14'
+mDataProp_15: '15'
+mDataProp_16: '16'
+mDataProp_17: '17'
+mDataProp_18: '18'
+mDataProp_19: '19'
+mDataProp_10: '10'
+mDataProp_11: '11'
+mDataProp_12: '12'
+mDataProp_13: '13'
+sSortDir_0: asc
+bSearchable_19: 'true'
+bSearchable_18: 'true'
+iDisplayStart: '0'
+bSearchable_17: 'true'
+bSearchable_16: 'true'
+sSearch_2: ''
+sSearch_3: ''
+bRegex: 'false'
+sSearch_0: ''
+sSearch_1: ''
+indexed: 'true'
+sSearch: ''
+bSortable_9: 'true'
+bSearchable_10: 'true'
+bSearchable_11: 'true'
+bSearchable_12: 'true'
+bSortable_5: 'true'
+bSearchable_13: 'true'
+bSortable_6: 'true'
+bSearchable_14: 'true'
+bSortable_7: 'true'
+bSearchable_15: 'true'
+bSortable_8: 'true'
+bSortable_2: 'true'
+bSortable_1: 'true'
+mDataBinded: 'false'
+bSortable_4: 'true'
+serverSideProcessing: 'true'
+bSortable_3: 'true'
+sqlName: dtexample
+bSortable_0: 'true'
+sSearch_9: ''
+sSearch_8: ''
+sSearch_7: ''
+sSearch_6: ''
+sSearch_5: ''
+sSearch_4: ''
+iSortCol_0: '0'
+bRegex_19: 'false'
+bRegex_18: 'false'
+bRegex_17: 'false'
+DebugDTReply: 'true'
+bRegex_13: 'false'
+bRegex_14: 'false'
+bRegex_15: 'false'
+rowNumber: 'false'
+bRegex_16: 'false'
+bRegex_10: 'false'
+bRegex_11: 'false'
+bRegex_12: 'false'
+sEcho: '1'
+printStackTrace: 'false'
+iSortingCols: '1'
+mDataProp_0: '0'
+mDataProp_1: '1'
+mDataProp_2: '2'
+mDataProp_3: '3'
+mDataProp_4: '4'
+mDataProp_6: '6'
+mDataProp_5: '5'
+mDataProp_8: '8'
+bSortable_19: 'true'
+mDataProp_7: '7'
+sSearch_19: ''
+bSortable_18: 'true'
+sSearch_18: ''
+bSortable_17: 'true'
+mDataProp_9: '9'
+sSearch_17: ''
+bSortable_16: 'true'
+sSearch_16: ''
+bSortable_15: 'true'
+sSearch_15: ''
+bSortable_14: 'true'
+sSearch_14: ''
+bSortable_13: 'true'
+sColumns: ''
+sSearch_13: ''
+bSortable_12: 'true'
+sSearch_12: ''
+bSortable_11: 'true'
+sSearch_11: ''
+bSortable_10: 'true'
+sSearch_10: ''
+bSearchable_2: 'true'
+bRegex_2: 'false'
+bSearchable_1: 'true'
+bRegex_3: 'false'
+bSearchable_0: 'true'
+bRegex_4: 'false'
+bRegex_5: 'false'
+bRegex_6: 'false'
+bRegex_7: 'false'
+bRegex_8: 'false'
+bRegex_9: 'false'
+bSearchable_9: 'true'
+bSearchable_8: 'true'
+bSearchable_7: 'true'
+bSearchable_6: 'true'
+iDisplayLength: '-1'
+bSearchable_5: 'true'
+bSearchable_4: 'true'
+bRegex_0: 'false'
+bSearchable_3: 'true'
+bRegex_1: 'false'
+
+Sun Sep 29 21:05:39 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Query ****
+SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+
+Sun Sep 29 21:05:39 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Queries Eseguite **** 
+--sqlDati:
+ SELECT * 
+  FROM (SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+) as tabella 
+  WHERE 1=1 
+
+  ORDER BY 1 ASC
+
+
+--sqlDatiExtra:
+SELECT 
+  (SELECT COUNT(*) FROM ( SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+ ) as tabella ) AS iTotalRecords 
+, (SELECT COUNT(*) FROM ( SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+ ) as tabella WHERE 1=1  ) AS iTotalDisplayRecords 
+ 
+Sun Sep 29 21:05:57 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Errore ottenimento connessione ****
+
+***** Eccezione ******
+Errore in fase di connessione.
+com.github.tosdan.utils.sql.ConnectionProviderException: Errore in fase di connessione.
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.connect(ConnectionProviderImplV2.java:130)
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.stabilisciConnessione(ConnectionProviderImplV2.java:75)
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.getConnection(ConnectionProviderImplV2.java:62)
+	at com.github.tosdan.dTReply.DTReplyServlet.getConnection(DTReplyServlet.java:219)
+	at com.github.tosdan.dTReply.DTReplyServlet.getReply(DTReplyServlet.java:205)
+	at com.github.tosdan.dTReply.DTReplyServlet.doService(DTReplyServlet.java:68)
+	at com.github.tosdan.utils.servlets.HttpReallyBasicServlet.doPost(HttpReallyBasicServlet.java:16)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:637)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at com.github.tosdan.utils.filters.NoCacheFilter.doFilter(NoCacheFilter.java:22)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:298)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:588)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.sql.SQLException: Network error IOException: Connection timed out: connect
+	at net.sourceforge.jtds.jdbc.ConnectionJDBC2.<init>(ConnectionJDBC2.java:421)
+	at net.sourceforge.jtds.jdbc.ConnectionJDBC3.<init>(ConnectionJDBC3.java:50)
+	at net.sourceforge.jtds.jdbc.Driver.connect(Driver.java:185)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.connect(ConnectionProviderImplV2.java:125)
+	... 23 more
+Caused by: java.net.ConnectException: Connection timed out: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source)
+	at java.net.PlainSocketImpl.connect(Unknown Source)
+	at java.net.SocksSocketImpl.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at net.sourceforge.jtds.jdbc.SharedSocket.createSocketForJDBC3(SharedSocket.java:297)
+	at net.sourceforge.jtds.jdbc.SharedSocket.<init>(SharedSocket.java:247)
+	at net.sourceforge.jtds.jdbc.ConnectionJDBC2.<init>(ConnectionJDBC2.java:322)
+	... 28 more
+Sun Sep 29 21:05:57 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+*** Eerrore di accesso al database *** 
+
+***** Eccezione ******
+Null connection
+java.sql.SQLException: Null connection
+	at com.github.tosdan.utils.sql.MyQueryRunner.query(MyQueryRunner.java:326)
+	at com.github.tosdan.utils.sql.MyQueryRunner.query(MyQueryRunner.java:229)
+	at com.github.tosdan.utils.sql.DAOGenericoAbstract.query(DAOGenericoAbstract.java:68)
+	at com.github.tosdan.utils.sql.DAOGenericoImpl.getMapList(DAOGenericoImpl.java:67)
+	at com.github.tosdan.dTReply.DTReplyDAO.getDTReply(DTReplyDAO.java:85)
+	at com.github.tosdan.dTReply.DTReplyHelperImpl.getReplyMap(DTReplyHelperImpl.java:94)
+	at com.github.tosdan.dTReply.DTReplyServlet.getReply(DTReplyServlet.java:205)
+	at com.github.tosdan.dTReply.DTReplyServlet.doService(DTReplyServlet.java:68)
+	at com.github.tosdan.utils.servlets.HttpReallyBasicServlet.doPost(HttpReallyBasicServlet.java:16)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:637)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at com.github.tosdan.utils.filters.NoCacheFilter.doFilter(NoCacheFilter.java:22)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:298)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:588)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Unknown Source)
+Sun Sep 29 21:05:57 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** JSON ****
+{
+  "error": "Errore recupero dati."
+}
+Sun Sep 29 21:06:00 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Errore ottenimento connessione ****
+
+***** Eccezione ******
+Errore in fase di connessione.
+com.github.tosdan.utils.sql.ConnectionProviderException: Errore in fase di connessione.
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.connect(ConnectionProviderImplV2.java:130)
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.stabilisciConnessione(ConnectionProviderImplV2.java:75)
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.getConnection(ConnectionProviderImplV2.java:62)
+	at com.github.tosdan.dTReply.DTReplyServlet.getConnection(DTReplyServlet.java:219)
+	at com.github.tosdan.dTReply.DTReplyServlet.getReply(DTReplyServlet.java:205)
+	at com.github.tosdan.dTReply.DTReplyServlet.doService(DTReplyServlet.java:68)
+	at com.github.tosdan.utils.servlets.HttpReallyBasicServlet.doPost(HttpReallyBasicServlet.java:16)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:637)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at com.github.tosdan.utils.filters.NoCacheFilter.doFilter(NoCacheFilter.java:22)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:298)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:588)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.sql.SQLException: Network error IOException: Connection timed out: connect
+	at net.sourceforge.jtds.jdbc.ConnectionJDBC2.<init>(ConnectionJDBC2.java:421)
+	at net.sourceforge.jtds.jdbc.ConnectionJDBC3.<init>(ConnectionJDBC3.java:50)
+	at net.sourceforge.jtds.jdbc.Driver.connect(Driver.java:185)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.connect(ConnectionProviderImplV2.java:125)
+	... 23 more
+Caused by: java.net.ConnectException: Connection timed out: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source)
+	at java.net.PlainSocketImpl.connect(Unknown Source)
+	at java.net.SocksSocketImpl.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at net.sourceforge.jtds.jdbc.SharedSocket.createSocketForJDBC3(SharedSocket.java:297)
+	at net.sourceforge.jtds.jdbc.SharedSocket.<init>(SharedSocket.java:247)
+	at net.sourceforge.jtds.jdbc.ConnectionJDBC2.<init>(ConnectionJDBC2.java:322)
+	... 28 more
+Sun Sep 29 21:06:00 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+*** Eerrore di accesso al database *** 
+
+***** Eccezione ******
+Null connection
+java.sql.SQLException: Null connection
+	at com.github.tosdan.utils.sql.MyQueryRunner.query(MyQueryRunner.java:326)
+	at com.github.tosdan.utils.sql.MyQueryRunner.query(MyQueryRunner.java:229)
+	at com.github.tosdan.utils.sql.DAOGenericoAbstract.query(DAOGenericoAbstract.java:68)
+	at com.github.tosdan.utils.sql.DAOGenericoImpl.getMapList(DAOGenericoImpl.java:67)
+	at com.github.tosdan.dTReply.DTReplyDAO.getDTReply(DTReplyDAO.java:85)
+	at com.github.tosdan.dTReply.DTReplyHelperImpl.getReplyMap(DTReplyHelperImpl.java:94)
+	at com.github.tosdan.dTReply.DTReplyServlet.getReply(DTReplyServlet.java:205)
+	at com.github.tosdan.dTReply.DTReplyServlet.doService(DTReplyServlet.java:68)
+	at com.github.tosdan.utils.servlets.HttpReallyBasicServlet.doPost(HttpReallyBasicServlet.java:16)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:637)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at com.github.tosdan.utils.filters.NoCacheFilter.doFilter(NoCacheFilter.java:22)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:298)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:588)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Unknown Source)
+Sun Sep 29 21:06:00 CEST 2013 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** JSON ****
+{
+  "error": "Errore recupero dati."
+}
+Thu Apr 03 19:40:00 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+iSortCol_0: '1'
+custom02: <img src='../examples_support/details_open.png'>
+echoParams: DT_RowClass;custom02
+iColumns: '6'
+DebugDTReply: 'true'
+rowNumber: 'true'
+sSortDir_0: asc
+iDisplayStart: '0'
+sEcho: '1'
+printStackTrace: 'false'
+sSearch_2: ''
+bRegex: 'false'
+sSearch_3: ''
+sSearch_0: ''
+sSearch_1: ''
+indexed: 'false'
+sSearch: ''
+iSortingCols: '1'
+mDataProp_0: custom02
+mDataProp_1: engine
+bSortable_5: 'true'
+mDataProp_2: browser
+mDataProp_3: platform
+mDataProp_4: version
+bSortable_2: 'true'
+mDataProp_5: grade
+bSortable_1: 'true'
+mDataBinded: 'true'
+bSortable_4: 'true'
+serverSideProcessing: 'true'
+bSortable_3: 'true'
+bSortable_0: 'false'
+sqlName: dtexample
+sColumns: ''
+sSearch_5: ''
+sSearch_4: ''
+bSearchable_2: 'true'
+bRegex_2: 'false'
+bSearchable_1: 'true'
+bRegex_3: 'false'
+bSearchable_0: 'false'
+bRegex_4: 'false'
+bRegex_5: 'false'
+iDisplayLength: '10'
+bSearchable_5: 'false'
+bSearchable_4: 'true'
+bRegex_0: 'false'
+bSearchable_3: 'true'
+bRegex_1: 'false'
+
+Thu Apr 03 19:40:00 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Query ****
+SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+
+Thu Apr 03 19:40:00 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Queries Eseguite **** 
+--sqlDati:
+ SELECT * FROM ( 
+ 	SELECT ROW_NUMBER() OVER( ORDER BY engine ASC ) AS DT_RowId, * 
+ 	FROM (SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+) as tabella 
+ WHERE 1=1 
+ ) AS tabella_con_righe 
+ WHERE 1=1 
+ AND DT_RowId BETWEEN 1 AND 10
+
+--sqlDatiExtra:
+SELECT 
+  (SELECT COUNT(*) FROM ( SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+ ) as tabella ) AS iTotalRecords 
+, (SELECT COUNT(*) FROM ( SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+ ) as tabella WHERE 1=1  ) AS iTotalDisplayRecords 
+ 
+Thu Apr 03 19:40:13 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+iSortCol_0: '1'
+custom02: <img src='../examples_support/details_open.png'>
+echoParams: DT_RowClass;custom02
+iColumns: '6'
+DebugDTReply: 'true'
+rowNumber: 'true'
+sSortDir_0: asc
+iDisplayStart: '0'
+sEcho: '1'
+printStackTrace: 'false'
+sSearch_2: ''
+bRegex: 'false'
+sSearch_3: ''
+sSearch_0: ''
+sSearch_1: ''
+indexed: 'false'
+sSearch: ''
+iSortingCols: '1'
+mDataProp_0: custom02
+mDataProp_1: engine
+bSortable_5: 'true'
+mDataProp_2: browser
+mDataProp_3: platform
+mDataProp_4: version
+bSortable_2: 'true'
+mDataProp_5: grade
+bSortable_1: 'true'
+mDataBinded: 'true'
+bSortable_4: 'true'
+serverSideProcessing: 'true'
+bSortable_3: 'true'
+bSortable_0: 'false'
+sqlName: dtexample
+sColumns: ''
+sSearch_5: ''
+sSearch_4: ''
+bSearchable_2: 'true'
+bRegex_2: 'false'
+bSearchable_1: 'true'
+bRegex_3: 'false'
+bSearchable_0: 'false'
+bRegex_4: 'false'
+bRegex_5: 'false'
+iDisplayLength: '10'
+bSearchable_5: 'false'
+bSearchable_4: 'true'
+bRegex_0: 'false'
+bSearchable_3: 'true'
+bRegex_1: 'false'
+
+Thu Apr 03 19:40:13 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Query ****
+SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+
+Thu Apr 03 19:40:13 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Queries Eseguite **** 
+--sqlDati:
+ SELECT * FROM ( 
+ 	SELECT ROW_NUMBER() OVER( ORDER BY engine ASC ) AS DT_RowId, * 
+ 	FROM (SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+) as tabella 
+ WHERE 1=1 
+ ) AS tabella_con_righe 
+ WHERE 1=1 
+ AND DT_RowId BETWEEN 1 AND 10
+
+--sqlDatiExtra:
+SELECT 
+  (SELECT COUNT(*) FROM ( SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+ ) as tabella ) AS iTotalRecords 
+, (SELECT COUNT(*) FROM ( SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+ ) as tabella WHERE 1=1  ) AS iTotalDisplayRecords 
+ 
+Thu Apr 03 19:40:21 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Errore ottenimento connessione ****
+
+***** Eccezione ******
+Errore in fase di connessione.
+com.github.tosdan.utils.sql.ConnectionProviderException: Errore in fase di connessione.
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.connect(ConnectionProviderImplV2.java:130)
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.stabilisciConnessione(ConnectionProviderImplV2.java:75)
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.getConnection(ConnectionProviderImplV2.java:62)
+	at com.github.tosdan.dTReply.DTReplyServlet.getConnection(DTReplyServlet.java:219)
+	at com.github.tosdan.dTReply.DTReplyServlet.getReply(DTReplyServlet.java:205)
+	at com.github.tosdan.dTReply.DTReplyServlet.doService(DTReplyServlet.java:68)
+	at com.github.tosdan.utils.servlets.HttpReallyBasicServlet.doPost(HttpReallyBasicServlet.java:16)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:637)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at com.github.tosdan.utils.filters.NoCacheFilter.doFilter(NoCacheFilter.java:22)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:298)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:588)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.sql.SQLException: Network error IOException: Connection timed out: connect
+	at net.sourceforge.jtds.jdbc.ConnectionJDBC2.<init>(ConnectionJDBC2.java:421)
+	at net.sourceforge.jtds.jdbc.ConnectionJDBC3.<init>(ConnectionJDBC3.java:50)
+	at net.sourceforge.jtds.jdbc.Driver.connect(Driver.java:185)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.connect(ConnectionProviderImplV2.java:125)
+	... 23 more
+Caused by: java.net.ConnectException: Connection timed out: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source)
+	at java.net.PlainSocketImpl.connect(Unknown Source)
+	at java.net.SocksSocketImpl.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at net.sourceforge.jtds.jdbc.SharedSocket.createSocketForJDBC3(SharedSocket.java:297)
+	at net.sourceforge.jtds.jdbc.SharedSocket.<init>(SharedSocket.java:247)
+	at net.sourceforge.jtds.jdbc.ConnectionJDBC2.<init>(ConnectionJDBC2.java:322)
+	... 28 more
+Thu Apr 03 19:40:21 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+*** Eerrore di accesso al database *** 
+
+***** Eccezione ******
+Null connection
+java.sql.SQLException: Null connection
+	at com.github.tosdan.utils.sql.MyQueryRunner.query(MyQueryRunner.java:326)
+	at com.github.tosdan.utils.sql.MyQueryRunner.query(MyQueryRunner.java:229)
+	at com.github.tosdan.utils.sql.DAOGenericoAbstract.query(DAOGenericoAbstract.java:68)
+	at com.github.tosdan.utils.sql.DAOGenericoImpl.getMapList(DAOGenericoImpl.java:67)
+	at com.github.tosdan.dTReply.DTReplyDAO.getDTReply(DTReplyDAO.java:85)
+	at com.github.tosdan.dTReply.DTReplyHelperImpl.getReplyMap(DTReplyHelperImpl.java:94)
+	at com.github.tosdan.dTReply.DTReplyServlet.getReply(DTReplyServlet.java:205)
+	at com.github.tosdan.dTReply.DTReplyServlet.doService(DTReplyServlet.java:68)
+	at com.github.tosdan.utils.servlets.HttpReallyBasicServlet.doPost(HttpReallyBasicServlet.java:16)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:637)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at com.github.tosdan.utils.filters.NoCacheFilter.doFilter(NoCacheFilter.java:22)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:298)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:588)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Unknown Source)
+Thu Apr 03 19:40:21 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** JSON ****
+{
+  "error": "Errore recupero dati."
+}
+Thu Apr 03 19:40:34 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Errore ottenimento connessione ****
+
+***** Eccezione ******
+Errore in fase di connessione.
+com.github.tosdan.utils.sql.ConnectionProviderException: Errore in fase di connessione.
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.connect(ConnectionProviderImplV2.java:130)
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.stabilisciConnessione(ConnectionProviderImplV2.java:75)
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.getConnection(ConnectionProviderImplV2.java:62)
+	at com.github.tosdan.dTReply.DTReplyServlet.getConnection(DTReplyServlet.java:219)
+	at com.github.tosdan.dTReply.DTReplyServlet.getReply(DTReplyServlet.java:205)
+	at com.github.tosdan.dTReply.DTReplyServlet.doService(DTReplyServlet.java:68)
+	at com.github.tosdan.utils.servlets.HttpReallyBasicServlet.doPost(HttpReallyBasicServlet.java:16)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:637)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at com.github.tosdan.utils.filters.NoCacheFilter.doFilter(NoCacheFilter.java:22)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:298)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:588)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.sql.SQLException: Network error IOException: Connection timed out: connect
+	at net.sourceforge.jtds.jdbc.ConnectionJDBC2.<init>(ConnectionJDBC2.java:421)
+	at net.sourceforge.jtds.jdbc.ConnectionJDBC3.<init>(ConnectionJDBC3.java:50)
+	at net.sourceforge.jtds.jdbc.Driver.connect(Driver.java:185)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.connect(ConnectionProviderImplV2.java:125)
+	... 23 more
+Caused by: java.net.ConnectException: Connection timed out: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source)
+	at java.net.PlainSocketImpl.connect(Unknown Source)
+	at java.net.SocksSocketImpl.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at net.sourceforge.jtds.jdbc.SharedSocket.createSocketForJDBC3(SharedSocket.java:297)
+	at net.sourceforge.jtds.jdbc.SharedSocket.<init>(SharedSocket.java:247)
+	at net.sourceforge.jtds.jdbc.ConnectionJDBC2.<init>(ConnectionJDBC2.java:322)
+	... 28 more
+Thu Apr 03 19:40:34 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+*** Eerrore di accesso al database *** 
+
+***** Eccezione ******
+Null connection
+java.sql.SQLException: Null connection
+	at com.github.tosdan.utils.sql.MyQueryRunner.query(MyQueryRunner.java:326)
+	at com.github.tosdan.utils.sql.MyQueryRunner.query(MyQueryRunner.java:229)
+	at com.github.tosdan.utils.sql.DAOGenericoAbstract.query(DAOGenericoAbstract.java:68)
+	at com.github.tosdan.utils.sql.DAOGenericoImpl.getMapList(DAOGenericoImpl.java:67)
+	at com.github.tosdan.dTReply.DTReplyDAO.getDTReply(DTReplyDAO.java:85)
+	at com.github.tosdan.dTReply.DTReplyHelperImpl.getReplyMap(DTReplyHelperImpl.java:94)
+	at com.github.tosdan.dTReply.DTReplyServlet.getReply(DTReplyServlet.java:205)
+	at com.github.tosdan.dTReply.DTReplyServlet.doService(DTReplyServlet.java:68)
+	at com.github.tosdan.utils.servlets.HttpReallyBasicServlet.doPost(HttpReallyBasicServlet.java:16)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:637)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at com.github.tosdan.utils.filters.NoCacheFilter.doFilter(NoCacheFilter.java:22)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:298)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:588)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Unknown Source)
+Thu Apr 03 19:40:34 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** JSON ****
+{
+  "error": "Errore recupero dati."
+}
+Thu Apr 03 19:42:12 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+iSortCol_0: '1'
+custom02: <img src='../examples_support/details_open.png'>
+echoParams: DT_RowClass;custom02
+iColumns: '6'
+DebugDTReply: 'true'
+rowNumber: 'true'
+sSortDir_0: asc
+iDisplayStart: '0'
+sEcho: '1'
+printStackTrace: 'false'
+sSearch_2: ''
+bRegex: 'false'
+sSearch_3: ''
+sSearch_0: ''
+sSearch_1: ''
+indexed: 'false'
+sSearch: ''
+iSortingCols: '1'
+mDataProp_0: custom02
+mDataProp_1: engine
+bSortable_5: 'true'
+mDataProp_2: browser
+mDataProp_3: platform
+mDataProp_4: version
+bSortable_2: 'true'
+mDataProp_5: grade
+bSortable_1: 'true'
+mDataBinded: 'true'
+bSortable_4: 'true'
+serverSideProcessing: 'true'
+bSortable_3: 'true'
+bSortable_0: 'false'
+sqlName: dtexample
+sColumns: ''
+sSearch_5: ''
+sSearch_4: ''
+bSearchable_2: 'true'
+bRegex_2: 'false'
+bSearchable_1: 'true'
+bRegex_3: 'false'
+bSearchable_0: 'false'
+bRegex_4: 'false'
+bRegex_5: 'false'
+iDisplayLength: '10'
+bSearchable_5: 'false'
+bSearchable_4: 'true'
+bRegex_0: 'false'
+bSearchable_3: 'true'
+bRegex_1: 'false'
+
+Thu Apr 03 19:42:12 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Query ****
+SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+
+Thu Apr 03 19:42:12 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Queries Eseguite **** 
+--sqlDati:
+ SELECT * FROM ( 
+ 	SELECT ROW_NUMBER() OVER( ORDER BY engine ASC ) AS DT_RowId, * 
+ 	FROM (SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+) as tabella 
+ WHERE 1=1 
+ ) AS tabella_con_righe 
+ WHERE 1=1 
+ AND DT_RowId BETWEEN 1 AND 10
+
+--sqlDatiExtra:
+SELECT 
+  (SELECT COUNT(*) FROM ( SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+ ) as tabella ) AS iTotalRecords 
+, (SELECT COUNT(*) FROM ( SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+ ) as tabella WHERE 1=1  ) AS iTotalDisplayRecords 
+ 
+Thu Apr 03 19:42:33 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Errore ottenimento connessione ****
+
+***** Eccezione ******
+Errore in fase di connessione.
+com.github.tosdan.utils.sql.ConnectionProviderException: Errore in fase di connessione.
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.connect(ConnectionProviderImplV2.java:130)
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.stabilisciConnessione(ConnectionProviderImplV2.java:75)
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.getConnection(ConnectionProviderImplV2.java:62)
+	at com.github.tosdan.dTReply.DTReplyServlet.getConnection(DTReplyServlet.java:219)
+	at com.github.tosdan.dTReply.DTReplyServlet.getReply(DTReplyServlet.java:205)
+	at com.github.tosdan.dTReply.DTReplyServlet.doService(DTReplyServlet.java:68)
+	at com.github.tosdan.utils.servlets.HttpReallyBasicServlet.doPost(HttpReallyBasicServlet.java:16)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:637)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at com.github.tosdan.utils.filters.NoCacheFilter.doFilter(NoCacheFilter.java:22)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:298)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:588)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.sql.SQLException: Network error IOException: Connection timed out: connect
+	at net.sourceforge.jtds.jdbc.ConnectionJDBC2.<init>(ConnectionJDBC2.java:421)
+	at net.sourceforge.jtds.jdbc.ConnectionJDBC3.<init>(ConnectionJDBC3.java:50)
+	at net.sourceforge.jtds.jdbc.Driver.connect(Driver.java:185)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.connect(ConnectionProviderImplV2.java:125)
+	... 23 more
+Caused by: java.net.ConnectException: Connection timed out: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source)
+	at java.net.PlainSocketImpl.connect(Unknown Source)
+	at java.net.SocksSocketImpl.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at net.sourceforge.jtds.jdbc.SharedSocket.createSocketForJDBC3(SharedSocket.java:297)
+	at net.sourceforge.jtds.jdbc.SharedSocket.<init>(SharedSocket.java:247)
+	at net.sourceforge.jtds.jdbc.ConnectionJDBC2.<init>(ConnectionJDBC2.java:322)
+	... 28 more
+Thu Apr 03 19:42:33 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+*** Eerrore di accesso al database *** 
+
+***** Eccezione ******
+Null connection
+java.sql.SQLException: Null connection
+	at com.github.tosdan.utils.sql.MyQueryRunner.query(MyQueryRunner.java:326)
+	at com.github.tosdan.utils.sql.MyQueryRunner.query(MyQueryRunner.java:229)
+	at com.github.tosdan.utils.sql.DAOGenericoAbstract.query(DAOGenericoAbstract.java:68)
+	at com.github.tosdan.utils.sql.DAOGenericoImpl.getMapList(DAOGenericoImpl.java:67)
+	at com.github.tosdan.dTReply.DTReplyDAO.getDTReply(DTReplyDAO.java:85)
+	at com.github.tosdan.dTReply.DTReplyHelperImpl.getReplyMap(DTReplyHelperImpl.java:94)
+	at com.github.tosdan.dTReply.DTReplyServlet.getReply(DTReplyServlet.java:205)
+	at com.github.tosdan.dTReply.DTReplyServlet.doService(DTReplyServlet.java:68)
+	at com.github.tosdan.utils.servlets.HttpReallyBasicServlet.doPost(HttpReallyBasicServlet.java:16)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:637)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at com.github.tosdan.utils.filters.NoCacheFilter.doFilter(NoCacheFilter.java:22)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:298)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:588)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Unknown Source)
+Thu Apr 03 19:42:33 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** JSON ****
+{
+  "error": "Errore recupero dati."
+}
+Thu Apr 03 19:42:46 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+sSearch_2: ''
+iSortCol_0: '1'
+sSearch_3: ''
+bRegex: 'false'
+sSearch_0: ''
+custom02: <img src='../examples_support/details_open.png'>
+sSearch_1: ''
+indexed: 'false'
+sSearch: ''
+iSortingCols: '1'
+mDataProp_0: custom02
+mDataProp_1: engine
+bSortable_5: 'true'
+mDataProp_2: browser
+mDataProp_3: platform
+mDataProp_4: version
+bSortable_2: 'true'
+mDataProp_5: grade
+bSortable_1: 'true'
+bSortable_4: 'true'
+mDataBinded: 'true'
+bSortable_3: 'true'
+serverSideProcessing: 'true'
+echoParams: DT_RowClass;custom02
+bSortable_0: 'false'
+sqlName: dtexample
+sColumns: ''
+iColumns: '6'
+sSearch_5: ''
+sSearch_4: ''
+DebugDTReply: 'true'
+rowNumber: 'true'
+bSearchable_2: 'true'
+bRegex_2: 'false'
+bSearchable_1: 'true'
+bRegex_3: 'false'
+bSearchable_0: 'false'
+bRegex_4: 'false'
+sSortDir_0: asc
+bRegex_5: 'false'
+iDisplayStart: '0'
+iDisplayLength: '10'
+bSearchable_5: 'false'
+sEcho: '1'
+bRegex_0: 'false'
+bSearchable_4: 'true'
+printStackTrace: 'false'
+bSearchable_3: 'true'
+bRegex_1: 'false'
+
+Thu Apr 03 19:42:46 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Query ****
+SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+
+Thu Apr 03 19:42:46 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Queries Eseguite **** 
+--sqlDati:
+ SELECT * FROM ( 
+ 	SELECT ROW_NUMBER() OVER( ORDER BY engine ASC ) AS DT_RowId, * 
+ 	FROM (SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+) as tabella 
+ WHERE 1=1 
+ ) AS tabella_con_righe 
+ WHERE 1=1 
+ AND DT_RowId BETWEEN 1 AND 10
+
+--sqlDatiExtra:
+SELECT 
+  (SELECT COUNT(*) FROM ( SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+ ) as tabella ) AS iTotalRecords 
+, (SELECT COUNT(*) FROM ( SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+ ) as tabella WHERE 1=1  ) AS iTotalDisplayRecords 
+ 
+Thu Apr 03 19:42:46 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** JSON ****
+{
+  "aaData": [
+    {
+      "DT_RowId": 1,
+      "engine": "Gecko",
+      "browser": "Firefox 1.0",
+      "version": "1.7",
+      "platform": "Win 98+ / OSX.2+",
+      "grade": "A",
+      "DT_RowClass": "",
+      "custom02": "\u003cimg src\u003d\u0027../examples_support/details_open.png\u0027\u003e"
+    },
+    {
+      "DT_RowId": 2,
+      "engine": "Gecko",
+      "browser": "Firefox 1.5",
+      "version": "1.8",
+      "platform": "Win 98+ / OSX.2+",
+      "grade": "A",
+      "DT_RowClass": "",
+      "custom02": "\u003cimg src\u003d\u0027../examples_support/details_open.png\u0027\u003e"
+    },
+    {
+      "DT_RowId": 3,
+      "engine": "Gecko",
+      "browser": "Firefox 2.0",
+      "version": "1.8",
+      "platform": "Win 98+ / OSX.2+",
+      "grade": "A",
+      "DT_RowClass": "",
+      "custom02": "\u003cimg src\u003d\u0027../examples_support/details_open.png\u0027\u003e"
+    },
+    {
+      "DT_RowId": 4,
+      "engine": "Gecko",
+      "browser": "Firefox 3.0",
+      "version": "1.9",
+      "platform": "Win 2k+ / OSX.3+",
+      "grade": "A",
+      "DT_RowClass": "",
+      "custom02": "\u003cimg src\u003d\u0027../examples_support/details_open.png\u0027\u003e"
+    },
+    {
+      "DT_RowId": 5,
+      "engine": "Gecko",
+      "browser": "Camino 1.0",
+      "version": "1.8",
+      "platform": "OSX.2+",
+      "grade": "A",
+      "DT_RowClass": "",
+      "custom02": "\u003cimg src\u003d\u0027../examples_support/details_open.png\u0027\u003e"
+    },
+    {
+      "DT_RowId": 6,
+      "engine": "Gecko",
+      "browser": "Camino 1.5",
+      "version": "1.8",
+      "platform": "OSX.3+",
+      "grade": "A",
+      "DT_RowClass": "",
+      "custom02": "\u003cimg src\u003d\u0027../examples_support/details_open.png\u0027\u003e"
+    },
+    {
+      "DT_RowId": 7,
+      "engine": "Gecko",
+      "browser": "Netscape 7.2",
+      "version": "1.7",
+      "platform": "Win 95+ / Mac OS 8.6-9.2",
+      "grade": "A",
+      "DT_RowClass": "",
+      "custom02": "\u003cimg src\u003d\u0027../examples_support/details_open.png\u0027\u003e"
+    },
+    {
+      "DT_RowId": 8,
+      "engine": "Gecko",
+      "browser": "Netscape Browser 8",
+      "version": "1.7",
+      "platform": "Win 98SE+",
+      "grade": "A",
+      "DT_RowClass": "",
+      "custom02": "\u003cimg src\u003d\u0027../examples_support/details_open.png\u0027\u003e"
+    },
+    {
+      "DT_RowId": 9,
+      "engine": "Gecko",
+      "browser": "Netscape Navigator 9",
+      "version": "1.8",
+      "platform": "Win 98+ / OSX.2+",
+      "grade": "A",
+      "DT_RowClass": "",
+      "custom02": "\u003cimg src\u003d\u0027../examples_support/details_open.png\u0027\u003e"
+    },
+    {
+      "DT_RowId": 10,
+      "engine": "Gecko",
+      "browser": "Mozilla 1.0",
+      "platform": "Win 95+ / OSX.1+",
+      "grade": "A",
+      "DT_RowClass": "",
+      "custom02": "\u003cimg src\u003d\u0027../examples_support/details_open.png\u0027\u003e"
+    }
+  ],
+  "iTotalRecords": 57,
+  "iTotalDisplayRecords": 57,
+  "sEcho": 1,
+  "nomiColonne": "DT_RowId;engine;browser;version;platform;grade"
+}
+Sat Apr 05 12:00:59 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+iSortCol_0: '1'
+custom02: <img src='../examples_support/details_open.png'>
+echoParams: DT_RowClass;custom02
+iColumns: '6'
+DebugDTReply: 'true'
+rowNumber: 'true'
+sSortDir_0: asc
+iDisplayStart: '0'
+sEcho: '1'
+printStackTrace: 'false'
+sSearch_2: ''
+bRegex: 'false'
+sSearch_3: ''
+sSearch_0: ''
+sSearch_1: ''
+indexed: 'false'
+sSearch: ''
+iSortingCols: '1'
+mDataProp_0: custom02
+mDataProp_1: engine
+bSortable_5: 'true'
+mDataProp_2: browser
+mDataProp_3: platform
+mDataProp_4: version
+bSortable_2: 'true'
+mDataProp_5: grade
+bSortable_1: 'true'
+mDataBinded: 'true'
+bSortable_4: 'true'
+serverSideProcessing: 'true'
+bSortable_3: 'true'
+bSortable_0: 'false'
+sqlName: dtexample
+sColumns: ''
+sSearch_5: ''
+sSearch_4: ''
+bSearchable_2: 'true'
+bRegex_2: 'false'
+bSearchable_1: 'true'
+bRegex_3: 'false'
+bSearchable_0: 'false'
+bRegex_4: 'false'
+bRegex_5: 'false'
+iDisplayLength: '10'
+bSearchable_5: 'false'
+bSearchable_4: 'true'
+bRegex_0: 'false'
+bSearchable_3: 'true'
+bRegex_1: 'false'
+
+Sat Apr 05 12:00:59 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Query ****
+SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+
+Sat Apr 05 12:00:59 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Queries Eseguite **** 
+--sqlDati:
+ SELECT * FROM ( 
+ 	SELECT ROW_NUMBER() OVER( ORDER BY engine ASC ) AS DT_RowId, * 
+ 	FROM (SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+) as tabella 
+ WHERE 1=1 
+ ) AS tabella_con_righe 
+ WHERE 1=1 
+ AND DT_RowId BETWEEN 1 AND 10
+
+--sqlDatiExtra:
+SELECT 
+  (SELECT COUNT(*) FROM ( SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+ ) as tabella ) AS iTotalRecords 
+, (SELECT COUNT(*) FROM ( SELECT engine as [engine], browser as [browser], version as [version], platform as [platform], Grade as [grade], CASE WHEN grade = 'C' THEN 'gradeX' ELSE '' END AS DT_RowClass FROM foglio
+ ) as tabella WHERE 1=1  ) AS iTotalDisplayRecords 
+ 
+Sat Apr 05 12:01:20 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** Errore ottenimento connessione ****
+
+***** Eccezione ******
+Errore in fase di connessione.
+com.github.tosdan.utils.sql.ConnectionProviderException: Errore in fase di connessione.
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.connect(ConnectionProviderImplV2.java:130)
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.stabilisciConnessione(ConnectionProviderImplV2.java:75)
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.getConnection(ConnectionProviderImplV2.java:62)
+	at com.github.tosdan.dTReply.DTReplyServlet.getConnection(DTReplyServlet.java:219)
+	at com.github.tosdan.dTReply.DTReplyServlet.getReply(DTReplyServlet.java:205)
+	at com.github.tosdan.dTReply.DTReplyServlet.doService(DTReplyServlet.java:68)
+	at com.github.tosdan.utils.servlets.HttpReallyBasicServlet.doPost(HttpReallyBasicServlet.java:16)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:637)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at com.github.tosdan.utils.filters.NoCacheFilter.doFilter(NoCacheFilter.java:22)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:298)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:588)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.sql.SQLException: Network error IOException: Connection timed out: connect
+	at net.sourceforge.jtds.jdbc.ConnectionJDBC2.<init>(ConnectionJDBC2.java:421)
+	at net.sourceforge.jtds.jdbc.ConnectionJDBC3.<init>(ConnectionJDBC3.java:50)
+	at net.sourceforge.jtds.jdbc.Driver.connect(Driver.java:185)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at com.github.tosdan.utils.sql.ConnectionProviderImplV2.connect(ConnectionProviderImplV2.java:125)
+	... 23 more
+Caused by: java.net.ConnectException: Connection timed out: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source)
+	at java.net.PlainSocketImpl.connect(Unknown Source)
+	at java.net.SocksSocketImpl.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at net.sourceforge.jtds.jdbc.SharedSocket.createSocketForJDBC3(SharedSocket.java:297)
+	at net.sourceforge.jtds.jdbc.SharedSocket.<init>(SharedSocket.java:247)
+	at net.sourceforge.jtds.jdbc.ConnectionJDBC2.<init>(ConnectionJDBC2.java:322)
+	... 28 more
+Sat Apr 05 12:01:20 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+*** Eerrore di accesso al database *** 
+
+***** Eccezione ******
+Null connection
+java.sql.SQLException: Null connection
+	at com.github.tosdan.utils.sql.MyQueryRunner.query(MyQueryRunner.java:326)
+	at com.github.tosdan.utils.sql.MyQueryRunner.query(MyQueryRunner.java:229)
+	at com.github.tosdan.utils.sql.DAOGenericoAbstract.query(DAOGenericoAbstract.java:68)
+	at com.github.tosdan.utils.sql.DAOGenericoImpl.getMapList(DAOGenericoImpl.java:67)
+	at com.github.tosdan.dTReply.DTReplyDAO.getDTReply(DTReplyDAO.java:85)
+	at com.github.tosdan.dTReply.DTReplyHelperImpl.getReplyMap(DTReplyHelperImpl.java:94)
+	at com.github.tosdan.dTReply.DTReplyServlet.getReply(DTReplyServlet.java:205)
+	at com.github.tosdan.dTReply.DTReplyServlet.doService(DTReplyServlet.java:68)
+	at com.github.tosdan.utils.servlets.HttpReallyBasicServlet.doPost(HttpReallyBasicServlet.java:16)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:637)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at com.github.tosdan.utils.filters.NoCacheFilter.doFilter(NoCacheFilter.java:22)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:298)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:859)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:588)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)
+	at java.lang.Thread.run(Unknown Source)
+Sat Apr 05 12:01:21 CEST 2014 - DTReplyServlet - com.github.tosdan.dTReply.DTReplyServlet:
+**** JSON ****
+{
+  "error": "Errore recupero dati."
+}

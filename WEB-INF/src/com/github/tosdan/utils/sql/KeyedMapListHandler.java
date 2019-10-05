@@ -60,6 +60,15 @@ public class KeyedMapListHandler<K> extends AbstractKeyedListHandler<K, Map<Stri
     public KeyedMapListHandler() {
         this(new BasicRowProcessorMod(), 1, null);
     }
+    
+    /**
+     * Creates a new instance of KeyedHandler.  The value of the first column
+     * of each row will be a key in the Map.
+     * @param formatter
+     */
+    public KeyedMapListHandler(RowProcessorFormatter formatter) {
+    	this(new BasicRowProcessorMod(formatter), 1, null);
+    }
 
     /**
      * Creates a new instance of KeyedHandler.  The value of the first column
@@ -81,6 +90,17 @@ public class KeyedMapListHandler<K> extends AbstractKeyedListHandler<K, Map<Stri
     public KeyedMapListHandler(int columnIndex) {
         this(new BasicRowProcessorMod(), columnIndex, null);
     }
+    
+    /**
+     * Creates a new instance of KeyedHandler.
+     *
+     * @param columnIndex The values to use as keys in the Map are
+     * retrieved from the column at this index.
+     * @param formatter
+     */
+    public KeyedMapListHandler(int columnIndex, RowProcessorFormatter formatter) {
+    	this(new BasicRowProcessorMod(formatter), columnIndex, null);
+    }
 
     /**
      * Creates a new instance of KeyedHandler.
@@ -90,6 +110,17 @@ public class KeyedMapListHandler<K> extends AbstractKeyedListHandler<K, Map<Stri
      */
     public KeyedMapListHandler(String columnName) {
         this(new BasicRowProcessorMod(), 1, columnName);
+    }
+    
+    /**
+     * Creates a new instance of KeyedHandler.
+     *
+     * @param columnName The values to use as keys in the Map are
+     * retrieved from the column with this name.
+     * @param formatter
+     */
+    public KeyedMapListHandler(String columnName, RowProcessorFormatter formatter) {
+    	this(new BasicRowProcessorMod(formatter), 1, columnName);
     }
 
     /** Private Helper

@@ -1,3 +1,8 @@
+/*
+setCustomErrorCallBack(function() {
+	alert('callback error callback');
+});
+*/
 $(document).ready(function() {
 	var oTable ,
 		idTable = 'example' , // se si cambia occhio ai css poi
@@ -7,9 +12,9 @@ $(document).ready(function() {
 		mantieniSelezione = false , 		// abilita il mantenimento in memoria delle righe selezionate in ogni pagina 
 		arrayTitoliColonne = new Array(); 		// array che conterra' le intestazioni della tabella 
 		
-		
-	jQuery.fn.dataTableExt.oPagination.iFullNumbersShowPages = 3; // Numero di pagine direttamente clickabili (default 5)
-
+	
+	dtCustom.showPagesNumber(3); // Numero di pagine direttamente clickabili (default 5)
+	
 	oTable = $('#'+idTable).dataTable( {
 		"sDom": '<"'+ customToolbarClass +'"><"clear">p<"spacer">lf<"clear">rtip', // Definisce la struttura della DT e viene aggiunto ad essa anche un div con class="custom_toolbar" e uno con class="clear"
 		
@@ -27,13 +32,13 @@ $(document).ready(function() {
 		"aLengthMenu": [ [10, 15, 25, -1], [10, 15, 25, "Tutti"] ] ,
 		
 		"bServerSide": true ,
-		"sAjaxSource": "../../filter/sqlloader/dtreply/loadData.do?sqlName=dtexample&sqlType=query" ,
+		"sAjaxSource": "../../servlet/dtreply/loadData.do?sqlName=dtexample" ,
 //		"sAjaxSource": "../../servlet/sqlmanager/loadData.do?sqlName=dtexample&sqlType=query&NextHandlerServlet=DTReplyServlet" ,
 		"sServerMethod": "POST" ,
 		
 		"aaSorting": [ [1,'asc'] ] , // Ordinamento secondo la colonna "n" verso "asc / desc". Si puo' aggiungere un 
 		 // ulteriore criterio di ordinamento aggiungendo un altro array simile al primo 
-		 // In caso di row_number nella query e' tassativo configurare almeno un criterio
+		 // In caso di rowNumber nella query e' tassativo configurare almeno un criterio
 		 // di ordinamento per una colonna anche nel caso in cui si impostera' che nessuna
 		 // colonna sia in seguito  riordinabile. 
 		
@@ -101,14 +106,14 @@ $(document).ready(function() {
 		
 		// Dati custom da inviare al jsp nella chiamata ajax come parametri aggiuntivi della request 
 		"fnServerParams": function ( aoData ) {
-			
-			fnServerParams(aoData); // sull'omoniomo (o derivato) file esterno 
+			var oSettings = oTable.fnSettings();
+			fnServerParams(aoData, oSettings); // sull'omoniomo (o derivato) file esterno 
 		} ,
         
         // funzione eseguita non appena la datatable abbia completato l'inizializzazione
         "fnInitComplete": function (oSettings, json) {
-        	
-        	// bug (o funzionalita' che sia): importando la localizzazione da file questa tutte le personalizzazioni
+        	// oSettings.sTableId // <- id table html puo' tornare utile
+        	// bug (o funzionalita' che sia): importando la localizzazione da file tutte le personalizzazioni
         	// sulla struttura della datatable devono essere eseguite da qui , fuori di qui non ha efficacia
         	
 //        	arrayTitoliColonne = populateColumnsTitleArray(oTable);
@@ -132,7 +137,6 @@ $(document).ready(function() {
 		
 		
 	} ); // -- Chiusura datatable() 
-
 } ); // chiusura $(document).ready()  
 
 

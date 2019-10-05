@@ -37,12 +37,12 @@ $(document).ready(function() {
 		"aLengthMenu": [ [10, 15, 25, -1], [10, 15, 25, "Tutti"] ] ,
 		
 		"bServerSide": true ,
-		"sAjaxSource": "../../filter/sqlmanager/dtreply/loadData.do?sqlName=dtexample2&sqlType=query" ,
+		"sAjaxSource": "../../serlvet/dtreply/loadData.do?sqlName=dtexample2" ,
 		"sServerMethod": "POST" ,
 		
 		"aaSorting": [ [1,'asc'] ] , // Ordinamento secondo la colonna "n" verso "asc / desc". Si puo' aggiungere un 
 		 // ulteriore criterio di ordinamento aggiungendo un altro array simile al primo 
-		 // In caso di row_number nella query e' tassativo configurare almeno un criterio
+		 // In caso di rowNumber nella query e' tassativo configurare almeno un criterio
 		 // di ordinamento per una colonna anche nel caso in cui si impostera' che nessuna
 		 // colonna sia in seguito  riordinabile. 
 		
@@ -110,8 +110,8 @@ $(document).ready(function() {
 		
 		// Dati custom da inviare al jsp nella chiamata ajax come parametri aggiuntivi della request 
 		"fnServerParams": function ( aoData ) {
-			
-			fnServerParams(aoData); // sull'omoniomo (o derivato) file esterno 
+			var oSettings = oTable.fnSettings();
+			fnServerParams(aoData, oSettings); // sull'omoniomo (o derivato) file esterno 
 		} ,
         
         // funzione eseguita non appena la datatable abbia completato l'inizializzazione

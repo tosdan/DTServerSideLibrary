@@ -1,3 +1,0 @@
-SqlLoaderQueriesReposIndex_File: "/WEB-INF/WebAppsConfigFiles/SqlLoader/SqlLoaderQueriesRepos.yaml"
-SqlLoaderConf_Path: "/WEB-INF/WebAppsConfigFiles/SqlLoader"
-logFileName: "/WEB-INF/WebAppsLogFiles/SqlLoader/logSqlMangerServlet.txt"

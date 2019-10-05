@@ -66,6 +66,7 @@ public class BasicRowProcessorMod implements RowProcessor {
      * Use this to process beans.
      */
     private final BeanProcessor convert;
+	private RowProcessorFormatter rowProcessorFormatter;
 
     /**
      * BasicRowProcessor constructor.  Bean processing defaults to a
@@ -73,6 +74,15 @@ public class BasicRowProcessorMod implements RowProcessor {
      */
     public BasicRowProcessorMod() {
         this(defaultConvert);
+    }
+    
+    /**
+     * BasicRowProcessor constructor.  Bean processing defaults to a
+     * BeanProcessor instance.
+     * @param rowProcessorFormatter oggetto per formattare i campi estratti. <i>NB. Non e' attualmente implementato per i BeanProcessor.</i> 
+     */
+    public BasicRowProcessorMod(RowProcessorFormatter rowProcessorFormatter) {
+    	this(defaultConvert, rowProcessorFormatter);
     }
 
     /**
@@ -82,8 +92,19 @@ public class BasicRowProcessorMod implements RowProcessor {
      * @since DbUtils 1.1
      */
     public BasicRowProcessorMod(BeanProcessor convert) {
-        super();
-        this.convert = convert;
+        this( convert, null );
+    }
+    
+    /**
+     * BasicRowProcessor constructor.
+     * @param convert The BeanProcessor to use when converting columns to bean properties.
+     * @param rowProcessorFormatter oggetto per formattare i campi estratti. <i>NB. Non e' attualmente implementato per i BeanProcessor.</i> 
+     * @since DbUtils 1.1
+     */
+    public BasicRowProcessorMod(BeanProcessor convert, RowProcessorFormatter rowProcessorFormatter) {
+    	super();
+    	this.rowProcessorFormatter = rowProcessorFormatter;
+    	this.convert = convert;
     }
 
     /**
@@ -104,7 +125,13 @@ public class BasicRowProcessorMod implements RowProcessor {
         Object[] result = new Object[cols];
 
         for (int i = 0; i < cols; i++) {
-            result[i] = rs.getObject(i + 1);
+        	Object obj = rs.getObject(i + 1);
+        	
+        	String colName = meta.getColumnName(i + 1);
+        	if ( rowProcessorFormatter != null && rowProcessorFormatter.isToFormat(colName) )
+        		obj = rowProcessorFormatter.format( colName, obj );
+        	
+            result[i] = obj;
         }
 
         return result;
@@ -157,15 +184,22 @@ public class BasicRowProcessorMod implements RowProcessor {
     public Map<String, Object> toMap(ResultSet rs) throws SQLException {
         Map<String, Object> result = new LinkedHashMap<String, Object>();
         ResultSetMetaData rsmd = rs.getMetaData();
-        int cols = rsmd.getColumnCount();
+        int cols = rsmd.getColumnCount();        
 
         for (int i = 1; i <= cols; i++) {
-        	Object obj = rs.getObject(i);        	
+        	Object obj = rs.getObject(i);
+        	
+        	String colName = rsmd.getColumnName(i);
+        	if ( rowProcessorFormatter != null && rowProcessorFormatter.isToFormat(colName) )
+        		obj = rowProcessorFormatter.format( colName, obj );
+        	
             result.put( rsmd.getColumnName(i), obj);
         }
 
         return result;
     }
+    
+    
 
     /**
      * A Map that converts all keys to lowercase Strings for case insensitive

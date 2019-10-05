@@ -6,7 +6,7 @@ var dtFn = new Object();
 /**
 * @param cssClass
 */
-jQuery.fn.scartaClasse = function (cssClass)
+jQuery.fn.scartaClasse = function(cssClass)
 {
 	var i = cssClass.indexOf(';');
 	var $this = $(this);
@@ -41,7 +41,7 @@ jQuery.fn.scartaClasse = function (cssClass)
  * @param classiDaScartare non utilizzato
  * @returns {Object}
  */
-dtFn.fnGetSelectedRow = function fnGetSelectedRow(oTable)
+dtFn.fnGetSelectedRow = function(oTable)
 {
 	var righe = new Object();
 	
@@ -94,7 +94,7 @@ dtFn.fnGetSelectedRow = function fnGetSelectedRow(oTable, arrayTitoliColonne, cl
  * @param classiDaScartare : non utilizzato
  * @returns {Object}
  */
-dtFn.fnGetSelectedRows = function fnGetSelectedRows(oTable)
+dtFn.fnGetSelectedRows = function(oTable)
 {
 	var righe = new Array(),
 		rigaTemp;
@@ -152,7 +152,7 @@ dtFn.fnGetSelectedRows = function fnGetSelectedRows(oTable, arrayTitoliColonne, 
  * @param classiDaScartare
  * @returns {String}
  */
-dtFn.fnSelectedRowToString = function fnSelectedRowToString( oTable, classiDaScartare ) {
+dtFn.fnSelectedRowToString = function( oTable, classiDaScartare ) {
 	var dati = "",
 		classiCSSDaSaltare = '';
 	
@@ -190,7 +190,7 @@ dtFn.fnSelectedRowToString = function fnSelectedRowToString( oTable, classiDaSca
  * @param classiDaScartare
  * @returns {String}
  */
-dtFn.fnSelectedRowToStringDebug = function fnSelectedRowToStringDebug( oTable, arrayTitoliColonne, classiDaScartare ) {
+dtFn.fnSelectedRowToStringDebug = function( oTable, arrayTitoliColonne, classiDaScartare ) {
 	var dati = "",
 		classiCSSDaSaltare = '',
 		selectedRows = dtFn.fnGetSelectedRows(oTable);
@@ -235,7 +235,7 @@ dtFn.fnSelectedRowToStringDebug = function fnSelectedRowToStringDebug( oTable, a
  * @param oTable
  * @returns {Array}
  */
-dtFn.fnGetMDataColumns = function fnGetMDataColumns(oTable)
+dtFn.fnGetMDataColumns = function(oTable)
 {
 	var aoColumns = oTable.fnSettings().aoColumns,
 		mDataColums = new Array();
@@ -255,7 +255,7 @@ dtFn.fnGetMDataColumns = function fnGetMDataColumns(oTable)
  * @param oTable
  * @param idTable 
  */
-dtFn.fnDTDisableInstantSearch = function fnDTDisableInstantSearch(oTable, idTable)
+dtFn.fnDTDisableInstantSearch = function(oTable, idTable)
 {
 	$('#'+idTable+'_filter.dataTables_filter input').unbind('keypress keyup')
 		.bind('keypress keyup', function( e ) {
@@ -273,7 +273,7 @@ dtFn.fnDTDisableInstantSearch = function fnDTDisableInstantSearch(oTable, idTabl
  * @param table tabella su cui cercare le righe
  * @param classiDeiTDinattivi classe dei TD all'interno di una riga che se cliccati non hanno effetto sulla selezione/deselezione della stessa riga richiede che sia importato fnJQScartaClassePlugin.js 
  */ 
-dtFn.fnSetSelection = function fnSetSelection( shouldBeSet, oTable, classiDeiTDinattivi )
+dtFn.fnSetSelection = function( shouldBeSet, oTable, classiDeiTDinattivi )
 //function fnSetSelection( shouldBeSet, oTable, fnFiltro )
 {
 	$('tr', oTable).each( function(i,e) {
@@ -303,7 +303,7 @@ dtFn.fnSetSelection = function fnSetSelection( shouldBeSet, oTable, classiDeiTDi
  * Popola un arary con i nomi delle colonne della tabella nell'ordine in cui sono mostrate
  * @param oTable
  */
-dtFn.populateColumnsTitleArray = function populateColumnsTitleArray(oTable) {
+dtFn.populateColumnsTitleArray = function(oTable) {
 	var arrayTitoliColonne = new Array(),
 		arrayNomiColonna = new Array();
 	
@@ -338,7 +338,7 @@ dtFn.populateColumnsTitleArray = function populateColumnsTitleArray(oTable) {
  * @param aSelected array in cui vengono tenute in memoria le righe che devono essere mantenute selezionate al cambio di pagina
  * @param multipleMode flag per indicare se si desidera la selezione multipla o singola delle righe
  */
-dtFn.addClickSelectionEvent = function addClickSelectionEvent( oTable, multipleMode, mantieniSelezione, aSelected )
+dtFn.addClickSelectionEvent = function( oTable, multipleMode, mantieniSelezione, aSelected )
 {
 	$('tbody', oTable).on('click', 'td', function () {
 		var $td = $(this);
@@ -379,7 +379,7 @@ dtFn.addClickSelectionEvent = function addClickSelectionEvent( oTable, multipleM
 /**
  * Espande o contrae TUTTE le rige con le informazioni extra 
  */
-dtFn.setExpandAllExtraEvent = function setExpandAllExtraEvent(oTable , tabelId, fnFormatDetails) {
+dtFn.setExpandAllExtraEvent = function(oTable , tabelId, fnFormatDetails) {
 	$('#'+tabelId ).on( 'click', 'thead th img', function () {
 		
 		var $img = $(this);
@@ -426,7 +426,7 @@ dtFn.setExpandAllExtraEvent = function setExpandAllExtraEvent(oTable , tabelId, 
 /**
  * Espande o contrae le informazioni extra della riga cliccata 
  */
-dtFn.setExpandExtraEvent = function setExpandExtraEvent(oTable , tabelId, fnFormatDetails) {
+dtFn.setExpandExtraEvent = function(oTable , tabelId, fnFormatDetails) {
 	$( '#'+tabelId ).on( 'click', 'tbody td img', function () {
         var nTr = $(this).parents('tr')[0];
         if ( oTable.fnIsOpen(nTr) )
@@ -454,7 +454,7 @@ dtFn.setExpandExtraEvent = function setExpandExtraEvent(oTable , tabelId, fnForm
  * Giusto per esempio
  * Restituisce il contenuto che deve essere mostrato nella riga di informazioni extra  
  */
-dtFn.fnFormatDetails = function fnFormatDetails ( oTable, nTr ) {
+dtFn.fnFormatDetails = function( oTable, nTr ) {
     var aData = oTable.fnGetData( nTr ),
     	sOut =	'';
     sOut +=		'<div id="dettagli_'+nTr.id+'" class="nascosta">';
@@ -484,7 +484,7 @@ dtFn.fnFormatDetails = function fnFormatDetails ( oTable, nTr ) {
 /**
  * 
  */
-dtFn.containsAtLeastOneElem = function containsAtLeastOneElem(classiDaSaltare, stringaCSS) {
+dtFn.containsAtLeastOneElem = function(classiDaSaltare, stringaCSS) {
 	
 	var stringaClassCss = stringaCSS,
 		classiDelTD = '';
@@ -507,7 +507,7 @@ dtFn.containsAtLeastOneElem = function containsAtLeastOneElem(classiDaSaltare, s
  * @param idTable
  * @param oSettings
  */
-dtFn.dynamicTHsTitles = function dynamicTHsTitles(idTable, oSettings, indexToSkip) {
+dtFn.dynamicTHsTitles = function(idTable, oSettings, indexToSkip) {
 	var aoColumns = oSettings.aoColumns,
 		scroll = $('.dataTables_scrollHeadInner').length > 0,
 		headerScrollClass = ' .dataTables_scrollHeadInner',
@@ -542,7 +542,7 @@ dtFn.dynamicTHsTitles = function dynamicTHsTitles(idTable, oSettings, indexToSki
  * @param idTable
  * @param oSettings
  */
-dtFn.semiDynamicTHsTitles = function semiDynamicTHsTitles(nomiColonne, idTable, oSettings) {
+dtFn.semiDynamicTHsTitles = function(nomiColonne, idTable, oSettings) {
 		var aoColumns = oSettings.aoColumns ,
 			arrayNomiCol = nomiColonne.split(";") ,
 			scroll = $('.dataTables_scrollHeadInner').length > 0 ,
@@ -580,7 +580,7 @@ dtFn.semiDynamicTHsTitles = function semiDynamicTHsTitles(nomiColonne, idTable, 
  * @param oSettings
  * @param startIdxNullCols
  */
-dtFn.hideNullColumns = function hideNullColumns(nomiColonne, idTable, oSettings, startIdxNullCols) {
+dtFn.hideNullColumns = function(nomiColonne, idTable, oSettings, startIdxNullCols) {
 	var aoColumns = oSettings.aoColumns ,
 		arrayNomiCol = nomiColonne.split(";") ,
 		scroll = $('.dataTables_scrollHeadInner').length > 0 ,

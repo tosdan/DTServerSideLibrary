@@ -13,6 +13,7 @@
 		<script type="text/javascript" src="./js-3rd-party/jquery-1.9.1.js"></script>
 		<script type="text/javascript" src="./js-3rd-party/jquery.dataTables.js"></script>
 		<script type="text/javascript" src="./js-3rd-party/dataTables.bootstrap-partial.js"></script>
+		<script type="text/javascript" src="./js/dataTable.customizations.js"></script>
 		
 		<script type="text/javascript" src="./js/fnJQDisableTextSelect.js"></script>
 		<script type="text/javascript" src="./js/dtCustomFunctionLibrary.js"></script>

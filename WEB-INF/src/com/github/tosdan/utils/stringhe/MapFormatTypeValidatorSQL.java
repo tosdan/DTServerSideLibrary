@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * Validator per T-SQL
  * @author Daniele
- * @version 0.2.2-b2013-07-29
+ * @version 0.2.6-b2013-09-01
  */
 public class MapFormatTypeValidatorSQL extends MapFormatAbstractTypeValidator
 {
@@ -61,7 +61,7 @@ public class MapFormatTypeValidatorSQL extends MapFormatAbstractTypeValidator
         		result = this.checkMatching( "(?i)true|false", source, type );
         	}
         	else if ( type.equalsIgnoreCase("integer") ) {
-        		result = this.checkMatching( "[0-9]+", source, type );
+        		result = this.checkMatching( "(-)?[0-9]+", source, type );
         	}
         	else if ( type.equalsIgnoreCase("numeric") ) {
         		result = this.checkMatching( "([0-9])+(.([0-9])+)?", source, type );
@@ -90,16 +90,23 @@ public class MapFormatTypeValidatorSQL extends MapFormatAbstractTypeValidator
         		setDateFormat( new SimpleDateFormat( "yyyy-MM-dd") );
         		result = parseDate(source);        		
         	}
+        	else if ( type.equalsIgnoreCase("isoDate") ) {
+        		setDateFormat( new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ss.S") );
+        		result = parseDate(source);        		
+        	}
         	else if ( type.equalsIgnoreCase("table") ) {
-        		result = this.checkMatching( "[a-zA-Z_@#][a-zA-Z0-9_@#$]*", source, type );   
+        		result = this.checkMatching( "[a-zA-Z_@#][a-zA-Z0-9_ @#$]*", source, type );   
         	}
         	else if ( type.equalsIgnoreCase("tablePart") ) {
-        		result = this.checkMatching( "[a-zA-Z0-9_@#]+", source, type );   
+        		result = this.checkMatching( "[a-zA-Z0-9_ @#$]+", source, type );   
+        	}
+        	else if ( type.equalsIgnoreCase("orderBy") ) {
+        		result = this.checkMatching( "[a-zA-Z0-9_, @#$]+", source, type );   
         	}
         	else if ( type.equalsIgnoreCase("free") ) {
         		result = source;   
         	} else
-        		throw new MapFormatTypeValidatorException("Errore di validazione: il tipo di validazione '"+ type +"' e' sconosciuto. Parametro source="+source);
+        		throw new MapFormatTypeValidatorException("Errore di validazione: il tipo di validazione '"+ type +"' e' sconosciuto. Parametro source='"+source+"'");
         	
         } else {
         	throw new MapFormatTypeValidatorException( "Parametro type mancante." );

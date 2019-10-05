@@ -1,0 +1,18 @@
+/* Elimina il contorno tratteggiato degli oggetti cliccati */
+.btn:focus, .no-outline, .no-outline:active, .no-outline:focus {
+    outline: 0px none !important;
+}
+
+/* Allineamento centrato per le celle delle table */
+.cell-text-center {
+	text-align: center !important;
+}
+/* Allineamento a destra per le celle delle table */
+.cell-text-right {
+	text-align: right !important;
+}
+
+/* Colore di alternanza per le table striped (zebrate) */
+.table-striped-strong tbody tr:nth-child(odd) td {
+   background-color: #EAEAEA !important; /* grigio un poco piu' scuro */
+}

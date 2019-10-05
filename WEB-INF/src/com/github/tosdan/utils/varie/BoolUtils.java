@@ -20,9 +20,11 @@ public class BoolUtils
 	public static <T> boolean toBoolean(T obj, boolean defaultValue) {
 		boolean result = false;
 		try {
-			if ( obj != null && (obj instanceof String || obj instanceof Boolean) )
-				result = Boolean.valueOf(obj.toString());
-			else 
+			if ( obj != null && (obj instanceof String) )
+				result = Boolean.valueOf( (String) obj );
+			else if ( obj != null && obj instanceof Boolean )
+				result = Boolean.valueOf( (Boolean) obj );
+			else
 				throw new IllegalArgumentException( "L'oggetto (non nullo) passato non e' istanza di String." );
 		} catch ( Exception e ) {
 			return defaultValue;
